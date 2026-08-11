@@ -7,6 +7,11 @@ import {
   Img,
   staticFile,
 } from "remotion";
+
+const BLUE = "#1677FF";
+const DARK = "#0B2D5C";
+const MUTED = "#5B6B82";
+
 const BlueBackground: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => (
@@ -14,45 +19,109 @@ const BlueBackground: React.FC<{ children: React.ReactNode }> = ({
     style={{
       background: "linear-gradient(135deg, #FFFFFF 0%, #EAF4FF 100%)",
       fontFamily: "Arial, sans-serif",
-      color: "#0B2D5C",
+      color: DARK,
       overflow: "hidden",
     }}
   >
     <div
       style={{
         position: "absolute",
-        width: 500,
-        height: 500,
+        width: 650,
+        height: 650,
         borderRadius: "50%",
         backgroundColor: "rgba(22,119,255,0.07)",
-        top: -220,
-        right: -120,
+        top: -300,
+        right: -180,
       }}
     />
+
     <div
       style={{
         position: "absolute",
-        width: 350,
-        height: 350,
+        width: 450,
+        height: 450,
         borderRadius: "50%",
         backgroundColor: "rgba(22,119,255,0.06)",
-        bottom: -170,
-        left: -100,
+        bottom: -220,
+        left: -140,
       }}
     />
+
     {children}
   </AbsoluteFill>
 );
+
+/* =========================
+   شخصية متحركة
+========================= */
+
+const Character: React.FC<{
+  file: string;
+  side?: "left" | "right";
+  size?: number;
+  bottom?: number;
+}> = ({ file, side = "right", size = 560, bottom = -70 }) => {
+  const frame = useCurrentFrame();
+
+  const x = interpolate(
+    frame,
+    [0, 25],
+    [side === "right" ? 250 : -250, 0],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+
+  const opacity = interpolate(frame, [0, 15], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  const scale = interpolate(frame, [0, 25], [0.82, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  const left = side === "left" ? 70 : undefined;
+  const right = side === "right" ? 55 : undefined;
+
+  return (
+    <Img
+      src={staticFile(`characters/${file}`)}
+      style={{
+        position: "absolute",
+        left,
+        right,
+        bottom,
+        width: size,
+        height: size,
+        objectFit: "contain",
+        opacity,
+        transform: `translateX(${x}px) scale(${scale})`,
+        zIndex: 10,
+      }}
+    />
+  );
+};
+
+/* =========================
+   عنوان الحلقة
+========================= */
+
 const EpisodeTitle: React.FC = () => {
   const frame = useCurrentFrame();
-  const opacity = interpolate(frame, [0, 20], [0, 1], {
+
+  const opacity = interpolate(frame, [0, 25], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const scale = interpolate(frame, [0, 20], [0.9, 1], {
+
+  const scale = interpolate(frame, [0, 25], [0.85, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
+
   return (
     <BlueBackground>
       <div
@@ -69,64 +138,84 @@ const EpisodeTitle: React.FC = () => {
           style={{
             opacity,
             transform: `scale(${scale})`,
-            width: "80%",
+            width: "75%",
+            marginRight: 350,
           }}
         >
           <div
             style={{
-              color: "#1677FF",
-              fontSize: 25,
-              fontWeight: 700,
-              letterSpacing: 5,
-              marginBottom: 25,
+              color: BLUE,
+              fontSize: 42,
+              fontWeight: 800,
+              letterSpacing: 4,
+              marginBottom: 30,
             }}
           >
-            نبض العلاج الطبيعي
+            بودكاست نبض العلاج الطبيعي
           </div>
+
           <div
             style={{
-              fontSize: 62,
-              fontWeight: 800,
-              lineHeight: 1.25,
-              color: "#0B2D5C",
+              fontSize: 82,
+              fontWeight: 900,
+              lineHeight: 1.2,
+              color: DARK,
             }}
           >
             ما هو العلاج الطبيعي؟
           </div>
+
           <div
             style={{
-              marginTop: 20,
-              fontSize: 42,
-              fontWeight: 600,
-              color: "#1677FF",
+              marginTop: 28,
+              fontSize: 58,
+              fontWeight: 800,
+              color: BLUE,
             }}
           >
             وهل يقتصر على التدليك؟
           </div>
+
           <div
             style={{
-              marginTop: 40,
-              fontSize: 24,
-              color: "#66788F",
+              marginTop: 45,
+              fontSize: 34,
+              fontWeight: 700,
+              color: MUTED,
             }}
           >
             الحلقة الأولى
           </div>
         </div>
+
+        <Character
+          file="IMG_0714.PNG"
+          side="right"
+          size={610}
+          bottom={-70}
+        />
       </div>
     </BlueBackground>
   );
 };
+
+/* =========================
+   السؤال
+========================= */
+
 const QuestionSlide: React.FC = () => {
   const frame = useCurrentFrame();
+
   const opacity = interpolate(frame, [0, 18], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const questionScale = interpolate(frame, [0, 18], [0.85, 1], {
+
+  const scale = interpolate(frame, [0, 18], [0.7, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
+
   return (
     <BlueBackground>
       <div
@@ -136,59 +225,78 @@ const QuestionSlide: React.FC = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          textAlign: "center",
         }}
       >
         <div
           style={{
+            width: "58%",
+            marginLeft: 420,
+            textAlign: "center",
             opacity,
-            transform: `scale(${questionScale})`,
+            transform: `scale(${scale})`,
           }}
         >
           <div
             style={{
-              fontSize: 150,
-              fontWeight: 800,
-              color: "#1677FF",
-              lineHeight: 1,
+              fontSize: 190,
+              fontWeight: 900,
+              color: BLUE,
+              lineHeight: 0.9,
             }}
           >
             ؟
           </div>
+
           <div
             style={{
-              marginTop: 20,
-              fontSize: 55,
-              fontWeight: 800,
-              color: "#0B2D5C",
+              marginTop: 30,
+              fontSize: 72,
+              fontWeight: 900,
+              color: DARK,
             }}
           >
             هل العلاج الطبيعي
           </div>
+
           <div
             style={{
-              fontSize: 55,
-              fontWeight: 800,
-              color: "#1677FF",
+              fontSize: 72,
+              fontWeight: 900,
+              color: BLUE,
             }}
           >
             مجرد تدليك؟
           </div>
         </div>
+
+        <Character
+          file="IMG_0714.PNG"
+          side="left"
+          size={650}
+          bottom={-90}
+        />
       </div>
     </BlueBackground>
   );
 };
+
+/* =========================
+   الإجابة
+========================= */
+
 const AnswerSlide: React.FC = () => {
   const frame = useCurrentFrame();
-  const opacity = interpolate(frame, [0, 15], [0, 1], {
+
+  const scale = interpolate(frame, [0, 18], [0.35, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const scale = interpolate(frame, [0, 15], [0.5, 1], {
+
+  const opacity = interpolate(frame, [0, 12], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
+
   return (
     <BlueBackground>
       <div
@@ -198,197 +306,311 @@ const AnswerSlide: React.FC = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          flexDirection: "column",
-        }}
-      >
-        <div
-          style={{
-            opacity,
-            transform: `scale(${scale})`,
-            fontSize: 120,
-            fontWeight: 900,
-            color: "#1677FF",
-          }}
-        >
-          لا.
-        </div>
-        <div
-          style={{
-            opacity,
-            marginTop: 25,
-            fontSize: 30,
-            color: "#5B6B82",
-          }}
-        >
-          العلاج الطبيعي أكبر بكثير من التدليك.
-        </div>
-      </div>
-    </BlueBackground>
-  );
-};
-const DefinitionSlide: React.FC = () => {
-  const frame = useCurrentFrame();
-  const opacity = interpolate(frame, [0, 20], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-  return (
-    <BlueBackground>
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          padding: "90px 100px",
-          opacity,
-        }}
-      >
-        <div
-          style={{
-            color: "#1677FF",
-            fontSize: 25,
-            fontWeight: 700,
-            marginBottom: 25,
-          }}
-        >
-          ما هو العلاج الطبيعي؟
-        </div>
-        <div
-          style={{
-            fontSize: 48,
-            fontWeight: 800,
-            lineHeight: 1.35,
-            maxWidth: 1050,
-          }}
-        >
-          تخصص صحي يهدف إلى:
-        </div>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: 28,
-            marginTop: 55,
-          }}
-        >
-          {[
-            "تحسين الحركة",
-            "تقليل الألم",
-            "استعادة الوظائف الجسدية",
-            "التأهيل بعد الإصابات والعمليات والأمراض",
-          ].map((item, index) => (
-            <div
-              key={item}
-              style={{
-                backgroundColor: "#FFFFFF",
-                borderRadius: 22,
-                padding: "28px 30px",
-                boxShadow: "0 12px 35px rgba(11,45,92,0.08)",
-                fontSize: index === 3 ? 27 : 32,
-                fontWeight: 700,
-                color: "#0B2D5C",
-              }}
-            >
-              <span style={{ color: "#1677FF", marginRight: 12 }}>✓</span>
-              {item}
-            </div>
-          ))}
-        </div>
-      </div>
-    </BlueBackground>
-  );
-};
-const MethodsSlide: React.FC = () => {
-  const frame = useCurrentFrame();
-  const opacity = interpolate(frame, [0, 20], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-  return (
-    <BlueBackground>
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          padding: "75px 80px",
-          opacity,
         }}
       >
         <div
           style={{
             textAlign: "center",
-            fontSize: 45,
-            fontWeight: 800,
-            color: "#0B2D5C",
+            marginRight: 420,
+            opacity,
+            transform: `scale(${scale})`,
+          }}
+        >
+          <div
+            style={{
+              fontSize: 180,
+              fontWeight: 900,
+              color: BLUE,
+              lineHeight: 1,
+            }}
+          >
+            لا!
+          </div>
+
+          <div
+            style={{
+              marginTop: 30,
+              fontSize: 42,
+              fontWeight: 800,
+              color: MUTED,
+            }}
+          >
+            العلاج الطبيعي أكبر بكثير من التدليك.
+          </div>
+        </div>
+
+        <Character
+          file="IMG_0715.PNG"
+          side="right"
+          size={650}
+          bottom={-80}
+        />
+      </div>
+    </BlueBackground>
+  );
+};
+
+/* =========================
+   تعريف العلاج الطبيعي
+========================= */
+
+const DefinitionSlide: React.FC = () => {
+  const frame = useCurrentFrame();
+
+  const opacity = interpolate(frame, [0, 20], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  const slide = interpolate(frame, [0, 25], [120, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  return (
+    <BlueBackground>
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          padding: "80px 90px",
+          opacity,
+          transform: `translateX(${slide}px)`,
+        }}
+      >
+        <div
+          style={{
+            width: "60%",
+          }}
+        >
+          <div
+            style={{
+              color: BLUE,
+              fontSize: 38,
+              fontWeight: 800,
+              marginBottom: 25,
+            }}
+          >
+            ما هو العلاج الطبيعي؟
+          </div>
+
+          <div
+            style={{
+              fontSize: 62,
+              fontWeight: 900,
+              lineHeight: 1.25,
+            }}
+          >
+            تخصص صحي يهدف إلى
+            <span style={{ color: BLUE }}> تحسين حركة الإنسان </span>
+            واستعادة وظائفه.
+          </div>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: 25,
+              marginTop: 55,
+            }}
+          >
+            {[
+              "تحسين الحركة",
+              "تقليل الألم",
+              "استعادة الوظائف الجسدية",
+              "التأهيل بعد الإصابات والعمليات والأمراض",
+            ].map((item, index) => {
+              const itemY = interpolate(
+                frame,
+                [25 + index * 8, 45 + index * 8],
+                [50, 0],
+                {
+                  extrapolateLeft: "clamp",
+                  extrapolateRight: "clamp",
+                }
+              );
+
+              return (
+                <div
+                  key={item}
+                  style={{
+                    backgroundColor: "#FFFFFF",
+                    borderRadius: 24,
+                    padding: "30px 28px",
+                    boxShadow: "0 12px 35px rgba(11,45,92,0.10)",
+                    fontSize: index === 3 ? 29 : 38,
+                    fontWeight: 800,
+                    color: DARK,
+                    transform: `translateY(${itemY}px)`,
+                  }}
+                >
+                  <span
+                    style={{
+                      color: BLUE,
+                      marginRight: 12,
+                    }}
+                  >
+                    ✓
+                  </span>
+
+                  {item}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <Character
+          file="IMG_0717.PNG"
+          side="right"
+          size={600}
+          bottom={-80}
+        />
+      </div>
+    </BlueBackground>
+  );
+};
+
+/* =========================
+   وسائل العلاج الطبيعي
+========================= */
+
+const MethodsSlide: React.FC = () => {
+  const frame = useCurrentFrame();
+
+  const opacity = interpolate(frame, [0, 20], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  const scale = interpolate(frame, [0, 25], [0.9, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  return (
+    <BlueBackground>
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          padding: "70px 70px",
+          opacity,
+          transform: `scale(${scale})`,
+        }}
+      >
+        <div
+          style={{
+            textAlign: "center",
+            fontSize: 62,
+            fontWeight: 900,
+            color: DARK,
           }}
         >
           كيف نستخدم العلاج الطبيعي؟
         </div>
+
         <div
           style={{
             display: "flex",
             justifyContent: "center",
             gap: 30,
-            marginTop: 70,
+            marginTop: 75,
+            marginRight: 400,
           }}
         >
           {[
             { icon: "🏃", title: "تمارين علاجية" },
             { icon: "🤲", title: "علاج يدوي" },
             { icon: "⚙️", title: "أجهزة ووسائل علاجية" },
-          ].map((item) => (
-            <div
-              key={item.title}
-              style={{
-                width: 310,
-                height: 270,
-                backgroundColor: "#FFFFFF",
-                borderRadius: 28,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                boxShadow: "0 15px 35px rgba(11,45,92,0.09)",
-              }}
-            >
-              <div style={{ fontSize: 70 }}>{item.icon}</div>
+          ].map((item, index) => {
+            const y = interpolate(
+              frame,
+              [25 + index * 10, 50 + index * 10],
+              [80, 0],
+              {
+                extrapolateLeft: "clamp",
+                extrapolateRight: "clamp",
+              }
+            );
+
+            return (
               <div
+                key={item.title}
                 style={{
-                  marginTop: 25,
-                  fontSize: 27,
-                  fontWeight: 700,
-                  color: "#0B2D5C",
+                  width: 300,
+                  height: 300,
+                  backgroundColor: "#FFFFFF",
+                  borderRadius: 30,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  boxShadow: "0 15px 35px rgba(11,45,92,0.10)",
+                  transform: `translateY(${y}px)`,
                 }}
               >
-                {item.title}
+                <div style={{ fontSize: 82 }}>{item.icon}</div>
+
+                <div
+                  style={{
+                    marginTop: 25,
+                    fontSize: 34,
+                    fontWeight: 800,
+                    color: DARK,
+                    textAlign: "center",
+                  }}
+                >
+                  {item.title}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
+
         <div
           style={{
-            marginTop: 60,
+            marginTop: 65,
+            marginRight: 400,
             textAlign: "center",
-            fontSize: 31,
-            fontWeight: 700,
-            color: "#1677FF",
+            fontSize: 42,
+            fontWeight: 900,
+            color: BLUE,
           }}
         >
-          التدليك جزء من العلاج… وليس العلاج كله.
+          التدليك جزء من العلاج…
+          <br />
+          وليس العلاج كله.
         </div>
+
+        <Character
+          file="IMG_0718.PNG"
+          side="right"
+          size={620}
+          bottom={-90}
+        />
       </div>
     </BlueBackground>
   );
 };
+
+/* =========================
+   النهاية
+========================= */
+
 const EndingSlide: React.FC = () => {
   const frame = useCurrentFrame();
+
   const opacity = interpolate(frame, [0, 25], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const characterY = interpolate(frame, [0, 30], [80, 0], {
+
+  const characterX = interpolate(frame, [0, 35], [180, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
+
   return (
     <BlueBackground>
       <div
@@ -404,79 +626,89 @@ const EndingSlide: React.FC = () => {
         <div
           style={{
             textAlign: "center",
-            width: "65%",
+            width: "60%",
+            marginRight: 300,
             zIndex: 2,
           }}
         >
           <div
             style={{
-              fontSize: 48,
-              fontWeight: 800,
-              color: "#0B2D5C",
+              fontSize: 68,
+              fontWeight: 900,
+              color: DARK,
             }}
           >
             شكرًا لاستماعكم 🌿
           </div>
+
           <div
             style={{
-              marginTop: 25,
-              fontSize: 34,
-              color: "#1677FF",
-              fontWeight: 700,
+              marginTop: 30,
+              fontSize: 46,
+              color: BLUE,
+              fontWeight: 900,
             }}
           >
             بودكاست نبض العلاج الطبيعي
           </div>
+
           <div
             style={{
-              marginTop: 18,
-              fontSize: 28,
-              color: "#66788F",
+              marginTop: 22,
+              fontSize: 38,
+              color: MUTED,
+              fontWeight: 700,
             }}
           >
             انتظروا الحلقة القادمة
           </div>
         </div>
+
         <Img
-          src={staticFile("characters/nabd-host.jpeg")}
+          src={staticFile("characters/IMG_0719.PNG")}
           style={{
             position: "absolute",
             right: 40,
-            bottom: -55,
-            width: 390,
-            height: 390,
+            bottom: -80,
+            width: 650,
+            height: 650,
             objectFit: "contain",
-            transform: `translateY(${characterY}px)`,
+            transform: `translateX(${characterX}px)`,
+            zIndex: 5,
           }}
         />
       </div>
     </BlueBackground>
   );
 };
+
+/* =========================
+   الحلقة كاملة
+========================= */
+
 export const Episode01: React.FC = () => {
   return (
     <AbsoluteFill>
-      {/* 15 seconds */}
       <Sequence from={0} durationInFrames={450}>
         <EpisodeTitle />
       </Sequence>
-      {/* 20 seconds */}
+
       <Sequence from={450} durationInFrames={600}>
         <QuestionSlide />
       </Sequence>
-      {/* 10 seconds */}
+
       <Sequence from={1050} durationInFrames={300}>
         <AnswerSlide />
       </Sequence>
-      {/* 35 seconds */}
+
       <Sequence from={1350} durationInFrames={1050}>
         <DefinitionSlide />
       </Sequence>
-      {/* 35 seconds */}
+
       <Sequence from={2400} durationInFrames={1050}>
         <MethodsSlide />
       </Sequence>
-      {/* 20 seconds */}
+
       <Sequence from={3450} durationInFrames={600}>
         <EndingSlide />
       </Sequence>
