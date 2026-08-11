@@ -15,7 +15,7 @@ const LIGHT_BLUE = "#EAF4FF";
 const WHITE = "#FFFFFF";
 const SOFT = "#A9C4E5";
 
-const FONT = '"Tahoma", "Arial", sans-serif';
+const FONT = '"Tahoma", "Arial", sans-serif";
 
 /* =========================================================
    BACKGROUND
@@ -193,7 +193,7 @@ const Reveal: React.FC<{
 
 /* =========================================================
    CHARACTER
-   Transparent PNG + Movement
+   حركة دخول + تنفس + تمايل + حركة كلام
 ========================================================= */
 
 type CharacterProps = {
@@ -217,24 +217,28 @@ const Character: React.FC<CharacterProps> = ({
 
   const localFrame = Math.max(0, frame - delay);
 
+  /* -----------------------------
+     دخول الشخصية
+  ----------------------------- */
+
   let startX = 0;
   let startY = 0;
 
   if (direction === "from-right") {
-    startX = 320;
+    startX = 360;
   }
 
   if (direction === "from-left") {
-    startX = -320;
+    startX = -360;
   }
 
   if (direction === "from-bottom") {
-    startY = 250;
+    startY = 280;
   }
 
-  const x = interpolate(
+  const entranceX = interpolate(
     localFrame,
-    [0, 30],
+    [0, 34],
     [startX, 0],
     {
       extrapolateLeft: "clamp",
@@ -242,9 +246,9 @@ const Character: React.FC<CharacterProps> = ({
     }
   );
 
-  const y = interpolate(
+  const entranceY = interpolate(
     localFrame,
-    [0, 30],
+    [0, 34],
     [startY, 0],
     {
       extrapolateLeft: "clamp",
@@ -254,7 +258,7 @@ const Character: React.FC<CharacterProps> = ({
 
   const opacity = interpolate(
     localFrame,
-    [0, 15],
+    [0, 16],
     [0, 1],
     {
       extrapolateLeft: "clamp",
@@ -262,21 +266,57 @@ const Character: React.FC<CharacterProps> = ({
     }
   );
 
-  const scale = interpolate(
+  const entranceScale = interpolate(
     localFrame,
-    [0, 30],
-    [0.86, 1],
+    [0, 34],
+    [0.84, 1],
     {
       extrapolateLeft: "clamp",
       extrapolateRight: "clamp",
     }
   );
 
-  /*
-    حركة خفيفة مستمرة للشخصية
-    تعطي إحساس أنها حية وليست صورة ثابتة.
-  */
-  const float = Math.sin(localFrame / 12) * 5;
+  /* -----------------------------
+     تنفس الشخصية
+     حركة بطيئة جدًا
+  ----------------------------- */
+
+  const breathing =
+    Math.sin(localFrame / 22) * 4;
+
+  /* -----------------------------
+     حركة الجسم أثناء الكلام
+  ----------------------------- */
+
+  const talkingBob =
+    Math.sin(localFrame / 8) * 3 +
+    Math.sin(localFrame / 17) * 2;
+
+  /* -----------------------------
+     ميلان طبيعي بسيط
+  ----------------------------- */
+
+  const talkingRotate =
+    Math.sin(localFrame / 20) * 1.2;
+
+  /* -----------------------------
+     حركة صغيرة إضافية
+     تجعل الشخصية غير ثابتة
+  ----------------------------- */
+
+  const naturalX =
+    Math.sin(localFrame / 30) * 3;
+
+  const naturalY =
+    Math.cos(localFrame / 26) * 3;
+
+  /* -----------------------------
+     Zoom بسيط جدًا أثناء الكلام
+  ----------------------------- */
+
+  const talkingScale =
+    1 +
+    Math.sin(localFrame / 18) * 0.008;
 
   return (
     <Img
@@ -285,16 +325,27 @@ const Character: React.FC<CharacterProps> = ({
         position: "absolute",
         [side]: 20,
         bottom,
+
         width: size,
         height: size,
+
         objectFit: "contain",
+
         opacity,
+
         transform: `
-          translateX(${x}px)
-          translateY(${y + float}px)
-          scale(${scale})
+          translateX(${entranceX + naturalX}px)
+          translateY(${entranceY + breathing + talkingBob + naturalY}px)
+          rotate(${talkingRotate}deg)
+          scale(${entranceScale * talkingScale})
         `,
+
+        transformOrigin: "center bottom",
+
         zIndex: 30,
+
+        filter:
+          "drop-shadow(0 18px 30px rgba(7,26,53,0.12))",
       }}
     />
   );
@@ -993,6 +1044,18 @@ const Ending: React.FC = () => {
     }
   );
 
+  /* حركة خفيفة خاصة للوداع */
+
+  const waveX =
+    Math.sin(frame / 12) * 4;
+
+  const waveRotate =
+    Math.sin(frame / 15) * 1.3;
+
+  const waveScale =
+    1 +
+    Math.sin(frame / 20) * 0.006;
+
   return (
     <Scene dark>
       <div
@@ -1067,7 +1130,18 @@ const Ending: React.FC = () => {
             height: 800,
             objectFit: "contain",
             opacity,
-            transform: `translateY(${y}px)`,
+
+            transform: `
+              translateX(${waveX}px)
+              translateY(${y}px)
+              rotate(${waveRotate}deg)
+              scale(${waveScale})
+            `,
+
+            transformOrigin: "center bottom",
+
+            filter:
+              "drop-shadow(0 18px 30px rgba(7,26,53,0.14))",
           }}
         />
       </div>
