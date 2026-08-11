@@ -1,32 +1,38 @@
 import React from "react";
 import {
   AbsoluteFill,
-  Img,
   Sequence,
-  interpolate,
+  Img,
   staticFile,
+  interpolate,
   useCurrentFrame,
 } from "remotion";
+
 const NAVY = "#071A35";
 const NAVY2 = "#0B2D5C";
 const BLUE = "#1677FF";
 const LIGHT_BLUE = "#EAF4FF";
 const WHITE = "#FFFFFF";
 const SOFT = "#A9C4E5";
+
 const FONT = '"Tahoma", "Arial", sans-serif";
+
 /* =========================================================
    SCENE
 ========================================================= */
+
 const Scene: React.FC<{
   children: React.ReactNode;
   dark?: boolean;
 }> = ({ children, dark = false }) => {
   const frame = useCurrentFrame();
+
   const glow = interpolate(
-    Math.sin(frame / 45),
+    Math.sin(frame / 50),
     [-1, 1],
-    [0.35, 0.7]
+    [0.3, 0.7]
   );
+
   return (
     <AbsoluteFill
       style={{
@@ -41,36 +47,40 @@ const Scene: React.FC<{
       <div
         style={{
           position: "absolute",
-          width: 850,
-          height: 850,
+          width: 900,
+          height: 900,
           borderRadius: "50%",
-          right: -380,
-          top: -420,
+          right: -420,
+          top: -430,
           background: dark
-            ? `rgba(22,119,255,${0.07 + glow * 0.03})`
+            ? `rgba(22,119,255,${0.06 + glow * 0.025})`
             : "rgba(22,119,255,0.07)",
         }}
       />
+
       <div
         style={{
           position: "absolute",
-          width: 500,
-          height: 500,
+          width: 550,
+          height: 550,
           borderRadius: "50%",
-          left: -250,
-          bottom: -280,
+          left: -300,
+          bottom: -330,
           background: dark
             ? "rgba(255,255,255,0.025)"
             : "rgba(22,119,255,0.035)",
         }}
       />
+
       {children}
     </AbsoluteFill>
   );
 };
+
 /* =========================================================
    BRAND
 ========================================================= */
+
 const Brand: React.FC<{ light?: boolean }> = ({
   light = false,
 }) => {
@@ -78,27 +88,28 @@ const Brand: React.FC<{ light?: boolean }> = ({
     <div
       style={{
         position: "absolute",
-        top: 45,
+        top: 48,
         right: 60,
         display: "flex",
         alignItems: "center",
-        gap: 14,
+        gap: 15,
         zIndex: 100,
       }}
     >
       <div style={{ textAlign: "right" }}>
         <div
           style={{
-            fontSize: 28,
+            fontSize: 30,
             fontWeight: 900,
             color: light ? WHITE : NAVY,
           }}
         >
           نبض
         </div>
+
         <div
           style={{
-            marginTop: 3,
+            marginTop: 4,
             fontSize: 16,
             fontWeight: 700,
             color: light ? SOFT : BLUE,
@@ -107,10 +118,11 @@ const Brand: React.FC<{ light?: boolean }> = ({
           العلاج الطبيعي
         </div>
       </div>
+
       <div
         style={{
-          width: 48,
-          height: 48,
+          width: 50,
+          height: 50,
           borderRadius: 15,
           backgroundColor: BLUE,
           display: "flex",
@@ -131,9 +143,11 @@ const Brand: React.FC<{ light?: boolean }> = ({
     </div>
   );
 };
+
 /* =========================================================
    TEXT REVEAL
 ========================================================= */
+
 const Reveal: React.FC<{
   children: React.ReactNode;
   delay?: number;
@@ -141,18 +155,20 @@ const Reveal: React.FC<{
 }> = ({
   children,
   delay = 0,
-  distance = 60,
+  distance = 70,
 }) => {
   const frame = useCurrentFrame();
+
   const opacity = interpolate(
     frame,
-    [delay, delay + 20],
+    [delay, delay + 18],
     [0, 1],
     {
       extrapolateLeft: "clamp",
       extrapolateRight: "clamp",
     }
   );
+
   const x = interpolate(
     frame,
     [delay, delay + 20],
@@ -162,6 +178,7 @@ const Reveal: React.FC<{
       extrapolateRight: "clamp",
     }
   );
+
   return (
     <div
       style={{
@@ -173,10 +190,12 @@ const Reveal: React.FC<{
     </div>
   );
 };
+
 /* =========================================================
    CHARACTER
-   حركة دخول + تنفس + حركة جسم + ميلان
+   حركة دخول + تنفس + حركة كلام + حركة جسم
 ========================================================= */
+
 type CharacterProps = {
   file: string;
   side?: "left" | "right";
@@ -184,116 +203,144 @@ type CharacterProps = {
   bottom?: number;
   delay?: number;
   direction?: "from-left" | "from-right" | "from-bottom";
+  talking?: boolean;
 };
+
 const Character: React.FC<CharacterProps> = ({
   file,
   side = "right",
-  size = 700,
-  bottom = -100,
+  size = 780,
+  bottom = -120,
   delay = 0,
   direction = "from-right",
+  talking = false,
 }) => {
   const frame = useCurrentFrame();
+
   const localFrame = Math.max(0, frame - delay);
+
   let startX = 0;
   let startY = 0;
+
   if (direction === "from-right") {
     startX = 360;
   }
+
   if (direction === "from-left") {
     startX = -360;
   }
+
   if (direction === "from-bottom") {
-    startY = 260;
+    startY = 280;
   }
-  const entranceX = interpolate(
+
+  const x = interpolate(
     localFrame,
-    [0, 32],
+    [0, 35],
     [startX, 0],
     {
       extrapolateLeft: "clamp",
       extrapolateRight: "clamp",
     }
   );
-  const entranceY = interpolate(
+
+  const y = interpolate(
     localFrame,
-    [0, 32],
+    [0, 35],
     [startY, 0],
     {
       extrapolateLeft: "clamp",
       extrapolateRight: "clamp",
     }
   );
+
   const opacity = interpolate(
     localFrame,
-    [0, 15],
+    [0, 18],
     [0, 1],
     {
       extrapolateLeft: "clamp",
       extrapolateRight: "clamp",
     }
   );
-  const entranceScale = interpolate(
+
+  const scale = interpolate(
     localFrame,
-    [0, 32],
-    [0.82, 1],
+    [0, 35],
+    [0.88, 1],
     {
       extrapolateLeft: "clamp",
       extrapolateRight: "clamp",
     }
   );
-  // تنفس
-  const breathing =
-    Math.sin(localFrame / 18) * 4;
-  // حركة خفيفة كأنها تتكلم
-  const speakingMovement =
-    Math.sin(localFrame / 7) * 2.5;
-  // ميلان بسيط
-  const rotation =
-    Math.sin(localFrame / 24) * 1.2;
-  // حركة جسم جانبية
-  const bodyX =
-    Math.sin(localFrame / 30) * 3;
-  // نبضة خفيفة
-  const pulse =
-    1 + Math.sin(localFrame / 16) * 0.008;
+
+  /*
+    تنفس طبيعي
+  */
+  const breathing = Math.sin(localFrame / 18) * 4;
+
+  /*
+    حركة الجسم أثناء الكلام.
+    ليست حركة عشوائية قوية حتى لا تبدو الشخصية تهتز.
+  */
+  const talkMove = talking
+    ? Math.sin(localFrame / 5) * 5
+    : 0;
+
+  /*
+    حركة بسيطة يمين ويسار تعطي حياة للشخصية.
+  */
+  const bodyMove = Math.sin(localFrame / 32) * 3;
+
+  /*
+    دوران بسيط جداً.
+  */
+  const rotate = Math.sin(localFrame / 28) * 0.7;
+
   return (
     <Img
       src={staticFile(`characters/${file}`)}
       style={{
         position: "absolute",
-        [side]: 20,
+        [side]: 15,
         bottom,
         width: size,
         height: size,
         objectFit: "contain",
         opacity,
+
         transform: `
-          translateX(${entranceX + bodyX}px)
-          translateY(${entranceY + breathing + speakingMovement}px)
-          rotate(${rotation}deg)
-          scale(${entranceScale * pulse})
+          translateX(${x + bodyMove}px)
+          translateY(${y + breathing + talkMove}px)
+          rotate(${rotate}deg)
+          scale(${scale})
         `,
+
         transformOrigin: "center bottom",
+
         zIndex: 30,
+
         filter:
-          "drop-shadow(0 18px 35px rgba(7,26,53,0.15))",
+          "drop-shadow(0 20px 35px rgba(7,26,53,0.12))",
       }}
     />
   );
 };
+
 /* =========================================================
-   01 — OPENING
+   OPENING
 ========================================================= */
+
 const Opening: React.FC = () => {
   return (
     <Scene dark>
       <Brand light />
+
       <div
         style={{
           position: "absolute",
           left: 120,
-          top: 235,
+          top: 225,
           width: 900,
           zIndex: 10,
         }}
@@ -301,20 +348,21 @@ const Opening: React.FC = () => {
         <Reveal>
           <div
             style={{
-              fontSize: 26,
+              fontSize: 28,
               color: SOFT,
               fontWeight: 700,
-              letterSpacing: 3,
+              letterSpacing: 4,
             }}
           >
             بودكاست
           </div>
         </Reveal>
+
         <Reveal delay={15}>
           <div
             style={{
               marginTop: 15,
-              fontSize: 125,
+              fontSize: 130,
               lineHeight: 0.95,
               fontWeight: 900,
               color: WHITE,
@@ -323,11 +371,12 @@ const Opening: React.FC = () => {
             نبض
           </div>
         </Reveal>
+
         <Reveal delay={30}>
           <div
             style={{
-              marginTop: 15,
-              fontSize: 55,
+              marginTop: 18,
+              fontSize: 57,
               fontWeight: 800,
               color: "#66A8FF",
             }}
@@ -335,19 +384,21 @@ const Opening: React.FC = () => {
             العلاج الطبيعي
           </div>
         </Reveal>
+
         <div
           style={{
             marginTop: 45,
-            width: 430,
+            width: 450,
             height: 5,
             backgroundColor: BLUE,
           }}
         />
+
         <Reveal delay={55}>
           <div
             style={{
               marginTop: 28,
-              fontSize: 29,
+              fontSize: 31,
               color: SOFT,
               fontWeight: 700,
             }}
@@ -356,29 +407,33 @@ const Opening: React.FC = () => {
           </div>
         </Reveal>
       </div>
+
       <Character
         file="IMG_0738.PNG"
         side="right"
-        size={800}
-        bottom={-130}
-        delay={5}
+        size={850}
+        bottom={-150}
         direction="from-right"
+        talking={false}
       />
     </Scene>
   );
 };
+
 /* =========================================================
-   02 — EPISODE TITLE
+   TITLE
 ========================================================= */
+
 const EpisodeTitle: React.FC = () => {
   return (
     <Scene>
       <Brand />
+
       <div
         style={{
           position: "absolute",
           left: 100,
-          top: 185,
+          top: 180,
           width: 1000,
           textAlign: "right",
         }}
@@ -386,7 +441,7 @@ const EpisodeTitle: React.FC = () => {
         <Reveal>
           <div
             style={{
-              fontSize: 28,
+              fontSize: 30,
               color: BLUE,
               fontWeight: 900,
             }}
@@ -394,11 +449,12 @@ const EpisodeTitle: React.FC = () => {
             الحلقة الأولى
           </div>
         </Reveal>
+
         <Reveal delay={20}>
           <div
             style={{
               marginTop: 30,
-              fontSize: 78,
+              fontSize: 82,
               fontWeight: 900,
               lineHeight: 1.2,
               color: NAVY,
@@ -411,11 +467,12 @@ const EpisodeTitle: React.FC = () => {
             </span>
           </div>
         </Reveal>
+
         <Reveal delay={55}>
           <div
             style={{
-              marginTop: 25,
-              fontSize: 45,
+              marginTop: 28,
+              fontSize: 47,
               fontWeight: 700,
               color: NAVY2,
             }}
@@ -424,46 +481,52 @@ const EpisodeTitle: React.FC = () => {
           </div>
         </Reveal>
       </div>
+
       <Character
         file="IMG_0738.PNG"
         side="left"
-        size={760}
-        bottom={-120}
-        delay={8}
+        size={780}
+        bottom={-135}
         direction="from-left"
+        talking={true}
       />
     </Scene>
   );
 };
+
 /* =========================================================
-   03 — QUESTION
+   QUESTION
 ========================================================= */
+
 const Question: React.FC = () => {
   const frame = useCurrentFrame();
+
   const scale = interpolate(
     frame,
     [0, 28],
-    [0.35, 1],
+    [0.3, 1],
     {
       extrapolateLeft: "clamp",
       extrapolateRight: "clamp",
     }
   );
+
   return (
     <Scene dark>
       <Brand light />
+
       <div
         style={{
           position: "absolute",
           left: 150,
-          top: 210,
+          top: 200,
           width: 950,
         }}
       >
         <Reveal>
           <div
             style={{
-              fontSize: 175,
+              fontSize: 185,
               lineHeight: 0.8,
               fontWeight: 900,
               color: BLUE,
@@ -474,11 +537,12 @@ const Question: React.FC = () => {
             ؟
           </div>
         </Reveal>
+
         <Reveal delay={25}>
           <div
             style={{
               marginTop: 45,
-              fontSize: 70,
+              fontSize: 72,
               lineHeight: 1.3,
               fontWeight: 900,
               color: WHITE,
@@ -492,22 +556,26 @@ const Question: React.FC = () => {
           </div>
         </Reveal>
       </div>
+
       <Character
         file="IMG_0737.PNG"
         side="right"
-        size={810}
-        bottom={-130}
-        delay={10}
+        size={820}
+        bottom={-145}
         direction="from-right"
+        talking={true}
       />
     </Scene>
   );
 };
+
 /* =========================================================
-   04 — ANSWER
+   ANSWER
 ========================================================= */
+
 const Answer: React.FC = () => {
   const frame = useCurrentFrame();
+
   const scale = interpolate(
     frame,
     [0, 25],
@@ -517,20 +585,22 @@ const Answer: React.FC = () => {
       extrapolateRight: "clamp",
     }
   );
+
   return (
     <Scene>
       <Brand />
+
       <div
         style={{
           position: "absolute",
           left: 130,
-          top: 230,
+          top: 220,
           width: 950,
         }}
       >
         <div
           style={{
-            fontSize: 180,
+            fontSize: 190,
             fontWeight: 900,
             color: BLUE,
             transform: `scale(${scale})`,
@@ -539,11 +609,12 @@ const Answer: React.FC = () => {
         >
           لا.
         </div>
+
         <Reveal delay={25}>
           <div
             style={{
               marginTop: 25,
-              fontSize: 53,
+              fontSize: 55,
               lineHeight: 1.5,
               fontWeight: 800,
               color: NAVY,
@@ -555,44 +626,50 @@ const Answer: React.FC = () => {
           </div>
         </Reveal>
       </div>
+
       <Character
         file="IMG_0732.PNG"
         side="right"
-        size={780}
-        bottom={-130}
-        delay={5}
+        size={800}
+        bottom={-145}
         direction="from-right"
+        talking={true}
       />
     </Scene>
   );
 };
+
 /* =========================================================
-   05 — DEFINITION
+   DEFINITION
 ========================================================= */
+
 const Definition: React.FC = () => {
   const frame = useCurrentFrame();
+
   const items = [
     "تحسين الحركة",
     "تقليل الألم",
     "استعادة الوظائف الجسدية",
     "التأهيل بعد الإصابات والعمليات وبعض الأمراض",
   ];
+
   return (
     <Scene>
       <Brand />
+
       <div
         style={{
           position: "absolute",
           left: 90,
-          top: 115,
-          width: 1050,
+          top: 105,
+          width: 1060,
           zIndex: 10,
         }}
       >
         <Reveal>
           <div
             style={{
-              fontSize: 29,
+              fontSize: 30,
               fontWeight: 900,
               color: BLUE,
             }}
@@ -600,11 +677,12 @@ const Definition: React.FC = () => {
             ما هو العلاج الطبيعي؟
           </div>
         </Reveal>
+
         <Reveal delay={20}>
           <div
             style={{
               marginTop: 25,
-              fontSize: 57,
+              fontSize: 59,
               lineHeight: 1.35,
               fontWeight: 900,
               color: NAVY,
@@ -615,16 +693,18 @@ const Definition: React.FC = () => {
             تحسين حركة الإنسان ووظائفه.
           </div>
         </Reveal>
+
         <div
           style={{
             marginTop: 42,
             display: "flex",
             flexDirection: "column",
-            gap: 16,
+            gap: 17,
           }}
         >
           {items.map((item, index) => {
             const delay = 55 + index * 18;
+
             const opacity = interpolate(
               frame,
               [delay, delay + 15],
@@ -634,15 +714,17 @@ const Definition: React.FC = () => {
                 extrapolateRight: "clamp",
               }
             );
+
             const x = interpolate(
               frame,
               [delay, delay + 18],
-              [70, 0],
+              [75, 0],
               {
                 extrapolateLeft: "clamp",
                 extrapolateRight: "clamp",
               }
             );
+
             return (
               <div
                 key={item}
@@ -652,42 +734,47 @@ const Definition: React.FC = () => {
                   display: "flex",
                   alignItems: "center",
                   gap: 18,
-                  fontSize: index === 3 ? 28 : 37,
+                  fontSize: index === 3 ? 28 : 38,
                   fontWeight: 800,
                   color: NAVY2,
                 }}
               >
                 <div
                   style={{
-                    width: 13,
-                    height: 13,
+                    width: 14,
+                    height: 14,
                     borderRadius: "50%",
                     backgroundColor: BLUE,
                     flexShrink: 0,
                   }}
                 />
+
                 {item}
               </div>
             );
           })}
         </div>
       </div>
+
       <Character
         file="IMG_0733.PNG"
         side="right"
-        size={750}
-        bottom={-120}
-        delay={12}
+        size={760}
+        bottom={-135}
         direction="from-right"
+        talking={true}
       />
     </Scene>
   );
 };
+
 /* =========================================================
-   06 — METHODS
+   METHODS
 ========================================================= */
+
 const Methods: React.FC = () => {
   const frame = useCurrentFrame();
+
   const cards = [
     {
       title: "التمارين العلاجية",
@@ -702,22 +789,24 @@ const Methods: React.FC = () => {
       text: "بحسب الحالة والهدف العلاجي",
     },
   ];
+
   return (
     <Scene dark>
       <Brand light />
+
       <div
         style={{
           position: "absolute",
           left: 70,
           right: 70,
-          top: 120,
+          top: 105,
           textAlign: "center",
         }}
       >
         <Reveal>
           <div
             style={{
-              fontSize: 57,
+              fontSize: 59,
               fontWeight: 900,
               color: WHITE,
             }}
@@ -728,9 +817,10 @@ const Methods: React.FC = () => {
             </span>
           </div>
         </Reveal>
+
         <div
           style={{
-            marginTop: 55,
+            marginTop: 52,
             display: "flex",
             justifyContent: "center",
             gap: 20,
@@ -738,15 +828,17 @@ const Methods: React.FC = () => {
         >
           {cards.map((card, index) => {
             const delay = 30 + index * 18;
+
             const y = interpolate(
               frame,
               [delay, delay + 20],
-              [80, 0],
+              [90, 0],
               {
                 extrapolateLeft: "clamp",
                 extrapolateRight: "clamp",
               }
             );
+
             const opacity = interpolate(
               frame,
               [delay, delay + 15],
@@ -756,18 +848,17 @@ const Methods: React.FC = () => {
                 extrapolateRight: "clamp",
               }
             );
+
             return (
               <div
                 key={card.title}
                 style={{
                   width: 330,
-                  minHeight: 260,
+                  minHeight: 270,
                   borderRadius: 28,
                   padding: "35px 25px",
-                  background:
-                    "rgba(255,255,255,0.08)",
-                  border:
-                    "1px solid rgba(255,255,255,0.14)",
+                  background: "rgba(255,255,255,0.08)",
+                  border: "1px solid rgba(255,255,255,0.14)",
                   opacity,
                   transform: `translateY(${y}px)`,
                   display: "flex",
@@ -778,7 +869,7 @@ const Methods: React.FC = () => {
               >
                 <div
                   style={{
-                    fontSize: 37,
+                    fontSize: 38,
                     lineHeight: 1.35,
                     fontWeight: 900,
                     color: WHITE,
@@ -786,10 +877,11 @@ const Methods: React.FC = () => {
                 >
                   {card.title}
                 </div>
+
                 <div
                   style={{
                     marginTop: 22,
-                    fontSize: 23,
+                    fontSize: 24,
                     lineHeight: 1.5,
                     fontWeight: 600,
                     color: SOFT,
@@ -801,11 +893,12 @@ const Methods: React.FC = () => {
             );
           })}
         </div>
+
         <Reveal delay={100}>
           <div
             style={{
               marginTop: 48,
-              fontSize: 40,
+              fontSize: 41,
               fontWeight: 900,
               color: "#66A8FF",
             }}
@@ -814,36 +907,40 @@ const Methods: React.FC = () => {
           </div>
         </Reveal>
       </div>
+
       <Character
         file="IMG_0734.PNG"
         side="right"
         size={700}
-        bottom={-180}
-        delay={10}
+        bottom={-205}
         direction="from-right"
+        talking={true}
       />
     </Scene>
   );
 };
+
 /* =========================================================
-   07 — SUMMARY
+   SUMMARY
 ========================================================= */
+
 const Summary: React.FC = () => {
   return (
     <Scene>
       <Brand />
+
       <div
         style={{
           position: "absolute",
           left: 110,
-          top: 165,
+          top: 155,
           width: 1050,
         }}
       >
         <Reveal>
           <div
             style={{
-              fontSize: 30,
+              fontSize: 31,
               fontWeight: 900,
               color: BLUE,
             }}
@@ -851,11 +948,12 @@ const Summary: React.FC = () => {
             الخلاصة
           </div>
         </Reveal>
+
         <Reveal delay={20}>
           <div
             style={{
               marginTop: 25,
-              fontSize: 66,
+              fontSize: 68,
               lineHeight: 1.3,
               fontWeight: 900,
               color: NAVY,
@@ -868,11 +966,12 @@ const Summary: React.FC = () => {
             </span>
           </div>
         </Reveal>
+
         <Reveal delay={55}>
           <div
             style={{
               marginTop: 38,
-              fontSize: 38,
+              fontSize: 39,
               lineHeight: 1.55,
               fontWeight: 700,
               color: NAVY2,
@@ -886,22 +985,26 @@ const Summary: React.FC = () => {
           </div>
         </Reveal>
       </div>
+
       <Character
         file="IMG_0733.PNG"
         side="right"
-        size={750}
-        bottom={-130}
-        delay={10}
+        size={760}
+        bottom={-140}
         direction="from-right"
+        talking={true}
       />
     </Scene>
   );
 };
+
 /* =========================================================
-   08 — ENDING
+   ENDING
 ========================================================= */
+
 const Ending: React.FC = () => {
   const frame = useCurrentFrame();
+
   const opacity = interpolate(
     frame,
     [0, 30],
@@ -911,6 +1014,7 @@ const Ending: React.FC = () => {
       extrapolateRight: "clamp",
     }
   );
+
   const y = interpolate(
     frame,
     [0, 35],
@@ -920,6 +1024,7 @@ const Ending: React.FC = () => {
       extrapolateRight: "clamp",
     }
   );
+
   return (
     <Scene dark>
       <div
@@ -942,33 +1047,36 @@ const Ending: React.FC = () => {
         >
           <div
             style={{
-              fontSize: 72,
+              fontSize: 74,
               fontWeight: 900,
               color: WHITE,
             }}
           >
             شكرًا لاستماعكم
           </div>
+
           <div
             style={{
               marginTop: 25,
-              fontSize: 47,
+              fontSize: 48,
               fontWeight: 900,
               color: "#66A8FF",
             }}
           >
             بودكاست نبض العلاج الطبيعي
           </div>
+
           <div
             style={{
               marginTop: 22,
-              fontSize: 33,
+              fontSize: 34,
               fontWeight: 700,
               color: SOFT,
             }}
           >
             انتظروا الحلقة القادمة
           </div>
+
           <div
             style={{
               width: 260,
@@ -978,84 +1086,91 @@ const Ending: React.FC = () => {
             }}
           />
         </div>
+
         <Img
-          src={staticFile(
-            "characters/IMG_0735.PNG"
-          )}
+          src={staticFile("characters/IMG_0735.PNG")}
           style={{
             position: "absolute",
             right: 0,
-            bottom: -140,
-            width: 800,
-            height: 800,
+            bottom: -150,
+            width: 820,
+            height: 820,
             objectFit: "contain",
             opacity,
-            transform: `
-              translateY(${y}px)
-              rotate(${Math.sin(frame / 20) * 1.2}deg)
-            `,
+            transform: `translateY(${y}px)`,
             filter:
-              "drop-shadow(0 18px 35px rgba(0,0,0,0.18))",
+              "drop-shadow(0 20px 35px rgba(0,0,0,0.2))",
           }}
         />
       </div>
     </Scene>
   );
 };
+
 /* =========================================================
    EPISODE 01
 ========================================================= */
+
 export const Episode01: React.FC = () => {
   return (
     <AbsoluteFill>
+
       <Sequence
         from={0}
         durationInFrames={300}
       >
         <Opening />
       </Sequence>
+
       <Sequence
         from={300}
         durationInFrames={360}
       >
         <EpisodeTitle />
       </Sequence>
+
       <Sequence
         from={660}
         durationInFrames={450}
       >
         <Question />
       </Sequence>
+
       <Sequence
         from={1110}
         durationInFrames={300}
       >
         <Answer />
       </Sequence>
+
       <Sequence
         from={1410}
         durationInFrames={900}
       >
         <Definition />
       </Sequence>
+
       <Sequence
         from={2310}
         durationInFrames={900}
       >
         <Methods />
       </Sequence>
+
       <Sequence
         from={3210}
         durationInFrames={510}
       >
         <Summary />
       </Sequence>
+
       <Sequence
         from={3720}
         durationInFrames={540}
       >
         <Ending />
       </Sequence>
+
     </AbsoluteFill>
   );
 };
