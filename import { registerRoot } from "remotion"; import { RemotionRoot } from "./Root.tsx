@@ -1,15 +1,26 @@
 import React from "react";
 import { Composition } from "remotion";
+import { Intro } from "./components/Intro";
 import { Episode01 } from "./episodes/episode01/Episode01";
 export const RemotionRoot: React.FC = () => {
   return (
-    <Composition
-      id="Episode01"
-      component={Episode01}
-      durationInFrames={900}
-      fps={30}
-      width={1920}
-      height={1080}
-    />
+    <>
+      <Composition
+        id="NabdIntro"
+        component={Intro}
+        durationInFrames={150}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="Episode01"
+        component={Episode01}
+        durationInFrames={900}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+    </>
   );
 };
