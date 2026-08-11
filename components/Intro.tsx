@@ -55,7 +55,7 @@ export const Intro: React.FC = () => {
           الحلقة الأولى
         </div>
         <Img
-          src="/characters/nabd_host.jpeg"
+          src="/characters/nabd-host.jpeg"
           style={{
             position: "absolute",
             bottom: -40,
