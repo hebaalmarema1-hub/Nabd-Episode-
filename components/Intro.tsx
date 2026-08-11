@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteFill, Img, useCurrentFrame, interpolate } from "remotion";
+import { AbsoluteFill, Img, useCurrentFrame, interpolate, staticFile } from "remotion";
 
 export const Intro: React.FC = () => {
   const frame = useCurrentFrame();
@@ -62,7 +62,7 @@ export const Intro: React.FC = () => {
         </div>
 
         <Img
-          src="/characters/nabd-host.jpeg"
+         src={staticFile("characters/nabd-host.jpeg")}
           style={{
             position: "absolute",
             bottom: -40,
