@@ -8,27 +8,27 @@ import {
 } from "remotion";
 export const Intro: React.FC = () => {
   const frame = useCurrentFrame();
-  const podcastOpacity = interpolate(frame, [0, 20], [0, 1], {
+  const podcastOpacity = interpolate(frame, [0, 18], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const titleOpacity = interpolate(frame, [15, 40], [0, 1], {
+  const logoOpacity = interpolate(frame, [10, 35], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const characterOpacity = interpolate(frame, [35, 65], [0, 1], {
+  const logoScale = interpolate(frame, [10, 35], [0.7, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const characterX = interpolate(frame, [35, 65], [180, 0], {
+  const characterOpacity = interpolate(frame, [25, 60], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const episodeOpacity = interpolate(frame, [60, 85], [0, 1], {
+  const characterX = interpolate(frame, [25, 60], [220, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const logoScale = interpolate(frame, [0, 30], [0.8, 1], {
+  const episodeOpacity = interpolate(frame, [55, 85], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -36,41 +36,38 @@ export const Intro: React.FC = () => {
     <AbsoluteFill
       style={{
         backgroundColor: "#EAF4FF",
-        color: "#0B2D5C",
         fontFamily: "Arial, sans-serif",
         overflow: "hidden",
       }}
     >
-      {/* Soft blue background */}
-      <div
+      {/* Background */}
+      <AbsoluteFill
         style={{
-          position: "absolute",
-          inset: 0,
           background:
-            "linear-gradient(135deg, #FFFFFF 0%, #EAF4FF 55%, #D7EBFF 100%)",
+            "linear-gradient(135deg, #FFFFFF 0%, #EEF7FF 48%, #D9ECFF 100%)",
         }}
       />
-      {/* Decorative circles */}
+      {/* Decorative blue circles */}
       <div
         style={{
           position: "absolute",
-          width: 520,
-          height: 520,
+          width: 650,
+          height: 650,
           borderRadius: "50%",
           backgroundColor: "rgba(22,119,255,0.07)",
-          top: -180,
-          right: -120,
+          top: -280,
+          right: -160,
         }}
       />
       <div
         style={{
           position: "absolute",
-          width: 360,
-          height: 360,
+          width: 420,
+          height: 420,
           borderRadius: "50%",
           backgroundColor: "rgba(22,119,255,0.06)",
-          bottom: -140,
-          left: -120,
+          bottom: -180,
+          left: -140,
         }}
       />
       {/* Main content */}
@@ -80,34 +77,33 @@ export const Intro: React.FC = () => {
           inset: 0,
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
         }}
       >
-        {/* Left content */}
+        {/* Left side */}
         <div
           style={{
-            width: "55%",
-            marginLeft: 80,
-            zIndex: 2,
+            width: "54%",
+            marginLeft: 85,
+            zIndex: 4,
           }}
         >
-          {/* Podcast label */}
+          {/* Podcast */}
           <div
             style={{
               opacity: podcastOpacity,
-              fontSize: 24,
-              fontWeight: 700,
-              letterSpacing: 6,
               color: "#1677FF",
-              marginBottom: 20,
+              fontSize: 25,
+              fontWeight: 700,
+              letterSpacing: 7,
+              marginBottom: 25,
             }}
           >
             PODCAST
           </div>
-          {/* Logo */}
+          {/* Large logo */}
           <div
             style={{
-              opacity: titleOpacity,
+              opacity: logoOpacity,
               transform: `scale(${logoScale})`,
               transformOrigin: "left center",
             }}
@@ -116,27 +112,34 @@ export const Intro: React.FC = () => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: 18,
+                gap: 24,
               }}
             >
-              {/* Pulse logo */}
+              {/* Large pulse icon */}
               <div
                 style={{
-                  width: 86,
-                  height: 86,
+                  width: 125,
+                  height: 125,
                   borderRadius: "50%",
-                  backgroundColor: "#1677FF",
+                  background:
+                    "linear-gradient(145deg, #1677FF, #0B5FCC)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  boxShadow: "0 12px 30px rgba(22,119,255,0.25)",
+                  boxShadow: "0 18px 40px rgba(22,119,255,0.30)",
                 }}
               >
                 <div
                   style={{
+                    width: 92,
+                    height: 55,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
                     color: "#FFFFFF",
-                    fontSize: 34,
-                    fontWeight: 800,
+                    fontSize: 70,
+                    fontWeight: 300,
+                    lineHeight: 1,
                   }}
                 >
                   ∿
@@ -145,18 +148,18 @@ export const Intro: React.FC = () => {
               <div>
                 <div
                   style={{
-                    fontSize: 58,
+                    fontSize: 76,
                     fontWeight: 800,
+                    lineHeight: 0.95,
                     color: "#0B2D5C",
-                    lineHeight: 1,
                   }}
                 >
                   نبض
                 </div>
                 <div
                   style={{
-                    marginTop: 8,
-                    fontSize: 28,
+                    marginTop: 12,
+                    fontSize: 34,
                     fontWeight: 600,
                     color: "#1677FF",
                   }}
@@ -166,27 +169,27 @@ export const Intro: React.FC = () => {
               </div>
             </div>
           </div>
-          {/* Episode title */}
+          {/* Episode */}
           <div
             style={{
               opacity: episodeOpacity,
-              marginTop: 55,
-              paddingLeft: 8,
-              borderLeft: "5px solid #1677FF",
+              marginTop: 60,
+              paddingLeft: 18,
+              borderLeft: "6px solid #1677FF",
             }}
           >
             <div
               style={{
-                fontSize: 24,
-                color: "#5B6B82",
+                fontSize: 26,
+                color: "#61738B",
                 marginBottom: 8,
               }}
             >
-              نبض العلاج الطبيعي
+              بودكاست نبض العلاج الطبيعي
             </div>
             <div
               style={{
-                fontSize: 44,
+                fontSize: 50,
                 fontWeight: 800,
                 color: "#0B2D5C",
               }}
@@ -195,15 +198,15 @@ export const Intro: React.FC = () => {
             </div>
           </div>
         </div>
-        {/* Character */}
+        {/* Large character */}
         <Img
           src={staticFile("characters/nabd-host.jpeg")}
           style={{
             position: "absolute",
-            right: 70,
-            bottom: -25,
-            width: 500,
-            height: 500,
+            right: 25,
+            bottom: -70,
+            width: 610,
+            height: 610,
             objectFit: "contain",
             opacity: characterOpacity,
             transform: `translateX(${characterX}px)`,
@@ -211,15 +214,15 @@ export const Intro: React.FC = () => {
           }}
         />
       </div>
-      {/* Bottom branding line */}
+      {/* Bottom line */}
       <div
         style={{
           position: "absolute",
-          bottom: 35,
-          left: 80,
-          right: 80,
+          left: 85,
+          right: 85,
+          bottom: 38,
           height: 2,
-          backgroundColor: "rgba(22,119,255,0.15)",
+          backgroundColor: "rgba(22,119,255,0.16)",
         }}
       />
     </AbsoluteFill>
