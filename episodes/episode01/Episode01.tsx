@@ -15,10 +15,10 @@ const LIGHT_BLUE = "#EAF4FF";
 const WHITE = "#FFFFFF";
 const SOFT = "#A9C4E5";
 
-const FONT = '"Tahoma", "Arial", sans-serif";
+const FONT = '"Tahoma", "Arial", sans-serif';
 
 /* =========================================================
-   BACKGROUND
+   SCENE
 ========================================================= */
 
 const Scene: React.FC<{
@@ -88,8 +88,8 @@ const Brand: React.FC<{ light?: boolean }> = ({
     <div
       style={{
         position: "absolute",
-        top: 50,
-        right: 65,
+        top: 45,
+        right: 60,
         display: "flex",
         alignItems: "center",
         gap: 15,
@@ -99,7 +99,7 @@ const Brand: React.FC<{ light?: boolean }> = ({
       <div style={{ textAlign: "right" }}>
         <div
           style={{
-            fontSize: 28,
+            fontSize: 30,
             fontWeight: 900,
             color: light ? WHITE : NAVY,
           }}
@@ -109,7 +109,7 @@ const Brand: React.FC<{ light?: boolean }> = ({
 
         <div
           style={{
-            marginTop: 4,
+            marginTop: 3,
             fontSize: 16,
             fontWeight: 700,
             color: light ? SOFT : BLUE,
@@ -121,14 +121,14 @@ const Brand: React.FC<{ light?: boolean }> = ({
 
       <div
         style={{
-          width: 48,
-          height: 48,
-          borderRadius: 15,
+          width: 50,
+          height: 50,
+          borderRadius: 16,
           backgroundColor: BLUE,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          boxShadow: "0 10px 30px rgba(22,119,255,0.3)",
+          boxShadow: "0 12px 30px rgba(22,119,255,0.3)",
         }}
       >
         <div
@@ -145,7 +145,7 @@ const Brand: React.FC<{ light?: boolean }> = ({
 };
 
 /* =========================================================
-   TEXT ANIMATION
+   TEXT REVEAL
 ========================================================= */
 
 const Reveal: React.FC<{
@@ -192,8 +192,8 @@ const Reveal: React.FC<{
 };
 
 /* =========================================================
-   CHARACTER
-   حركة دخول + تنفس + تمايل + حركة كلام
+   CHARACTER ENGINE
+   كل شخصية لها حركة مختلفة
 ========================================================= */
 
 type CharacterProps = {
@@ -215,21 +215,20 @@ const Character: React.FC<CharacterProps> = ({
 }) => {
   const frame = useCurrentFrame();
 
-  const localFrame = Math.max(0, frame - delay);
-
-  /* -----------------------------
-     دخول الشخصية
-  ----------------------------- */
+  const localFrame = Math.max(
+    0,
+    frame - delay
+  );
 
   let startX = 0;
   let startY = 0;
 
   if (direction === "from-right") {
-    startX = 360;
+    startX = 380;
   }
 
   if (direction === "from-left") {
-    startX = -360;
+    startX = -380;
   }
 
   if (direction === "from-bottom") {
@@ -238,7 +237,7 @@ const Character: React.FC<CharacterProps> = ({
 
   const entranceX = interpolate(
     localFrame,
-    [0, 34],
+    [0, 38],
     [startX, 0],
     {
       extrapolateLeft: "clamp",
@@ -248,7 +247,7 @@ const Character: React.FC<CharacterProps> = ({
 
   const entranceY = interpolate(
     localFrame,
-    [0, 34],
+    [0, 38],
     [startY, 0],
     {
       extrapolateLeft: "clamp",
@@ -258,7 +257,7 @@ const Character: React.FC<CharacterProps> = ({
 
   const opacity = interpolate(
     localFrame,
-    [0, 16],
+    [0, 18],
     [0, 1],
     {
       extrapolateLeft: "clamp",
@@ -268,55 +267,117 @@ const Character: React.FC<CharacterProps> = ({
 
   const entranceScale = interpolate(
     localFrame,
-    [0, 34],
-    [0.84, 1],
+    [0, 38],
+    [0.82, 1],
     {
       extrapolateLeft: "clamp",
       extrapolateRight: "clamp",
     }
   );
 
-  /* -----------------------------
-     تنفس الشخصية
-     حركة بطيئة جدًا
-  ----------------------------- */
+  let moveX = 0;
+  let moveY = 0;
+  let rotate = 0;
+  let scale = 1;
+
+  /* السؤال */
+
+  if (file === "IMG_0737.PNG") {
+    moveX =
+      Math.sin(localFrame / 10) * 6;
+
+    moveY =
+      Math.sin(localFrame / 15) * 4;
+
+    rotate =
+      Math.sin(localFrame / 13) * 1.5;
+
+    scale =
+      1 + Math.sin(localFrame / 18) * 0.012;
+  }
+
+  /* علامة التعجب */
+
+  else if (file === "IMG_0732.PNG") {
+    moveX =
+      Math.sin(localFrame / 13) * 5;
+
+    moveY =
+      Math.sin(localFrame / 9) * 4;
+
+    rotate =
+      Math.sin(localFrame / 16) * 1.2;
+
+    scale =
+      1 + Math.sin(localFrame / 14) * 0.016;
+  }
+
+  /* الشرح */
+
+  else if (file === "IMG_0733.PNG") {
+    moveX =
+      Math.sin(localFrame / 16) * 9;
+
+    moveY =
+      Math.sin(localFrame / 10) * 5;
+
+    rotate =
+      Math.sin(localFrame / 18) * 1.8;
+
+    scale =
+      1 + Math.sin(localFrame / 20) * 0.014;
+  }
+
+  /* التمارين والأجهزة والتدليك */
+
+  else if (file === "IMG_0734.PNG") {
+    moveX =
+      Math.sin(localFrame / 14) * 11;
+
+    moveY =
+      Math.sin(localFrame / 11) * 6;
+
+    rotate =
+      Math.sin(localFrame / 17) * 2;
+
+    scale =
+      1 + Math.sin(localFrame / 16) * 0.016;
+  }
+
+  /* الوقوف الهادئ */
+
+  else if (file === "IMG_0738.PNG") {
+    moveX =
+      Math.sin(localFrame / 28) * 3;
+
+    moveY =
+      Math.sin(localFrame / 22) * 5;
+
+    rotate =
+      Math.sin(localFrame / 30) * 0.8;
+
+    scale =
+      1 + Math.sin(localFrame / 25) * 0.008;
+  }
+
+  /* الوداع */
+
+  else if (file === "IMG_0735.PNG") {
+    moveX =
+      Math.sin(localFrame / 9) * 8;
+
+    moveY =
+      Math.sin(localFrame / 16) * 4;
+
+    rotate =
+      Math.sin(localFrame / 12) * 1.5;
+
+    scale =
+      1 + Math.sin(localFrame / 18) * 0.012;
+  }
 
   const breathing =
-    Math.sin(localFrame / 22) * 4;
-
-  /* -----------------------------
-     حركة الجسم أثناء الكلام
-  ----------------------------- */
-
-  const talkingBob =
-    Math.sin(localFrame / 8) * 3 +
-    Math.sin(localFrame / 17) * 2;
-
-  /* -----------------------------
-     ميلان طبيعي بسيط
-  ----------------------------- */
-
-  const talkingRotate =
-    Math.sin(localFrame / 20) * 1.2;
-
-  /* -----------------------------
-     حركة صغيرة إضافية
-     تجعل الشخصية غير ثابتة
-  ----------------------------- */
-
-  const naturalX =
-    Math.sin(localFrame / 30) * 3;
-
-  const naturalY =
-    Math.cos(localFrame / 26) * 3;
-
-  /* -----------------------------
-     Zoom بسيط جدًا أثناء الكلام
-  ----------------------------- */
-
-  const talkingScale =
-    1 +
-    Math.sin(localFrame / 18) * 0.008;
+    Math.sin(localFrame / 24) * 3;
 
   return (
     <Img
@@ -334,10 +395,10 @@ const Character: React.FC<CharacterProps> = ({
         opacity,
 
         transform: `
-          translateX(${entranceX + naturalX}px)
-          translateY(${entranceY + breathing + talkingBob + naturalY}px)
-          rotate(${talkingRotate}deg)
-          scale(${entranceScale * talkingScale})
+          translateX(${entranceX + moveX}px)
+          translateY(${entranceY + moveY + breathing}px)
+          rotate(${rotate}deg)
+          scale(${entranceScale * scale})
         `,
 
         transformOrigin: "center bottom",
@@ -345,7 +406,10 @@ const Character: React.FC<CharacterProps> = ({
         zIndex: 30,
 
         filter:
-          "drop-shadow(0 18px 30px rgba(7,26,53,0.12))",
+          "drop-shadow(0 18px 30px rgba(7,26,53,0.15))",
+
+        willChange:
+          "transform, opacity",
       }}
     />
   );
@@ -372,7 +436,7 @@ const Opening: React.FC = () => {
         <Reveal>
           <div
             style={{
-              fontSize: 26,
+              fontSize: 27,
               color: SOFT,
               fontWeight: 700,
               letterSpacing: 3,
@@ -422,7 +486,7 @@ const Opening: React.FC = () => {
           <div
             style={{
               marginTop: 28,
-              fontSize: 29,
+              fontSize: 30,
               color: SOFT,
               fontWeight: 700,
             }}
@@ -435,8 +499,8 @@ const Opening: React.FC = () => {
       <Character
         file="IMG_0738.PNG"
         side="right"
-        size={800}
-        bottom={-130}
+        size={820}
+        bottom={-135}
         direction="from-right"
       />
     </Scene>
@@ -464,7 +528,7 @@ const EpisodeTitle: React.FC = () => {
         <Reveal>
           <div
             style={{
-              fontSize: 28,
+              fontSize: 29,
               color: BLUE,
               fontWeight: 900,
             }}
@@ -477,7 +541,7 @@ const EpisodeTitle: React.FC = () => {
           <div
             style={{
               marginTop: 30,
-              fontSize: 78,
+              fontSize: 80,
               fontWeight: 900,
               lineHeight: 1.2,
               color: NAVY,
@@ -495,7 +559,7 @@ const EpisodeTitle: React.FC = () => {
           <div
             style={{
               marginTop: 25,
-              fontSize: 45,
+              fontSize: 46,
               fontWeight: 700,
               color: NAVY2,
             }}
@@ -508,8 +572,8 @@ const EpisodeTitle: React.FC = () => {
       <Character
         file="IMG_0738.PNG"
         side="left"
-        size={730}
-        bottom={-120}
+        size={760}
+        bottom={-125}
         direction="from-left"
       />
     </Scene>
@@ -582,8 +646,8 @@ const Question: React.FC = () => {
       <Character
         file="IMG_0737.PNG"
         side="right"
-        size={780}
-        bottom={-130}
+        size={810}
+        bottom={-140}
         direction="from-right"
       />
     </Scene>
@@ -651,8 +715,8 @@ const Answer: React.FC = () => {
       <Character
         file="IMG_0732.PNG"
         side="right"
-        size={750}
-        bottom={-130}
+        size={780}
+        bottom={-135}
         direction="from-right"
       />
     </Scene>
@@ -754,7 +818,8 @@ const Definition: React.FC = () => {
                   display: "flex",
                   alignItems: "center",
                   gap: 18,
-                  fontSize: index === 3 ? 28 : 37,
+                  fontSize:
+                    index === 3 ? 28 : 37,
                   fontWeight: 800,
                   color: NAVY2,
                 }}
@@ -779,8 +844,8 @@ const Definition: React.FC = () => {
       <Character
         file="IMG_0733.PNG"
         side="right"
-        size={720}
-        bottom={-120}
+        size={750}
+        bottom={-125}
         direction="from-right"
       />
     </Scene>
@@ -932,8 +997,8 @@ const Methods: React.FC = () => {
       <Character
         file="IMG_0734.PNG"
         side="right"
-        size={650}
-        bottom={-180}
+        size={690}
+        bottom={-190}
         direction="from-right"
       />
     </Scene>
@@ -1009,8 +1074,8 @@ const Summary: React.FC = () => {
       <Character
         file="IMG_0733.PNG"
         side="right"
-        size={720}
-        bottom={-130}
+        size={750}
+        bottom={-135}
         direction="from-right"
       />
     </Scene>
@@ -1043,18 +1108,6 @@ const Ending: React.FC = () => {
       extrapolateRight: "clamp",
     }
   );
-
-  /* حركة خفيفة خاصة للوداع */
-
-  const waveX =
-    Math.sin(frame / 12) * 4;
-
-  const waveRotate =
-    Math.sin(frame / 15) * 1.3;
-
-  const waveScale =
-    1 +
-    Math.sin(frame / 20) * 0.006;
 
   return (
     <Scene dark>
@@ -1126,22 +1179,17 @@ const Ending: React.FC = () => {
             position: "absolute",
             right: 0,
             bottom: -140,
-            width: 800,
-            height: 800,
+            width: 820,
+            height: 820,
             objectFit: "contain",
             opacity,
-
             transform: `
-              translateX(${waveX}px)
               translateY(${y}px)
-              rotate(${waveRotate}deg)
-              scale(${waveScale})
+              translateX(${Math.sin(frame / 9) * 8}px)
+              rotate(${Math.sin(frame / 12) * 1.5}deg)
             `,
-
-            transformOrigin: "center bottom",
-
             filter:
-              "drop-shadow(0 18px 30px rgba(7,26,53,0.14))",
+              "drop-shadow(0 18px 30px rgba(0,0,0,0.18))",
           }}
         />
       </div>
