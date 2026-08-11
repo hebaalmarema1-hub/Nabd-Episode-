@@ -1,19 +1,24 @@
 import React from "react";
 import { AbsoluteFill, Img, useCurrentFrame, interpolate } from "remotion";
+
 export const Intro: React.FC = () => {
   const frame = useCurrentFrame();
+
   const logoOpacity = interpolate(frame, [0, 25], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
+
   const characterOpacity = interpolate(frame, [20, 50], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
+
   const characterY = interpolate(frame, [20, 50], [80, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
+
   return (
     <AbsoluteFill
       style={{
@@ -44,6 +49,7 @@ export const Intro: React.FC = () => {
         >
           نبض
         </div>
+
         <div
           style={{
             opacity: logoOpacity,
@@ -54,6 +60,7 @@ export const Intro: React.FC = () => {
         >
           الحلقة الأولى
         </div>
+
         <Img
           src="/characters/nabd-host.jpeg"
           style={{
