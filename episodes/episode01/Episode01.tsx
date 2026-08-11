@@ -8,12 +8,6 @@ import {
   useCurrentFrame,
 } from "remotion";
 
-/* =========================================================
-   NABD — PHYSIOTHERAPY PODCAST
-   Episode 01
-   Clean / Premium / Arabic Visual Style
-========================================================= */
-
 const NAVY = "#071A35";
 const NAVY2 = "#0B2D5C";
 const BLUE = "#1677FF";
@@ -21,11 +15,10 @@ const LIGHT_BLUE = "#EAF4FF";
 const WHITE = "#FFFFFF";
 const SOFT = "#A9C4E5";
 
-const font =
-  '"Tahoma", "Arial", "Segoe UI", sans-serif';
+const FONT = '"Tahoma", "Arial", sans-serif';
 
 /* =========================================================
-   GLOBAL BACKGROUND
+   BACKGROUND
 ========================================================= */
 
 const Scene: React.FC<{
@@ -43,7 +36,7 @@ const Scene: React.FC<{
   return (
     <AbsoluteFill
       style={{
-        fontFamily: font,
+        fontFamily: FONT,
         overflow: "hidden",
         background: dark
           ? `linear-gradient(135deg, ${NAVY} 0%, ${NAVY2} 100%)`
@@ -57,11 +50,11 @@ const Scene: React.FC<{
           width: 850,
           height: 850,
           borderRadius: "50%",
+          right: -380,
+          top: -420,
           background: dark
             ? `rgba(22,119,255,${0.07 + glow * 0.03})`
             : "rgba(22,119,255,0.07)",
-          right: -380,
-          top: -420,
         }}
       />
 
@@ -71,11 +64,11 @@ const Scene: React.FC<{
           width: 500,
           height: 500,
           borderRadius: "50%",
+          left: -250,
+          bottom: -280,
           background: dark
             ? "rgba(255,255,255,0.025)"
             : "rgba(22,119,255,0.035)",
-          left: -250,
-          bottom: -280,
         }}
       />
 
@@ -85,33 +78,30 @@ const Scene: React.FC<{
 };
 
 /* =========================================================
-   TOP BRAND
+   BRAND
 ========================================================= */
 
-const Brand: React.FC<{ light?: boolean }> = ({ light = false }) => {
+const Brand: React.FC<{ light?: boolean }> = ({
+  light = false,
+}) => {
   return (
     <div
       style={{
         position: "absolute",
-        top: 55,
-        right: 75,
+        top: 50,
+        right: 65,
         display: "flex",
         alignItems: "center",
-        gap: 16,
-        zIndex: 50,
+        gap: 15,
+        zIndex: 100,
       }}
     >
-      <div
-        style={{
-          textAlign: "right",
-        }}
-      >
+      <div style={{ textAlign: "right" }}>
         <div
           style={{
-            fontSize: 27,
+            fontSize: 28,
             fontWeight: 900,
             color: light ? WHITE : NAVY,
-            lineHeight: 1,
           }}
         >
           نبض
@@ -119,7 +109,7 @@ const Brand: React.FC<{ light?: boolean }> = ({ light = false }) => {
 
         <div
           style={{
-            marginTop: 5,
+            marginTop: 4,
             fontSize: 16,
             fontWeight: 700,
             color: light ? SOFT : BLUE,
@@ -133,20 +123,20 @@ const Brand: React.FC<{ light?: boolean }> = ({ light = false }) => {
         style={{
           width: 48,
           height: 48,
-          borderRadius: 16,
-          background: BLUE,
+          borderRadius: 15,
+          backgroundColor: BLUE,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          boxShadow: "0 10px 25px rgba(22,119,255,0.25)",
+          boxShadow: "0 10px 30px rgba(22,119,255,0.3)",
         }}
       >
         <div
           style={{
-            width: 20,
-            height: 20,
-            border: "4px solid white",
+            width: 19,
+            height: 19,
             borderRadius: "50%",
+            border: "4px solid white",
           }}
         />
       </div>
@@ -155,92 +145,23 @@ const Brand: React.FC<{ light?: boolean }> = ({ light = false }) => {
 };
 
 /* =========================================================
-   ANIMATED CHARACTER
-========================================================= */
-
-const Character: React.FC<{
-  file: string;
-  side?: "left" | "right";
-  size?: number;
-  bottom?: number;
-}> = ({
-  file,
-  side = "right",
-  size = 720,
-  bottom = -100,
-}) => {
-  const frame = useCurrentFrame();
-
-  const startX = side === "right" ? 300 : -300;
-
-  const x = interpolate(
-    frame,
-    [0, 35],
-    [startX, 0],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
-
-  const opacity = interpolate(
-    frame,
-    [0, 15],
-    [0, 1],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
-
-  const float = Math.sin(frame / 13) * 5;
-
-  const scale = interpolate(
-    frame,
-    [0, 35],
-    [0.88, 1],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
-
-  return (
-    <Img
-      src={staticFile(`characters/${file}`)}
-      style={{
-        position: "absolute",
-        [side]: 10,
-        bottom,
-        width: size,
-        height: size,
-        objectFit: "contain",
-        opacity,
-        transform: `
-          translateX(${x}px)
-          translateY(${float}px)
-          scale(${scale})
-        `,
-        zIndex: 20,
-      }}
-    />
-  );
-};
-
-/* =========================================================
-   REVEAL TEXT
+   TEXT ANIMATION
 ========================================================= */
 
 const Reveal: React.FC<{
   children: React.ReactNode;
   delay?: number;
-  x?: number;
-}> = ({ children, delay = 0, x = 60 }) => {
+  distance?: number;
+}> = ({
+  children,
+  delay = 0,
+  distance = 60,
+}) => {
   const frame = useCurrentFrame();
 
   const opacity = interpolate(
     frame,
-    [delay, delay + 22],
+    [delay, delay + 20],
     [0, 1],
     {
       extrapolateLeft: "clamp",
@@ -248,10 +169,10 @@ const Reveal: React.FC<{
     }
   );
 
-  const translate = interpolate(
+  const x = interpolate(
     frame,
-    [delay, delay + 22],
-    [x, 0],
+    [delay, delay + 20],
+    [distance, 0],
     {
       extrapolateLeft: "clamp",
       extrapolateRight: "clamp",
@@ -262,7 +183,7 @@ const Reveal: React.FC<{
     <div
       style={{
         opacity,
-        transform: `translateX(${translate}px)`,
+        transform: `translateX(${x}px)`,
       }}
     >
       {children}
@@ -271,15 +192,69 @@ const Reveal: React.FC<{
 };
 
 /* =========================================================
-   01 — CINEMATIC OPENING
+   CHARACTER
+   Transparent PNG + Movement
 ========================================================= */
 
-const Opening: React.FC = () => {
+type CharacterProps = {
+  file: string;
+  side?: "left" | "right";
+  size?: number;
+  bottom?: number;
+  delay?: number;
+  direction?: "from-left" | "from-right" | "from-bottom";
+};
+
+const Character: React.FC<CharacterProps> = ({
+  file,
+  side = "right",
+  size = 700,
+  bottom = -100,
+  delay = 0,
+  direction = "from-right",
+}) => {
   const frame = useCurrentFrame();
 
-  const line = interpolate(
-    frame,
-    [0, 45],
+  const localFrame = Math.max(0, frame - delay);
+
+  let startX = 0;
+  let startY = 0;
+
+  if (direction === "from-right") {
+    startX = 320;
+  }
+
+  if (direction === "from-left") {
+    startX = -320;
+  }
+
+  if (direction === "from-bottom") {
+    startY = 250;
+  }
+
+  const x = interpolate(
+    localFrame,
+    [0, 30],
+    [startX, 0],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+
+  const y = interpolate(
+    localFrame,
+    [0, 30],
+    [startY, 0],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+
+  const opacity = interpolate(
+    localFrame,
+    [0, 15],
     [0, 1],
     {
       extrapolateLeft: "clamp",
@@ -287,16 +262,49 @@ const Opening: React.FC = () => {
     }
   );
 
-  const titleScale = interpolate(
-    frame,
-    [15, 50],
-    [0.8, 1],
+  const scale = interpolate(
+    localFrame,
+    [0, 30],
+    [0.86, 1],
     {
       extrapolateLeft: "clamp",
       extrapolateRight: "clamp",
     }
   );
 
+  /*
+    حركة خفيفة مستمرة للشخصية
+    تعطي إحساس أنها حية وليست صورة ثابتة.
+  */
+  const float = Math.sin(localFrame / 12) * 5;
+
+  return (
+    <Img
+      src={staticFile(`characters/${file}`)}
+      style={{
+        position: "absolute",
+        [side]: 20,
+        bottom,
+        width: size,
+        height: size,
+        objectFit: "contain",
+        opacity,
+        transform: `
+          translateX(${x}px)
+          translateY(${y + float}px)
+          scale(${scale})
+        `,
+        zIndex: 30,
+      }}
+    />
+  );
+};
+
+/* =========================================================
+   01 — OPENING
+========================================================= */
+
+const Opening: React.FC = () => {
   return (
     <Scene dark>
       <Brand light />
@@ -305,14 +313,15 @@ const Opening: React.FC = () => {
         style={{
           position: "absolute",
           left: 120,
-          top: 240,
+          top: 235,
           width: 900,
+          zIndex: 10,
         }}
       >
         <Reveal>
           <div
             style={{
-              fontSize: 25,
+              fontSize: 26,
               color: SOFT,
               fontWeight: 700,
               letterSpacing: 3,
@@ -322,52 +331,47 @@ const Opening: React.FC = () => {
           </div>
         </Reveal>
 
-        <div
-          style={{
-            marginTop: 20,
-            transform: `scale(${titleScale})`,
-            transformOrigin: "right center",
-          }}
-        >
+        <Reveal delay={15}>
           <div
             style={{
+              marginTop: 15,
               fontSize: 125,
+              lineHeight: 0.95,
               fontWeight: 900,
               color: WHITE,
-              lineHeight: 0.95,
             }}
           >
             نبض
           </div>
+        </Reveal>
 
+        <Reveal delay={30}>
           <div
             style={{
               marginTop: 15,
               fontSize: 55,
               fontWeight: 800,
-              color: BLUE,
+              color: "#66A8FF",
             }}
           >
             العلاج الطبيعي
           </div>
-        </div>
+        </Reveal>
 
         <div
           style={{
-            marginTop: 55,
+            marginTop: 45,
             width: 430,
             height: 5,
-            background: BLUE,
-            transformOrigin: "right",
-            transform: `scaleX(${line})`,
+            backgroundColor: BLUE,
           }}
         />
 
-        <Reveal delay={45}>
+        <Reveal delay={55}>
           <div
             style={{
-              marginTop: 30,
-              fontSize: 28,
+              marginTop: 28,
+              fontSize: 29,
               color: SOFT,
               fontWeight: 700,
             }}
@@ -378,17 +382,18 @@ const Opening: React.FC = () => {
       </div>
 
       <Character
-        file="IMG_0715.PNG"
+        file="IMG_0738.PNG"
         side="right"
         size={800}
         bottom={-130}
+        direction="from-right"
       />
     </Scene>
   );
 };
 
 /* =========================================================
-   02 — TITLE
+   02 — EPISODE TITLE
 ========================================================= */
 
 const EpisodeTitle: React.FC = () => {
@@ -399,16 +404,16 @@ const EpisodeTitle: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          left: 110,
-          right: 110,
-          top: 190,
+          left: 100,
+          top: 185,
+          width: 1000,
           textAlign: "right",
         }}
       >
         <Reveal>
           <div
             style={{
-              fontSize: 27,
+              fontSize: 28,
               color: BLUE,
               fontWeight: 900,
             }}
@@ -423,8 +428,8 @@ const EpisodeTitle: React.FC = () => {
               marginTop: 30,
               fontSize: 78,
               fontWeight: 900,
-              color: NAVY,
               lineHeight: 1.2,
+              color: NAVY,
             }}
           >
             ما هو
@@ -435,10 +440,10 @@ const EpisodeTitle: React.FC = () => {
           </div>
         </Reveal>
 
-        <Reveal delay={50}>
+        <Reveal delay={55}>
           <div
             style={{
-              marginTop: 30,
+              marginTop: 25,
               fontSize: 45,
               fontWeight: 700,
               color: NAVY2,
@@ -450,10 +455,11 @@ const EpisodeTitle: React.FC = () => {
       </div>
 
       <Character
-        file="IMG_0714.PNG"
+        file="IMG_0738.PNG"
         side="left"
         size={730}
-        bottom={-110}
+        bottom={-120}
+        direction="from-left"
       />
     </Scene>
   );
@@ -466,10 +472,10 @@ const EpisodeTitle: React.FC = () => {
 const Question: React.FC = () => {
   const frame = useCurrentFrame();
 
-  const questionScale = interpolate(
+  const scale = interpolate(
     frame,
-    [0, 30],
-    [0.4, 1],
+    [0, 28],
+    [0.35, 1],
     {
       extrapolateLeft: "clamp",
       extrapolateRight: "clamp",
@@ -484,31 +490,33 @@ const Question: React.FC = () => {
         style={{
           position: "absolute",
           left: 150,
-          top: 220,
-          width: 900,
+          top: 210,
+          width: 950,
         }}
       >
-        <div
-          style={{
-            fontSize: 180,
-            fontWeight: 900,
-            color: BLUE,
-            lineHeight: 0.8,
-            transform: `scale(${questionScale})`,
-            transformOrigin: "left center",
-          }}
-        >
-          ؟
-        </div>
+        <Reveal>
+          <div
+            style={{
+              fontSize: 175,
+              lineHeight: 0.8,
+              fontWeight: 900,
+              color: BLUE,
+              transform: `scale(${scale})`,
+              transformOrigin: "left center",
+            }}
+          >
+            ؟
+          </div>
+        </Reveal>
 
         <Reveal delay={25}>
           <div
             style={{
               marginTop: 45,
               fontSize: 70,
+              lineHeight: 1.3,
               fontWeight: 900,
               color: WHITE,
-              lineHeight: 1.3,
             }}
           >
             هل العلاج الطبيعي
@@ -521,10 +529,11 @@ const Question: React.FC = () => {
       </div>
 
       <Character
-        file="IMG_0714.PNG"
+        file="IMG_0737.PNG"
         side="right"
-        size={760}
-        bottom={-120}
+        size={780}
+        bottom={-130}
+        direction="from-right"
       />
     </Scene>
   );
@@ -540,7 +549,7 @@ const Answer: React.FC = () => {
   const scale = interpolate(
     frame,
     [0, 25],
-    [0.4, 1],
+    [0.3, 1],
     {
       extrapolateLeft: "clamp",
       extrapolateRight: "clamp",
@@ -555,13 +564,13 @@ const Answer: React.FC = () => {
         style={{
           position: "absolute",
           left: 130,
-          top: 250,
-          width: 900,
+          top: 230,
+          width: 950,
         }}
       >
         <div
           style={{
-            fontSize: 190,
+            fontSize: 180,
             fontWeight: 900,
             color: BLUE,
             transform: `scale(${scale})`,
@@ -574,11 +583,11 @@ const Answer: React.FC = () => {
         <Reveal delay={25}>
           <div
             style={{
-              marginTop: 20,
-              fontSize: 54,
+              marginTop: 25,
+              fontSize: 53,
+              lineHeight: 1.5,
               fontWeight: 800,
               color: NAVY,
-              lineHeight: 1.45,
             }}
           >
             التدليك وسيلة واحدة فقط
@@ -589,10 +598,11 @@ const Answer: React.FC = () => {
       </div>
 
       <Character
-        file="IMG_0715.PNG"
+        file="IMG_0732.PNG"
         side="right"
         size={750}
         bottom={-130}
+        direction="from-right"
       />
     </Scene>
   );
@@ -605,7 +615,7 @@ const Answer: React.FC = () => {
 const Definition: React.FC = () => {
   const frame = useCurrentFrame();
 
-  const points = [
+  const items = [
     "تحسين الحركة",
     "تقليل الألم",
     "استعادة الوظائف الجسدية",
@@ -619,15 +629,16 @@ const Definition: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          left: 100,
-          top: 110,
-          width: 1080,
+          left: 90,
+          top: 115,
+          width: 1050,
+          zIndex: 10,
         }}
       >
         <Reveal>
           <div
             style={{
-              fontSize: 28,
+              fontSize: 29,
               fontWeight: 900,
               color: BLUE,
             }}
@@ -640,9 +651,9 @@ const Definition: React.FC = () => {
           <div
             style={{
               marginTop: 25,
-              fontSize: 58,
-              fontWeight: 900,
+              fontSize: 57,
               lineHeight: 1.35,
+              fontWeight: 900,
               color: NAVY,
             }}
           >
@@ -654,14 +665,14 @@ const Definition: React.FC = () => {
 
         <div
           style={{
-            marginTop: 45,
+            marginTop: 42,
             display: "flex",
             flexDirection: "column",
-            gap: 15,
+            gap: 16,
           }}
         >
-          {points.map((point, index) => {
-            const delay = 55 + index * 20;
+          {items.map((item, index) => {
+            const delay = 55 + index * 18;
 
             const opacity = interpolate(
               frame,
@@ -685,29 +696,29 @@ const Definition: React.FC = () => {
 
             return (
               <div
-                key={point}
+                key={item}
                 style={{
                   opacity,
                   transform: `translateX(${x}px)`,
                   display: "flex",
                   alignItems: "center",
                   gap: 18,
-                  fontSize: index === 3 ? 29 : 37,
+                  fontSize: index === 3 ? 28 : 37,
                   fontWeight: 800,
                   color: NAVY2,
                 }}
               >
                 <div
                   style={{
-                    width: 14,
-                    height: 14,
+                    width: 13,
+                    height: 13,
                     borderRadius: "50%",
-                    background: BLUE,
+                    backgroundColor: BLUE,
                     flexShrink: 0,
                   }}
                 />
 
-                {point}
+                {item}
               </div>
             );
           })}
@@ -715,10 +726,11 @@ const Definition: React.FC = () => {
       </div>
 
       <Character
-        file="IMG_0717.PNG"
+        file="IMG_0733.PNG"
         side="right"
-        size={680}
+        size={720}
         bottom={-120}
+        direction="from-right"
       />
     </Scene>
   );
@@ -734,15 +746,15 @@ const Methods: React.FC = () => {
   const cards = [
     {
       title: "التمارين العلاجية",
-      subtitle: "لتطوير الحركة والقوة والمرونة",
+      text: "لتطوير الحركة والقوة والمرونة",
     },
     {
       title: "العلاج اليدوي",
-      subtitle: "لتخفيف الألم وتحسين الحركة",
+      text: "لتخفيف الألم وتحسين الحركة",
     },
     {
       title: "الأجهزة والوسائل العلاجية",
-      subtitle: "بحسب الحالة والهدف العلاجي",
+      text: "بحسب الحالة والهدف العلاجي",
     },
   ];
 
@@ -753,16 +765,16 @@ const Methods: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          top: 125,
-          left: 80,
-          right: 80,
+          left: 70,
+          right: 70,
+          top: 120,
           textAlign: "center",
         }}
       >
         <Reveal>
           <div
             style={{
-              fontSize: 58,
+              fontSize: 57,
               fontWeight: 900,
               color: WHITE,
             }}
@@ -776,19 +788,19 @@ const Methods: React.FC = () => {
 
         <div
           style={{
-            marginTop: 65,
+            marginTop: 55,
             display: "flex",
             justifyContent: "center",
-            gap: 22,
+            gap: 20,
           }}
         >
           {cards.map((card, index) => {
-            const delay = 30 + index * 20;
+            const delay = 30 + index * 18;
 
             const y = interpolate(
               frame,
               [delay, delay + 20],
-              [90, 0],
+              [80, 0],
               {
                 extrapolateLeft: "clamp",
                 extrapolateRight: "clamp",
@@ -810,13 +822,13 @@ const Methods: React.FC = () => {
                 key={card.title}
                 style={{
                   width: 330,
-                  minHeight: 275,
-                  borderRadius: 30,
-                  background:
-                    "linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.05))",
-                  border:
-                    "1px solid rgba(255,255,255,0.12)",
+                  minHeight: 260,
+                  borderRadius: 28,
                   padding: "35px 25px",
+                  background:
+                    "rgba(255,255,255,0.08)",
+                  border:
+                    "1px solid rgba(255,255,255,0.14)",
                   opacity,
                   transform: `translateY(${y}px)`,
                   display: "flex",
@@ -827,10 +839,10 @@ const Methods: React.FC = () => {
               >
                 <div
                   style={{
-                    fontSize: 39,
+                    fontSize: 37,
+                    lineHeight: 1.35,
                     fontWeight: 900,
                     color: WHITE,
-                    lineHeight: 1.3,
                   }}
                 >
                   {card.title}
@@ -838,14 +850,14 @@ const Methods: React.FC = () => {
 
                 <div
                   style={{
-                    marginTop: 25,
-                    fontSize: 24,
+                    marginTop: 22,
+                    fontSize: 23,
+                    lineHeight: 1.5,
                     fontWeight: 600,
                     color: SOFT,
-                    lineHeight: 1.5,
                   }}
                 >
-                  {card.subtitle}
+                  {card.text}
                 </div>
               </div>
             );
@@ -855,8 +867,8 @@ const Methods: React.FC = () => {
         <Reveal delay={100}>
           <div
             style={{
-              marginTop: 55,
-              fontSize: 42,
+              marginTop: 48,
+              fontSize: 40,
               fontWeight: 900,
               color: "#66A8FF",
             }}
@@ -867,20 +879,21 @@ const Methods: React.FC = () => {
       </div>
 
       <Character
-        file="IMG_0718.PNG"
+        file="IMG_0734.PNG"
         side="right"
-        size={610}
-        bottom={-170}
+        size={650}
+        bottom={-180}
+        direction="from-right"
       />
     </Scene>
   );
 };
 
 /* =========================================================
-   07 — FINAL MESSAGE
+   07 — SUMMARY
 ========================================================= */
 
-const FinalMessage: React.FC = () => {
+const Summary: React.FC = () => {
   return (
     <Scene>
       <Brand />
@@ -888,15 +901,15 @@ const FinalMessage: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          left: 120,
-          top: 170,
-          width: 1000,
+          left: 110,
+          top: 165,
+          width: 1050,
         }}
       >
         <Reveal>
           <div
             style={{
-              fontSize: 31,
+              fontSize: 30,
               fontWeight: 900,
               color: BLUE,
             }}
@@ -909,16 +922,16 @@ const FinalMessage: React.FC = () => {
           <div
             style={{
               marginTop: 25,
-              fontSize: 67,
+              fontSize: 66,
+              lineHeight: 1.3,
               fontWeight: 900,
               color: NAVY,
-              lineHeight: 1.3,
             }}
           >
             العلاج الطبيعي
             <br />
             <span style={{ color: BLUE }}>
-              علمٌ كامل لاستعادة الحركة.
+              علم كامل لاستعادة الحركة.
             </span>
           </div>
         </Reveal>
@@ -926,11 +939,11 @@ const FinalMessage: React.FC = () => {
         <Reveal delay={55}>
           <div
             style={{
-              marginTop: 40,
-              fontSize: 39,
+              marginTop: 38,
+              fontSize: 38,
+              lineHeight: 1.55,
               fontWeight: 700,
               color: NAVY2,
-              lineHeight: 1.55,
             }}
           >
             لذلك عندما تسمع كلمة
@@ -943,10 +956,11 @@ const FinalMessage: React.FC = () => {
       </div>
 
       <Character
-        file="IMG_0717.PNG"
+        file="IMG_0733.PNG"
         side="right"
         size={720}
         bottom={-130}
+        direction="from-right"
       />
     </Scene>
   );
@@ -988,20 +1002,20 @@ const Ending: React.FC = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          textAlign: "center",
         }}
       >
         <div
           style={{
+            width: 950,
+            marginRight: 470,
+            textAlign: "center",
             opacity,
             transform: `translateY(${y}px)`,
-            width: 1050,
-            marginRight: 420,
           }}
         >
           <div
             style={{
-              fontSize: 74,
+              fontSize: 72,
               fontWeight: 900,
               color: WHITE,
             }}
@@ -1011,8 +1025,8 @@ const Ending: React.FC = () => {
 
           <div
             style={{
-              marginTop: 28,
-              fontSize: 48,
+              marginTop: 25,
+              fontSize: 47,
               fontWeight: 900,
               color: "#66A8FF",
             }}
@@ -1022,8 +1036,8 @@ const Ending: React.FC = () => {
 
           <div
             style={{
-              marginTop: 25,
-              fontSize: 34,
+              marginTop: 22,
+              fontSize: 33,
               fontWeight: 700,
               color: SOFT,
             }}
@@ -1033,22 +1047,24 @@ const Ending: React.FC = () => {
 
           <div
             style={{
-              margin: "45px auto 0",
               width: 260,
               height: 5,
-              background: BLUE,
+              backgroundColor: BLUE,
+              margin: "42px auto 0",
             }}
           />
         </div>
 
         <Img
-          src={staticFile("characters/IMG_0719.PNG")}
+          src={staticFile(
+            "characters/IMG_0735.PNG"
+          )}
           style={{
             position: "absolute",
-            right: 10,
-            bottom: -130,
-            width: 760,
-            height: 760,
+            right: 0,
+            bottom: -140,
+            width: 800,
+            height: 800,
             objectFit: "contain",
             opacity,
             transform: `translateY(${y}px)`,
@@ -1060,50 +1076,66 @@ const Ending: React.FC = () => {
 };
 
 /* =========================================================
-   EPISODE
+   EPISODE 01
 ========================================================= */
 
 export const Episode01: React.FC = () => {
   return (
     <AbsoluteFill>
 
-      {/* 10 seconds */}
-      <Sequence from={0} durationInFrames={300}>
+      <Sequence
+        from={0}
+        durationInFrames={300}
+      >
         <Opening />
       </Sequence>
 
-      {/* 12 seconds */}
-      <Sequence from={300} durationInFrames={360}>
+      <Sequence
+        from={300}
+        durationInFrames={360}
+      >
         <EpisodeTitle />
       </Sequence>
 
-      {/* 15 seconds */}
-      <Sequence from={660} durationInFrames={450}>
+      <Sequence
+        from={660}
+        durationInFrames={450}
+      >
         <Question />
       </Sequence>
 
-      {/* 10 seconds */}
-      <Sequence from={1110} durationInFrames={300}>
+      <Sequence
+        from={1110}
+        durationInFrames={300}
+      >
         <Answer />
       </Sequence>
 
-      {/* 30 seconds */}
-      <Sequence from={1410} durationInFrames={900}>
+      <Sequence
+        from={1410}
+        durationInFrames={900}
+      >
         <Definition />
       </Sequence>
 
-      {/* 30 seconds */}
-      <Sequence from={2310} durationInFrames={900}>
+      <Sequence
+        from={2310}
+        durationInFrames={900}
+      >
         <Methods />
       </Sequence>
 
-      {/* 17 seconds */}
-      <Sequence from={3210} durationInFrames={510}>
-        <FinalMessage />
+      <Sequence
+        from={3210}
+        durationInFrames={510}
+      >
+        <Summary />
       </Sequence>
 
-      {/* 18 seconds */}
-      <Sequence from={3720} durationInFrames={540}>
+      <Sequence
+        from={3720}
+        durationInFrames={540}
+      >
         <Ending />
       </Sequence>
 
