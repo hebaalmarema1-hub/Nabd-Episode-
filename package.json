@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "remotion studio",
-    "build": "remotion render",
+    "dev": "remotion studio index.ts",
+    "build": "remotion render index.ts",
     "upgrade": "remotion upgrade"
   },
   "dependencies": {
