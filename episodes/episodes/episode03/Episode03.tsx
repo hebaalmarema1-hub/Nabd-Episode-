@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteFill } from "remotion";
+import { AbsoluteFill, Img, staticFile } from "remotion";
 
 export const Episode03: React.FC = () => {
   return (
@@ -206,6 +206,36 @@ export const Episode03: React.FC = () => {
       >
         First Visit
       </div>
+      {/* عنوان المشهد */}
+      <div
+        style={{
+          position: "absolute",
+          right: 110,
+          bottom: 70,
+          backgroundColor: "#FFFFFF",
+          padding: "18px 30px",
+          borderRadius: 15,
+          color: "#31515C",
+          fontSize: 25,
+          boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+        }}
+      >
+        First Visit
+      </div>
+
+      {/* الشخصية */}
+      <Img
+        src={staticFile("characters/nabd-host.jpeg")}
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 230,
+          width: 360,
+          height: 500,
+          objectFit: "contain",
+        }}
+      />
     </AbsoluteFill>
   );
 };
+  
