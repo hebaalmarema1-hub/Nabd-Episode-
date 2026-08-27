@@ -10,7 +10,7 @@ export const Episode03: React.FC = () => {
         fontFamily: "Arial, sans-serif",
       }}
     >
-      {/* الحائط */}
+      {/* Background */}
       <div
         style={{
           position: "absolute",
@@ -20,7 +20,7 @@ export const Episode03: React.FC = () => {
         }}
       />
 
-      {/* ديكور جانبي */}
+      {/* Left decoration */}
       <div
         style={{
           position: "absolute",
@@ -32,6 +32,7 @@ export const Episode03: React.FC = () => {
         }}
       />
 
+      {/* Right decoration */}
       <div
         style={{
           position: "absolute",
@@ -43,7 +44,7 @@ export const Episode03: React.FC = () => {
         }}
       />
 
-      {/* الأرضية */}
+      {/* Floor */}
       <div
         style={{
           position: "absolute",
@@ -56,29 +57,31 @@ export const Episode03: React.FC = () => {
         }}
       />
 
-      {/* لوحة اسم العيادة */}
+      {/* Clinic sign */}
       <div
         style={{
           position: "absolute",
-          top: 70,
+          top: 60,
           left: "50%",
           transform: "translateX(-50%)",
           backgroundColor: "#FFFFFF",
-          padding: "25px 65px",
-          borderRadius: 22,
+          padding: "22px 55px",
+          borderRadius: 20,
           border: "4px solid #087EA4",
           boxShadow: "0 12px 30px rgba(0,0,0,0.12)",
           color: "#087EA4",
-          fontSize: 40,
+          fontSize: 38,
           fontWeight: "bold",
           textAlign: "center",
+          zIndex: 5,
         }}
       >
         PHYSICAL THERAPY
+
         <div
           style={{
             marginTop: 8,
-            fontSize: 25,
+            fontSize: 24,
             color: "#4A6873",
             fontWeight: "normal",
           }}
@@ -87,7 +90,7 @@ export const Episode03: React.FC = () => {
         </div>
       </div>
 
-      {/* إطار الباب */}
+      {/* Door frame */}
       <div
         style={{
           position: "absolute",
@@ -103,7 +106,7 @@ export const Episode03: React.FC = () => {
           boxShadow: "0 15px 35px rgba(0,0,0,0.18)",
         }}
       >
-        {/* الباب */}
+        {/* Door */}
         <div
           style={{
             position: "relative",
@@ -113,7 +116,7 @@ export const Episode03: React.FC = () => {
             borderRadius: "18px 18px 0 0",
           }}
         >
-          {/* زجاج الباب */}
+          {/* Glass */}
           <div
             style={{
               position: "absolute",
@@ -127,7 +130,7 @@ export const Episode03: React.FC = () => {
               boxSizing: "border-box",
             }}
           >
-            {/* انعكاس الزجاج */}
+            {/* Glass reflection */}
             <div
               style={{
                 position: "absolute",
@@ -141,7 +144,7 @@ export const Episode03: React.FC = () => {
             />
           </div>
 
-          {/* لوحة الباب */}
+          {/* Door sign */}
           <div
             style={{
               position: "absolute",
@@ -160,7 +163,7 @@ export const Episode03: React.FC = () => {
             PHYSICAL THERAPY
           </div>
 
-          {/* مقبض الباب */}
+          {/* Door handle */}
           <div
             style={{
               position: "absolute",
@@ -176,7 +179,7 @@ export const Episode03: React.FC = () => {
         </div>
       </div>
 
-      {/* عنوان الحلقة */}
+      {/* Episode number */}
       <div
         style={{
           position: "absolute",
@@ -185,12 +188,13 @@ export const Episode03: React.FC = () => {
           color: "#087EA4",
           fontSize: 32,
           fontWeight: "bold",
+          zIndex: 20,
         }}
       >
         EPISODE 03
       </div>
 
-      {/* وصف المشهد */}
+      {/* Scene title */}
       <div
         style={{
           position: "absolute",
@@ -202,40 +206,25 @@ export const Episode03: React.FC = () => {
           color: "#31515C",
           fontSize: 25,
           boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
-        }}
-      >
-        First Visit
-      </div>
-      {/* عنوان المشهد */}
-      <div
-        style={{
-          position: "absolute",
-          right: 110,
-          bottom: 70,
-          backgroundColor: "#FFFFFF",
-          padding: "18px 30px",
-          borderRadius: 15,
-          color: "#31515C",
-          fontSize: 25,
-          boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+          zIndex: 20,
         }}
       >
         First Visit
       </div>
 
-      {/* الشخصية */}
+      {/* Nabd character */}
       <Img
         src={staticFile("characters/nabd-host.jpeg")}
         style={{
           position: "absolute",
           bottom: 0,
-          left: 230,
-          width: 360,
-          height: 500,
+          left: 170,
+          width: 430,
+          height: 560,
           objectFit: "contain",
+          zIndex: 15,
         }}
       />
     </AbsoluteFill>
   );
 };
-  
