@@ -28,21 +28,10 @@ export const Episode03: React.FC = () => {
     [0, 1],
     {
       extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
+      extrapolateRight: "clamp",import React from "react";
+import { AbsoluteFill, Img, staticFile } from "remotion";
 
-  // بعد الوصول للباب تظهر صورة الترحيب
-  const welcomeOpacity = interpolate(
-    frame,
-    [100, 115],
-    [0, 1],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
-
+export const Episode03: React.FC = () => {
   return (
     <AbsoluteFill
       style={{
@@ -56,8 +45,7 @@ export const Episode03: React.FC = () => {
         style={{
           position: "absolute",
           inset: 0,
-          background:
-            "linear-gradient(180deg, #EAF7FC 0%, #FFFFFF 70%)",
+          background: "linear-gradient(180deg, #EAF7FC 0%, #FFFFFF 70%)",
         }}
       />
 
@@ -97,7 +85,6 @@ export const Episode03: React.FC = () => {
           padding: "22px 55px",
           borderRadius: 20,
           border: "4px solid #087EA4",
-          boxShadow: "0 12px 30px rgba(0,0,0,0.12)",
           color: "#087EA4",
           fontSize: 38,
           fontWeight: "bold",
@@ -131,7 +118,6 @@ export const Episode03: React.FC = () => {
           padding: 18,
           borderRadius: "28px 28px 0 0",
           boxSizing: "border-box",
-          boxShadow: "0 15px 35px rgba(0,0,0,0.18)",
         }}
       >
         {/* الباب */}
@@ -155,22 +141,8 @@ export const Episode03: React.FC = () => {
               backgroundColor: "#DDF4FA",
               border: "8px solid #FFFFFF",
               borderRadius: 14,
-              boxSizing: "border-box",
             }}
-          >
-            {/* انعكاس الزجاج */}
-            <div
-              style={{
-                position: "absolute",
-                left: 25,
-                top: 20,
-                width: 80,
-                height: 240,
-                backgroundColor: "rgba(255,255,255,0.35)",
-                transform: "skewX(-15deg)",
-              }}
-            />
-          </div>
+          />
 
           {/* لوحة الباب */}
           <div
@@ -191,7 +163,7 @@ export const Episode03: React.FC = () => {
             PHYSICAL THERAPY
           </div>
 
-          {/* مقبض الباب */}
+          {/* المقبض */}
           <div
             style={{
               position: "absolute",
@@ -201,60 +173,39 @@ export const Episode03: React.FC = () => {
               height: 25,
               borderRadius: "50%",
               backgroundColor: "#FFFFFF",
-              boxShadow: "0 2px 6px rgba(0,0,0,0.25)",
             }}
           />
         </div>
       </div>
 
-      {/* الشخصية - تدخل من اليسار */}
+      {/* الشخصية */}
       <Img
         src={staticFile("characters/IMG_0815.PNG")}
         style={{
           position: "absolute",
-          bottom: 100,
-          left: characterLeft,
+          left: 180,
+          bottom: 60,
           width: 360,
           height: 500,
           objectFit: "contain",
-          opacity,
         }}
       />
 
-      {/* ترحيب */}
+      {/* نص الترحيب */}
       <div
         style={{
           position: "absolute",
-          left: 120,
-          bottom: 80,
+          left: 90,
+          bottom: 35,
           backgroundColor: "#FFFFFF",
-          padding: "18px 30px",
-          borderRadius: 18,
+          padding: "14px 25px",
+          borderRadius: 15,
           color: "#087EA4",
-          fontSize: 28,
+          fontSize: 26,
           fontWeight: "bold",
-          boxShadow: "0 8px 25px rgba(0,0,0,0.12)",
-          opacity: welcomeOpacity,
         }}
       >
         مرحبًا بك 👋
-      </div>
-
-      {/* عنوان الحلقة */}
-      <div
-        style={{
-          position: "absolute",
-          right: 90,
-          bottom: 70,
-          backgroundColor: "#FFFFFF",
-          padding: "15px 25px",
-          borderRadius: 15,
-          color: "#31515C",
-          fontSize: 24,
-          boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
-        }}
-      >
-        Episode 03
       </div>
     </AbsoluteFill>
   );
