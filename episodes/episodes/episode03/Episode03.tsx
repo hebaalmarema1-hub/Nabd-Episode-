@@ -425,7 +425,199 @@ export const Episode03: React.FC = () => {
   // =========================
   // MAIN
   // =========================
+// =========================
+  // SCENE 05
+  // =========================
 
+  const Scene05 = () => (
+    <AbsoluteFill style={{ opacity }}>
+      <Background />
+
+      <Header
+        title="نحدد مكان الألم"
+        number="05"
+      />
+
+      {/* الشخصية */}
+      <div
+        style={{
+          position: "absolute",
+          left: 90,
+          bottom: 90,
+          width: 480,
+          height: 620,
+          zIndex: 20,
+          opacity,
+          transform: `translateY(${moveUp}px)`,
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            top: 20,
+            left: 145,
+            width: 180,
+            height: 180,
+            borderRadius: "50%",
+            backgroundColor: "#F2C6A0",
+            border: `6px solid ${DARK}`,
+          }}
+        />
+
+        <div
+          style={{
+            position: "absolute",
+            top: 8,
+            left: 140,
+            width: 190,
+            height: 80,
+            borderRadius: "100px 100px 30px 30px",
+            backgroundColor: DARK,
+          }}
+        />
+
+        <div
+          style={{
+            position: "absolute",
+            top: 190,
+            left: 85,
+            width: 300,
+            height: 300,
+            borderRadius: "80px 80px 35px 35px",
+            backgroundColor: BLUE,
+            border: `6px solid ${DARK}`,
+          }}
+        />
+
+        {/* مكان الألم */}
+        <div
+          style={{
+            position: "absolute",
+            top: 260,
+            left: 345,
+            width: 110,
+            height: 110,
+            borderRadius: "50%",
+            backgroundColor: "#F6D7C1",
+            border: `5px solid ${CYAN}`,
+            boxShadow: "0 0 0 12px rgba(53,182,214,0.15)",
+            zIndex: 25,
+          }}
+        />
+
+        <div
+          style={{
+            position: "absolute",
+            top: 225,
+            left: 350,
+            width: 100,
+            height: 235,
+            borderRadius: 60,
+            backgroundColor: "#F2C6A0",
+            border: `6px solid ${DARK}`,
+            transform: "rotate(-18deg)",
+          }}
+        />
+
+        <div
+          style={{
+            position: "absolute",
+            top: 465,
+            left: 120,
+            width: 105,
+            height: 150,
+            borderRadius: 45,
+            backgroundColor: "#F2C6A0",
+            border: `6px solid ${DARK}`,
+          }}
+        />
+
+        <div
+          style={{
+            position: "absolute",
+            top: 465,
+            left: 255,
+            width: 105,
+            height: 150,
+            borderRadius: 45,
+            backgroundColor: "#F2C6A0",
+            border: `6px solid ${DARK}`,
+          }}
+        />
+      </div>
+
+      {/* بطاقة الألم */}
+      <div
+        style={{
+          position: "absolute",
+          right: 65,
+          top: 185,
+          width: 650,
+          minHeight: 300,
+          padding: "35px 40px",
+          boxSizing: "border-box",
+          backgroundColor: WHITE,
+          border: `4px solid ${CYAN}`,
+          borderRadius: 32,
+          boxShadow: "0 20px 45px rgba(0,70,90,0.16)",
+          textAlign: "center",
+          zIndex: 40,
+        }}
+      >
+        <div
+          style={{
+            color: BLUE,
+            fontSize: 48,
+            fontWeight: 900,
+          }}
+        >
+          مثلاً: ألم الكتف
+        </div>
+
+        <div
+          style={{
+            width: 110,
+            height: 6,
+            margin: "18px auto 22px",
+            borderRadius: 20,
+            backgroundColor: CYAN,
+          }}
+        />
+
+        <div
+          style={{
+            color: DARK,
+            fontSize: 32,
+            fontWeight: 700,
+            lineHeight: 1.55,
+          }}
+        >
+          نشوف وين الألم بالضبط
+          <br />
+          وشن الحركات اللي تزيده.
+        </div>
+      </div>
+
+      {/* مؤشر */}
+      <div
+        style={{
+          position: "absolute",
+          right: 120,
+          bottom: 105,
+          padding: "14px 30px",
+          backgroundColor: LIGHT,
+          border: `3px solid ${CYAN}`,
+          borderRadius: 18,
+          color: BLUE,
+          fontSize: 27,
+          fontWeight: 900,
+          zIndex: 50,
+        }}
+      >
+        مكان الألم
+      </div>
+    </AbsoluteFill>
+  );
   return (
     <AbsoluteFill
       style={{
@@ -434,7 +626,8 @@ export const Episode03: React.FC = () => {
         fontFamily: "Arial, Tahoma, sans-serif",
       }}
     >
-      {scene === 4 && <Scene04 />}
+    {scene === 4 && <Scene04 />}
+{scene === 5 && <Scene05 />}
     </AbsoluteFill>
   );
 };
