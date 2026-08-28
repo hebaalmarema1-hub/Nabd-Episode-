@@ -17,13 +17,11 @@ export const Episode03: React.FC = () => {
   const LIGHT = "#E5F5F9";
   const FLOOR = "#DCE9ED";
 
-  // كل مشهد = 75 فريم = 2.5 ثانية
   const SCENE_DURATION = 75;
 
-  const scene = Math.floor(frame / SCENE_DURATION);
+const scene = Math.floor(frame / SCENE_DURATION);
 
-  const localFrame = frame % SCENE_DURATION;
-
+const localFrame = frame % SCENE_DURATION;
   const fadeIn = interpolate(localFrame, [0, 12], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
