@@ -48,6 +48,52 @@ export const Episode03: React.FC = () => {
     }
   );
 
+  // =========================
+  // انتقال المشهد الثالث
+  // =========================
+
+  const scene3Opacity = interpolate(
+    frame,
+    [210, 225],
+    [0, 1],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+
+  // حركة دخول شخصية المشهد الثالث
+  const patientLeft = interpolate(
+    frame,
+    [210, 245],
+    [-300, 90],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+
+  const therapistRight = interpolate(
+    frame,
+    [220, 255],
+    [-300, 70],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+
+  // ظهور بطاقة الأسئلة
+  const questionOpacity = interpolate(
+    frame,
+    [245, 265],
+    [0, 1],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+
   return (
     <AbsoluteFill
       style={{
@@ -376,11 +422,6 @@ export const Episode03: React.FC = () => {
           ── ♥ ──
         </div>
 
-
-        {/* ================================= */}
-        {/* ديكور العيادة */}
-        {/* ================================= */}
-
         {/* لوحة تشريحية */}
         <div
           style={{
@@ -431,7 +472,6 @@ export const Episode03: React.FC = () => {
           />
         </div>
 
-
         {/* رف صغير */}
         <div
           style={{
@@ -453,12 +493,11 @@ export const Episode03: React.FC = () => {
             width: 190,
             height: 115,
             backgroundColor: "#FFFFFF",
-            borderRadius: 0,
             boxShadow: "0 8px 20px rgba(0,0,0,0.06)",
           }}
         />
 
-        {/* كتب وملفات على الرف */}
+        {/* كتب وملفات */}
         <div
           style={{
             position: "absolute",
@@ -494,7 +533,6 @@ export const Episode03: React.FC = () => {
             borderRadius: 4,
           }}
         />
-
 
         {/* نبتة */}
         <div
@@ -535,11 +573,7 @@ export const Episode03: React.FC = () => {
           }}
         />
 
-
-        {/* ================================= */}
         {/* بطاقة الكلام */}
-        {/* ================================= */}
-
         <div
           style={{
             position: "absolute",
@@ -602,11 +636,7 @@ export const Episode03: React.FC = () => {
           </div>
         </div>
 
-
-        {/* ================================= */}
-        {/* الشخصية - أكبر */}
-        {/* ================================= */}
-
+        {/* الشخصية */}
         <Img
           src={staticFile("characters/IMG_0810.PNG")}
           style={{
@@ -620,8 +650,7 @@ export const Episode03: React.FC = () => {
           }}
         />
 
-
-        {/* خط أرضي ديكوري */}
+        {/* خط أرضي */}
         <div
           style={{
             position: "absolute",
@@ -647,8 +676,353 @@ export const Episode03: React.FC = () => {
         >
           02
         </div>
+      </AbsoluteFill>
+
+
+      {/* ===================================== */}
+      {/* المشهد الثالث - بداية التقييم */}
+      {/* ===================================== */}
+
+      <AbsoluteFill
+        style={{
+          opacity: scene3Opacity,
+          backgroundColor: "#F5FAFC",
+        }}
+      >
+
+        {/* الخلفية */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background:
+              "linear-gradient(180deg, #E8F7FB 0%, #FFFFFF 75%)",
+          }}
+        />
+
+        {/* الشريط الجانبي */}
+        <div
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 0,
+            width: 45,
+            height: "100%",
+            backgroundColor: "#087EA4",
+          }}
+        />
+
+        {/* خط علوي */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 45,
+            right: 0,
+            height: 12,
+            backgroundColor: "#087EA4",
+          }}
+        />
+
+        {/* دوائر ديكورية */}
+        <div
+          style={{
+            position: "absolute",
+            top: 95,
+            right: 90,
+            width: 24,
+            height: 24,
+            borderRadius: "50%",
+            backgroundColor: "#087EA4",
+            opacity: 0.18,
+          }}
+        />
+
+        <div
+          style={{
+            position: "absolute",
+            top: 135,
+            right: 125,
+            width: 13,
+            height: 13,
+            borderRadius: "50%",
+            backgroundColor: "#35B6D6",
+            opacity: 0.45,
+          }}
+        />
+
+        {/* عنوان المشهد */}
+        <div
+          style={{
+            position: "absolute",
+            top: 50,
+            left: 100,
+            right: 100,
+            textAlign: "center",
+            color: "#087EA4",
+            fontSize: 50,
+            fontWeight: "bold",
+          }}
+        >
+          بداية التقييم
+        </div>
+
+        <div
+          style={{
+            position: "absolute",
+            top: 120,
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: 120,
+            height: 5,
+            borderRadius: 10,
+            backgroundColor: "#35B6D6",
+          }}
+        />
+
+        {/* مكتب التقييم */}
+        <div
+          style={{
+            position: "absolute",
+            left: 120,
+            bottom: 100,
+            width: 310,
+            height: 25,
+            backgroundColor: "#087EA4",
+            borderRadius: 12,
+            boxShadow: "0 10px 20px rgba(0,0,0,0.12)",
+          }}
+        />
+
+        {/* أرجل المكتب */}
+        <div
+          style={{
+            position: "absolute",
+            left: 145,
+            bottom: 0,
+            width: 20,
+            height: 105,
+            backgroundColor: "#B7CBD2",
+          }}
+        />
+
+        <div
+          style={{
+            position: "absolute",
+            left: 385,
+            bottom: 0,
+            width: 20,
+            height: 105,
+            backgroundColor: "#B7CBD2",
+          }}
+        />
+
+        {/* ملف التقييم */}
+        <div
+          style={{
+            position: "absolute",
+            left: 190,
+            bottom: 130,
+            width: 150,
+            height: 105,
+            backgroundColor: "#FFFFFF",
+            borderRadius: 12,
+            border: "3px solid #C7E3EA",
+            transform: "rotate(-4deg)",
+            boxShadow: "0 8px 20px rgba(0,0,0,0.10)",
+          }}
+        >
+          <div
+            style={{
+              margin: "18px auto 12px",
+              width: 75,
+              height: 8,
+              borderRadius: 5,
+              backgroundColor: "#35B6D6",
+            }}
+          />
+
+          <div
+            style={{
+              width: 95,
+              height: 6,
+              margin: "10px auto",
+              borderRadius: 5,
+              backgroundColor: "#D8EEF5",
+            }}
+          />
+
+          <div
+            style={{
+              width: 80,
+              height: 6,
+              margin: "10px auto",
+              borderRadius: 5,
+              backgroundColor: "#D8EEF5",
+            }}
+          />
+
+          <div
+            style={{
+              width: 90,
+              height: 6,
+              margin: "10px auto",
+              borderRadius: 5,
+              backgroundColor: "#D8EEF5",
+            }}
+          />
+        </div>
+
+        {/* بطاقة الأسئلة */}
+        <div
+          style={{
+            position: "absolute",
+            top: 175,
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: 620,
+            padding: "30px 35px",
+            backgroundColor: "#FFFFFF",
+            borderRadius: 28,
+            border: "3px solid #CDEAF1",
+            boxShadow: "0 15px 35px rgba(0,0,0,0.10)",
+            textAlign: "center",
+            opacity: questionOpacity,
+          }}
+        >
+
+          <div
+            style={{
+              fontSize: 34,
+              color: "#087EA4",
+              fontWeight: "bold",
+              marginBottom: 20,
+            }}
+          >
+            خلينا نعرف أكثر عن حالتك
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: 12,
+              flexWrap: "wrap",
+            }}
+          >
+
+            <div
+              style={{
+                backgroundColor: "#EAF8FC",
+                borderRadius: 15,
+                padding: "12px 22px",
+                color: "#14647B",
+                fontSize: 24,
+                fontWeight: "bold",
+              }}
+            >
+              وين الألم؟
+            </div>
+
+            <div
+              style={{
+                backgroundColor: "#EAF8FC",
+                borderRadius: 15,
+                padding: "12px 22px",
+                color: "#14647B",
+                fontSize: 24,
+                fontWeight: "bold",
+              }}
+            >
+              من متى؟
+            </div>
+
+            <div
+              style={{
+                backgroundColor: "#EAF8FC",
+                borderRadius: 15,
+                padding: "12px 22px",
+                color: "#14647B",
+                fontSize: 24,
+                fontWeight: "bold",
+              }}
+            >
+              شنو يزيد الألم؟
+            </div>
+
+            <div
+              style={{
+                backgroundColor: "#EAF8FC",
+                borderRadius: 15,
+                padding: "12px 22px",
+                color: "#14647B",
+                fontSize: 24,
+                fontWeight: "bold",
+              }}
+            >
+              شنو يخففه؟
+            </div>
+
+          </div>
+        </div>
+
+        {/* شخصية المريض */}
+        <Img
+          src={staticFile("characters/IMG_0815.PNG")}
+          style={{
+            position: "absolute",
+            left: patientLeft,
+            bottom: 35,
+            width: 350,
+            height: 480,
+            objectFit: "contain",
+            filter: "drop-shadow(0 15px 20px rgba(0,0,0,0.15))",
+          }}
+        />
+
+        {/* شخصية الأخصائي */}
+        <Img
+          src={staticFile("characters/IMG_0810.PNG")}
+          style={{
+            position: "absolute",
+            right: therapistRight,
+            bottom: 20,
+            width: 390,
+            height: 520,
+            objectFit: "contain",
+            filter: "drop-shadow(0 15px 20px rgba(0,0,0,0.15))",
+          }}
+        />
+
+        {/* خط الأرض */}
+        <div
+          style={{
+            position: "absolute",
+            left: 80,
+            right: 70,
+            bottom: 25,
+            height: 4,
+            backgroundColor: "#C7E3EA",
+            borderRadius: 10,
+          }}
+        />
+
+        {/* رقم المشهد */}
+        <div
+          style={{
+            position: "absolute",
+            left: 75,
+            bottom: 45,
+            color: "#087EA4",
+            fontSize: 24,
+            fontWeight: "bold",
+          }}
+        >
+          03
+        </div>
 
       </AbsoluteFill>
+
     </AbsoluteFill>
   );
 };
