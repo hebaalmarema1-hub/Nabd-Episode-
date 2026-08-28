@@ -6,13 +6,13 @@ export const RemotionRoot: React.FC = () => {
   return (
     <>
       <Composition
-  id="Episode03"
-  component={Episode03}
-  durationInFrames={1275}
-  fps={30}
-  width={1920}
-  height={1080}
-/>
+        id="Episode03-Part2"
+        component={Episode03}
+        durationInFrames={150}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
     </>
   );
 };
