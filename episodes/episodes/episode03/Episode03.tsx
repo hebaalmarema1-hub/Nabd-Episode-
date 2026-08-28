@@ -210,7 +210,7 @@ export const Episode03: React.FC = () => {
     height?: number;
   }) => (
     <Img
-      src={staticFile(`characters/${file}`)}
+      src={staticFile(`characters/IMG_${file}.PNG`)}
       style={{
         position: "absolute",
         left,
@@ -297,22 +297,22 @@ export const Episode03: React.FC = () => {
       <Background />
 
       <Header
-        title="نشوف الحركة"
+        title="نشوف مكان الألم"
         number="12"
       />
 
       <Character
-        file="IMG_0875.PNG"
+        file="0875"
         left={10}
         width={675}
         height={780}
       />
 
-      <Card title="نلاحظ الحركة">
+      <Card title="نحدد مكان الألم">
         <>
-          نشوف طريقة أداء الحركة
+          نشوف وين الألم بالضبط
           <br />
-          وهل في حركة تسبب ألم أو صعوبة.
+          وشن الحركات اللي تزيده.
         </>
       </Card>
     </AbsoluteFill>
@@ -332,7 +332,7 @@ export const Episode03: React.FC = () => {
       />
 
       <Character
-        file="IMG_0876.PNG"
+        file="0876"
         left={10}
         width={675}
         height={780}
@@ -357,22 +357,22 @@ export const Episode03: React.FC = () => {
       <Background />
 
       <Header
-        title="معلومة مهمة"
+        title="نحدد الخطة"
         number="14"
       />
 
       <Character
-        file="IMG_0732.PNG"
+        file="0877"
         left={10}
         width={675}
         height={780}
       />
 
-      <Card title="مش كل ألم يعني ضرر">
+      <Card title="نرتب المعلومات">
         <>
-          الألم وحده مش كافي للتشخيص
+          بعد جمع المعلومات
           <br />
-          لذلك نربطه بباقي نتائج التقييم.
+          نحدد أهم النقاط في الحالة.
         </>
       </Card>
     </AbsoluteFill>
@@ -387,22 +387,22 @@ export const Episode03: React.FC = () => {
       <Background />
 
       <Header
-        title="نرتب النتائج"
+        title="نبدأ العلاج المناسب"
         number="15"
       />
 
       <Character
-        file="IMG_0877.PNG"
+        file="0734"
         left={10}
         width={675}
         height={780}
       />
 
-      <Card title="الصورة تبدأ توضح">
+      <Card title="حسب احتياج الحالة">
         <>
-          بعد ما نجمع المعلومات
+          نختار الأسلوب المناسب
           <br />
-          نقدر نحدد احتياجات الحالة.
+          حسب نتائج التقييم.
         </>
       </Card>
     </AbsoluteFill>
@@ -422,17 +422,17 @@ export const Episode03: React.FC = () => {
       />
 
       <Character
-        file="IMG_0817.PNG"
+        file="0817"
         left={10}
         width={675}
         height={780}
       />
 
-      <Card title="الخطوة الجاية">
+      <Card title="النتيجة">
         <>
-          بعد التقييم نبدأ نحدد
+          بعد التقييم نكونوا فهمنا الحالة
           <br />
-          الخطة المناسبة للعلاج.
+          ونقدروا نبدأوا الخطة المناسبة.
         </>
       </Card>
 
@@ -451,7 +451,7 @@ export const Episode03: React.FC = () => {
           zIndex: 50,
         }}
       >
-        RESULT ✓
+        SUCCESS ✓
       </div>
     </AbsoluteFill>
   );
