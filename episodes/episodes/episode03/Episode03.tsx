@@ -10,7 +10,10 @@ import {
 export const Episode03: React.FC = () => {
   const frame = useCurrentFrame();
 
-  // المشهد الأول: الشخصية تدخل
+  // =========================
+  // حركة الشخصية - المشهد الأول
+  // =========================
+
   const characterLeft = interpolate(
     frame,
     [0, 70],
@@ -31,7 +34,10 @@ export const Episode03: React.FC = () => {
     }
   );
 
-  // المشهد الثاني يبدأ بعد الفريم 100
+  // =========================
+  // انتقال المشهد الثاني
+  // =========================
+
   const scene2Opacity = interpolate(
     frame,
     [100, 115],
@@ -50,22 +56,36 @@ export const Episode03: React.FC = () => {
         fontFamily: "Arial, sans-serif",
       }}
     >
-      {/* ========================= */}
-      {/* المشهد الأول */}
-      {/* ========================= */}
+
+      {/* ===================================== */}
+      {/* المشهد الأول - أمام باب العيادة */}
+      {/* ===================================== */}
 
       <AbsoluteFill
         style={{
           opacity: frame < 115 ? 1 : 0,
         }}
       >
-        {/* الحائط */}
+
+        {/* الخلفية */}
         <div
           style={{
             position: "absolute",
             inset: 0,
             background:
               "linear-gradient(180deg, #EAF7FC 0%, #FFFFFF 70%)",
+          }}
+        />
+
+        {/* شريط جانبي */}
+        <div
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 0,
+            width: 70,
+            height: "100%",
+            backgroundColor: "#087EA4",
           }}
         />
 
@@ -97,6 +117,7 @@ export const Episode03: React.FC = () => {
             fontSize: 38,
             fontWeight: "bold",
             textAlign: "center",
+            boxShadow: "0 10px 25px rgba(0,0,0,0.10)",
           }}
         >
           PHYSICAL THERAPY
@@ -113,7 +134,7 @@ export const Episode03: React.FC = () => {
           </div>
         </div>
 
-        {/* الباب */}
+        {/* إطار الباب */}
         <div
           style={{
             position: "absolute",
@@ -122,21 +143,26 @@ export const Episode03: React.FC = () => {
             transform: "translateX(-50%)",
             width: 620,
             height: 690,
-            backgroundColor: "#087EA4",
+            backgroundColor: "#B7CBD2",
             padding: 18,
             borderRadius: "28px 28px 0 0",
+            boxSizing: "border-box",
+            boxShadow: "0 15px 35px rgba(0,0,0,0.18)",
           }}
         >
+
+          {/* الباب */}
           <div
             style={{
+              position: "relative",
               width: "100%",
               height: "100%",
               backgroundColor: "#087EA4",
               borderRadius: "18px 18px 0 0",
-              position: "relative",
             }}
           >
-            {/* الزجاج */}
+
+            {/* زجاج الباب */}
             <div
               style={{
                 position: "absolute",
@@ -145,7 +171,7 @@ export const Episode03: React.FC = () => {
                 right: 45,
                 height: 300,
                 backgroundColor: "#DDF4FA",
-                border: "8px solid white",
+                border: "8px solid #FFFFFF",
                 borderRadius: 14,
               }}
             />
@@ -158,7 +184,7 @@ export const Episode03: React.FC = () => {
                 left: 80,
                 right: 80,
                 padding: "18px 10px",
-                backgroundColor: "white",
+                backgroundColor: "#FFFFFF",
                 borderRadius: 12,
                 textAlign: "center",
                 color: "#087EA4",
@@ -178,13 +204,13 @@ export const Episode03: React.FC = () => {
                 width: 25,
                 height: 25,
                 borderRadius: "50%",
-                backgroundColor: "white",
+                backgroundColor: "#FFFFFF",
               }}
             />
           </div>
         </div>
 
-        {/* الشخصية */}
+        {/* الشخصية تدخل */}
         <Img
           src={staticFile("characters/IMG_0815.PNG")}
           style={{
@@ -204,22 +230,24 @@ export const Episode03: React.FC = () => {
             position: "absolute",
             left: 90,
             bottom: 35,
-            backgroundColor: "white",
+            backgroundColor: "#FFFFFF",
             padding: "14px 25px",
             borderRadius: 15,
             color: "#087EA4",
             fontSize: 26,
             fontWeight: "bold",
+            boxShadow: "0 8px 20px rgba(0,0,0,0.12)",
             opacity: frame >= 75 ? 1 : 0,
           }}
         >
-          مرحبًا بك 👋
+          مرحبًا بك
         </div>
       </AbsoluteFill>
 
-      {/* ========================= */}
-      {/* المشهد الثاني */}
-      {/* ========================= */}
+
+      {/* ===================================== */}
+      {/* المشهد الثاني - داخل العيادة */}
+      {/* ===================================== */}
 
       <AbsoluteFill
         style={{
@@ -227,65 +255,399 @@ export const Episode03: React.FC = () => {
           backgroundColor: "#F5FAFC",
         }}
       >
-        {/* خلفية العيادة */}
+
+        {/* الخلفية الرئيسية */}
         <div
           style={{
             position: "absolute",
             inset: 0,
             background:
-              "linear-gradient(180deg, #EAF7FC 0%, #FFFFFF 70%)",
+              "linear-gradient(180deg, #E7F6FB 0%, #FFFFFF 72%)",
           }}
         />
 
-        {/* عنوان */}
+        {/* ديكور جانبي */}
         <div
           style={{
             position: "absolute",
-            top: 70,
-            left: "50%",
-            transform: "translateX(-50%)",
+            left: 0,
+            top: 0,
+            width: 45,
+            height: "100%",
+            backgroundColor: "#087EA4",
+          }}
+        />
+
+        {/* خط ديكوري علوي */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 45,
+            right: 0,
+            height: 12,
+            backgroundColor: "#087EA4",
+          }}
+        />
+
+        {/* دوائر ديكورية */}
+        <div
+          style={{
+            position: "absolute",
+            top: 100,
+            right: 90,
+            width: 22,
+            height: 22,
+            borderRadius: "50%",
+            backgroundColor: "#087EA4",
+            opacity: 0.25,
+          }}
+        />
+
+        <div
+          style={{
+            position: "absolute",
+            top: 140,
+            right: 135,
+            width: 14,
+            height: 14,
+            borderRadius: "50%",
+            backgroundColor: "#35B6D6",
+            opacity: 0.5,
+          }}
+        />
+
+        <div
+          style={{
+            position: "absolute",
+            top: 180,
+            right: 95,
+            width: 10,
+            height: 10,
+            borderRadius: "50%",
+            backgroundColor: "#087EA4",
+            opacity: 0.4,
+          }}
+        />
+
+        {/* عنوان المشهد */}
+        <div
+          style={{
+            position: "absolute",
+            top: 55,
+            left: 120,
+            right: 120,
+            textAlign: "center",
             color: "#087EA4",
-            fontSize: 42,
+            fontSize: 48,
             fontWeight: "bold",
+            letterSpacing: 1,
           }}
         >
           أول زيارة للعلاج الطبيعي
         </div>
 
-        {/* الشخصية تستمع */}
+        {/* خط تحت العنوان */}
+        <div
+          style={{
+            position: "absolute",
+            top: 125,
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: 170,
+            height: 5,
+            backgroundColor: "#35B6D6",
+            borderRadius: 10,
+          }}
+        />
+
+        {/* نبضة صغيرة */}
+        <div
+          style={{
+            position: "absolute",
+            top: 150,
+            left: "50%",
+            transform: "translateX(-50%)",
+            color: "#087EA4",
+            fontSize: 28,
+            fontWeight: "bold",
+          }}
+        >
+          ── ♥ ──
+        </div>
+
+
+        {/* ================================= */}
+        {/* ديكور العيادة */}
+        {/* ================================= */}
+
+        {/* لوحة تشريحية */}
+        <div
+          style={{
+            position: "absolute",
+            top: 215,
+            left: 90,
+            width: 190,
+            height: 245,
+            backgroundColor: "#FFFFFF",
+            borderRadius: 18,
+            border: "3px solid #C7E3EA",
+            boxShadow: "0 10px 25px rgba(0,0,0,0.08)",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            style={{
+              color: "#087EA4",
+              fontSize: 22,
+              fontWeight: "bold",
+              marginBottom: 18,
+            }}
+          >
+            HUMAN BODY
+          </div>
+
+          <div
+            style={{
+              width: 75,
+              height: 125,
+              border: "5px solid #35B6D6",
+              borderRadius: "40% 40% 30% 30%",
+              opacity: 0.7,
+            }}
+          />
+
+          <div
+            style={{
+              marginTop: 12,
+              width: 100,
+              height: 5,
+              backgroundColor: "#DDF4FA",
+              borderRadius: 10,
+            }}
+          />
+        </div>
+
+
+        {/* رف صغير */}
+        <div
+          style={{
+            position: "absolute",
+            right: 70,
+            top: 245,
+            width: 230,
+            height: 18,
+            backgroundColor: "#087EA4",
+            borderRadius: 10,
+          }}
+        />
+
+        <div
+          style={{
+            position: "absolute",
+            right: 90,
+            top: 263,
+            width: 190,
+            height: 115,
+            backgroundColor: "#FFFFFF",
+            borderRadius: 0,
+            boxShadow: "0 8px 20px rgba(0,0,0,0.06)",
+          }}
+        />
+
+        {/* كتب وملفات على الرف */}
+        <div
+          style={{
+            position: "absolute",
+            right: 115,
+            top: 285,
+            width: 24,
+            height: 75,
+            backgroundColor: "#087EA4",
+            borderRadius: 4,
+          }}
+        />
+
+        <div
+          style={{
+            position: "absolute",
+            right: 145,
+            top: 295,
+            width: 24,
+            height: 65,
+            backgroundColor: "#35B6D6",
+            borderRadius: 4,
+          }}
+        />
+
+        <div
+          style={{
+            position: "absolute",
+            right: 175,
+            top: 280,
+            width: 24,
+            height: 80,
+            backgroundColor: "#B7CBD2",
+            borderRadius: 4,
+          }}
+        />
+
+
+        {/* نبتة */}
+        <div
+          style={{
+            position: "absolute",
+            right: 70,
+            bottom: 60,
+            width: 120,
+            height: 95,
+            backgroundColor: "#D6E6EA",
+            borderRadius: "10px 10px 25px 25px",
+          }}
+        />
+
+        <div
+          style={{
+            position: "absolute",
+            right: 88,
+            bottom: 130,
+            width: 80,
+            height: 90,
+            borderRadius: "50%",
+            backgroundColor: "#8FC9A8",
+            transform: "rotate(-20deg)",
+          }}
+        />
+
+        <div
+          style={{
+            position: "absolute",
+            right: 125,
+            bottom: 150,
+            width: 70,
+            height: 100,
+            borderRadius: "50%",
+            backgroundColor: "#A8D8B8",
+            transform: "rotate(25deg)",
+          }}
+        />
+
+
+        {/* ================================= */}
+        {/* بطاقة الكلام */}
+        {/* ================================= */}
+
+        <div
+          style={{
+            position: "absolute",
+            top: 230,
+            right: 320,
+            width: 520,
+            padding: "38px 42px",
+            backgroundColor: "#FFFFFF",
+            borderRadius: 30,
+            border: "3px solid #CDEAF1",
+            boxShadow: "0 15px 35px rgba(0,0,0,0.10)",
+            color: "#31515C",
+            fontSize: 35,
+            fontWeight: "bold",
+            lineHeight: 1.7,
+            textAlign: "center",
+          }}
+        >
+          أهلاً بك
+
+          <div
+            style={{
+              width: 100,
+              height: 4,
+              backgroundColor: "#35B6D6",
+              margin: "12px auto 18px",
+              borderRadius: 10,
+            }}
+          />
+
+          <div
+            style={{
+              color: "#087EA4",
+              fontSize: 32,
+            }}
+          >
+            خلينا نبدأ بأول زيارة
+          </div>
+
+          <div
+            style={{
+              marginTop: 10,
+              fontSize: 28,
+              color: "#4A6873",
+              fontWeight: "normal",
+            }}
+          >
+            ونتعرف عليك أكثر
+          </div>
+
+          <div
+            style={{
+              marginTop: 5,
+              fontSize: 28,
+              color: "#4A6873",
+              fontWeight: "normal",
+            }}
+          >
+            ونساعدك على التعافي
+          </div>
+        </div>
+
+
+        {/* ================================= */}
+        {/* الشخصية - أكبر */}
+        {/* ================================= */}
+
         <Img
           src={staticFile("characters/IMG_0810.PNG")}
           style={{
             position: "absolute",
-            bottom: 40,
-            left: 230,
-            width: 430,
-            height: 560,
+            bottom: 20,
+            left: 270,
+            width: 500,
+            height: 650,
             objectFit: "contain",
+            filter: "drop-shadow(0 15px 20px rgba(0,0,0,0.15))",
           }}
         />
 
-        {/* فقاعة الكلام */}
+
+        {/* خط أرضي ديكوري */}
         <div
           style={{
             position: "absolute",
-            top: 210,
-            right: 120,
-            width: 500,
-            padding: "30px 35px",
-            backgroundColor: "white",
-            borderRadius: 30,
-            color: "#31515C",
-            fontSize: 32,
+            left: 80,
+            right: 70,
+            bottom: 30,
+            height: 4,
+            backgroundColor: "#C7E3EA",
+            borderRadius: 10,
+          }}
+        />
+
+        {/* رقم المشهد */}
+        <div
+          style={{
+            position: "absolute",
+            left: 75,
+            bottom: 50,
+            color: "#087EA4",
+            fontSize: 24,
             fontWeight: "bold",
-            textAlign: "center",
-            boxShadow: "0 12px 30px rgba(0,0,0,0.12)",
           }}
         >
-          أهلاً بك 🌷
-          <br />
-          خلينا نبدأ بأول زيارة
+          02
         </div>
+
       </AbsoluteFill>
     </AbsoluteFill>
   );
