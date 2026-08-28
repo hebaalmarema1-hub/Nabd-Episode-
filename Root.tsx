@@ -5,7 +5,7 @@ import { Episode03 } from "./episodes/episode03/Episode03";
 export const RemotionRoot: React.FC = () => {
   return (
     <>
-      <Composition
+   <Composition
         id="Episode03-Part2"
         component={Episode03}
        durationInFrames={975}
