@@ -23,7 +23,8 @@ export const Episode03: React.FC = () => {
   const LIGHT = "#E5F5F9";
 
   // =====================================================
-  // SCENES
+  // SCENE SYSTEM
+  // 17 SCENES × 75 FRAMES = 1275 FRAMES
   // =====================================================
 
   const SCENE_DURATION = 75;
@@ -35,15 +36,27 @@ export const Episode03: React.FC = () => {
   // ANIMATION
   // =====================================================
 
-  const opacity = interpolate(
+  const fadeIn = interpolate(
     localFrame,
-    [0, 10, 62, 74],
-    [0, 1, 1, 0],
+    [0, 12],
+    [0, 1],
     {
       extrapolateLeft: "clamp",
       extrapolateRight: "clamp",
     }
   );
+
+  const fadeOut = interpolate(
+    localFrame,
+    [63, 74],
+    [1, 0],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+
+  const opacity = Math.min(fadeIn, fadeOut);
 
   const moveUp = interpolate(
     localFrame,
@@ -66,7 +79,7 @@ export const Episode03: React.FC = () => {
           position: "absolute",
           inset: 0,
           background:
-            "linear-gradient(135deg, #E5F6FA 0%, #FFFFFF 60%, #EEF9FB 100%)",
+            "linear-gradient(135deg, #E5F6FA 0%, #FFFFFF 58%, #EEF9FB 100%)",
         }}
       />
 
@@ -86,26 +99,53 @@ export const Episode03: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          right: 65,
-          top: 50,
-          width: 150,
-          height: 150,
+          right: 70,
+          top: 55,
+          width: 155,
+          height: 155,
           borderRadius: "50%",
           border: `4px solid ${CYAN}`,
-          opacity: 0.18,
+          opacity: 0.16,
         }}
       />
 
       <div
         style={{
           position: "absolute",
-          right: 110,
-          top: 95,
-          width: 55,
-          height: 55,
+          right: 120,
+          top: 105,
+          width: 60,
+          height: 60,
           borderRadius: "50%",
           backgroundColor: CYAN,
           opacity: 0.1,
+        }}
+      />
+
+      {/* Decorative small circles */}
+      <div
+        style={{
+          position: "absolute",
+          left: 95,
+          top: 165,
+          width: 18,
+          height: 18,
+          borderRadius: "50%",
+          backgroundColor: CYAN,
+          opacity: 0.3,
+        }}
+      />
+
+      <div
+        style={{
+          position: "absolute",
+          left: 125,
+          top: 195,
+          width: 10,
+          height: 10,
+          borderRadius: "50%",
+          backgroundColor: BLUE,
+          opacity: 0.25,
         }}
       />
 
@@ -151,7 +191,7 @@ export const Episode03: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          top: 35,
+          top: 38,
           left: 90,
           right: 90,
           textAlign: "center",
@@ -168,7 +208,7 @@ export const Episode03: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          top: 110,
+          top: 112,
           left: "50%",
           transform: "translateX(-50%)",
           width: 150,
@@ -182,8 +222,8 @@ export const Episode03: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          left: 70,
-          bottom: 38,
+          left: 72,
+          bottom: 40,
           color: BLUE,
           fontSize: 25,
           fontWeight: 900,
@@ -209,17 +249,18 @@ export const Episode03: React.FC = () => {
     <div
       style={{
         position: "absolute",
-        right: 70,
-        top: 190,
-        width: 640,
-        padding: "38px 42px",
+        right: 75,
+        top: 195,
+        width: 625,
+        minHeight: 235,
+        padding: "35px 42px",
         boxSizing: "border-box",
         backgroundColor: WHITE,
         border: `4px solid ${CYAN}`,
         borderRadius: 30,
-        boxShadow: "0 18px 40px rgba(0,70,90,0.14)",
+        boxShadow: "0 18px 40px rgba(0,70,90,0.13)",
         textAlign: "center",
-        zIndex: 40,
+        zIndex: 30,
       }}
     >
       <div
@@ -228,7 +269,6 @@ export const Episode03: React.FC = () => {
           fontSize: 43,
           fontWeight: 900,
           lineHeight: 1.25,
-          marginBottom: 16,
         }}
       >
         {title}
@@ -236,9 +276,9 @@ export const Episode03: React.FC = () => {
 
       <div
         style={{
-          width: 100,
+          width: 105,
           height: 5,
-          margin: "0 auto 20px",
+          margin: "17px auto 20px",
           backgroundColor: CYAN,
           borderRadius: 10,
         }}
@@ -247,9 +287,9 @@ export const Episode03: React.FC = () => {
       <div
         style={{
           color: DARK,
-          fontSize: 32,
+          fontSize: 31,
           fontWeight: 700,
-          lineHeight: 1.6,
+          lineHeight: 1.55,
         }}
       >
         {text}
@@ -277,13 +317,13 @@ export const Episode03: React.FC = () => {
       style={{
         position: "absolute",
         left,
-        bottom: 55,
+        bottom: 58,
         width,
         height,
         objectFit: "contain",
         opacity,
         transform: `translateY(${moveUp}px)`,
-        filter: "drop-shadow(0 20px 25px rgba(0,0,0,0.17))",
+        filter: "drop-shadow(0 18px 25px rgba(0,0,0,0.16))",
         zIndex: 20,
       }}
     />
@@ -303,7 +343,7 @@ export const Episode03: React.FC = () => {
     >
 
       {/* =================================================
-          SCENE 0 — باب العيادة
+          SCENE 0 — CLINIC DOOR
          ================================================= */}
 
       {scene === 0 && (
@@ -427,7 +467,7 @@ export const Episode03: React.FC = () => {
 
           <Character
             file="IMG_0815.PNG"
-            left={45}
+            left={35}
             width={650}
             height={760}
           />
@@ -454,7 +494,7 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          SCENE 1 — الاستماع
+          SCENE 1
          ================================================= */}
 
       {scene === 1 && (
@@ -478,7 +518,7 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          SCENE 2 — المريضة
+          SCENE 2
          ================================================= */}
 
       {scene === 2 && (
@@ -492,7 +532,7 @@ export const Episode03: React.FC = () => {
 
           <Character
             file="IMG_0873.PNG"
-            left={20}
+            left={15}
             width={660}
             height={770}
           />
@@ -505,16 +545,16 @@ export const Episode03: React.FC = () => {
           <div
             style={{
               position: "absolute",
-              right: 110,
+              right: 105,
               bottom: 115,
               backgroundColor: LIGHT,
               border: `2px solid ${CYAN}`,
               padding: "14px 28px",
               borderRadius: 18,
               color: BLUE,
-              fontSize: 28,
+              fontSize: 27,
               fontWeight: 900,
-              zIndex: 45,
+              zIndex: 40,
             }}
           >
             المعلومات الأولية
@@ -523,7 +563,7 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          SCENE 3 — الأسئلة
+          SCENE 3
          ================================================= */}
 
       {scene === 3 && (
@@ -537,34 +577,40 @@ export const Episode03: React.FC = () => {
 
           <Character
             file="IMG_0810.PNG"
-            left={25}
-            width={640}
-            height={750}
-          />
-
-          <Img
-            src={staticFile("characters/IMG_0737.PNG")}
-            style={{
-              position: "absolute",
-              right: 80,
-              bottom: 100,
-              width: 250,
-              height: 250,
-              objectFit: "contain",
-              opacity,
-              zIndex: 45,
-            }}
+            left={20}
+            width={650}
+            height={760}
           />
 
           <Card
             title="وين الألم؟"
             text="نسأل عن مكان الألم، شدته، ومتى يظهر."
           />
+
+          <div
+            style={{
+              position: "absolute",
+              right: 100,
+              bottom: 110,
+              width: 220,
+              padding: "14px",
+              backgroundColor: LIGHT,
+              border: `2px solid ${CYAN}`,
+              borderRadius: 18,
+              color: BLUE,
+              textAlign: "center",
+              fontSize: 26,
+              fontWeight: 900,
+              zIndex: 40,
+            }}
+          >
+            مكان الألم
+          </div>
         </AbsoluteFill>
       )}
 
       {/* =================================================
-          SCENE 4 — القياس
+          SCENE 4 — PHYSICAL ASSESSMENT
          ================================================= */}
 
       {scene === 4 && (
@@ -576,30 +622,30 @@ export const Episode03: React.FC = () => {
             number="04"
           />
 
-          {/* الشخصية التي تقوم بالقياس */}
+          {/* BIG CHARACTER */}
           <Character
             file="IMG_0874.PNG"
-            left={0}
-            width={700}
+            left={5}
+            width={690}
             height={790}
           />
 
-          {/* بطاقة كبيرة وواضحة */}
+          {/* MAIN ASSESSMENT CARD */}
           <div
             style={{
               position: "absolute",
               right: 65,
-              top: 180,
+              top: 185,
               width: 650,
-              minHeight: 330,
-              padding: "38px 45px",
+              minHeight: 300,
+              padding: "35px 40px",
               boxSizing: "border-box",
               backgroundColor: WHITE,
-              border: `5px solid ${CYAN}`,
+              border: `4px solid ${CYAN}`,
               borderRadius: 32,
               boxShadow: "0 20px 45px rgba(0,70,90,0.16)",
               textAlign: "center",
-              zIndex: 45,
+              zIndex: 40,
             }}
           >
             <div
@@ -607,7 +653,7 @@ export const Episode03: React.FC = () => {
                 color: BLUE,
                 fontSize: 48,
                 fontWeight: 900,
-                lineHeight: 1.25,
+                lineHeight: 1.2,
               }}
             >
               التقييم الجسدي
@@ -615,20 +661,20 @@ export const Episode03: React.FC = () => {
 
             <div
               style={{
-                width: 120,
+                width: 110,
                 height: 6,
                 margin: "18px auto 22px",
-                backgroundColor: CYAN,
                 borderRadius: 20,
+                backgroundColor: CYAN,
               }}
             />
 
             <div
               style={{
                 color: DARK,
-                fontSize: 34,
+                fontSize: 32,
                 fontWeight: 700,
-                lineHeight: 1.65,
+                lineHeight: 1.55,
               }}
             >
               نقيس الحركة والقوة
@@ -637,40 +683,64 @@ export const Episode03: React.FC = () => {
             </div>
           </div>
 
-          {/* Measurement labels */}
+          {/* ASSESSMENT TAGS */}
           <div
             style={{
               position: "absolute",
-              right: 80,
-              bottom: 115,
+              right: 75,
+              bottom: 110,
               display: "flex",
-              gap: 14,
+              gap: 12,
               zIndex: 50,
             }}
           >
-            {["ROM", "القوة", "الحركة"].map((item) => (
-              <div
-                key={item}
-                style={{
-                  backgroundColor: LIGHT,
-                  border: `3px solid ${CYAN}`,
-                  borderRadius: 18,
-                  padding: "13px 22px",
-                  color: BLUE,
-                  fontSize: 25,
-                  fontWeight: 900,
-                  boxShadow: "0 8px 18px rgba(0,80,100,0.08)",
-                }}
-              >
-                {item}
-              </div>
-            ))}
+            <div
+              style={{
+                backgroundColor: LIGHT,
+                border: `3px solid ${CYAN}`,
+                borderRadius: 18,
+                padding: "13px 23px",
+                color: BLUE,
+                fontSize: 25,
+                fontWeight: 900,
+              }}
+            >
+              ROM
+            </div>
+
+            <div
+              style={{
+                backgroundColor: LIGHT,
+                border: `3px solid ${CYAN}`,
+                borderRadius: 18,
+                padding: "13px 23px",
+                color: BLUE,
+                fontSize: 25,
+                fontWeight: 900,
+              }}
+            >
+              القوة
+            </div>
+
+            <div
+              style={{
+                backgroundColor: LIGHT,
+                border: `3px solid ${CYAN}`,
+                borderRadius: 18,
+                padding: "13px 23px",
+                color: BLUE,
+                fontSize: 25,
+                fontWeight: 900,
+              }}
+            >
+              الحركة
+            </div>
           </div>
         </AbsoluteFill>
       )}
 
       {/* =================================================
-          SCENE 5 — ألم الكتف
+          SCENE 5
          ================================================= */}
 
       {scene === 5 && (
@@ -685,7 +755,7 @@ export const Episode03: React.FC = () => {
           <Character
             file="IMG_0806.PNG"
             left={10}
-            width={690}
+            width={675}
             height={780}
           />
 
@@ -697,22 +767,19 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          SCENE 6 — التمارين
+          SCENE 6
          ================================================= */}
 
       {scene === 6 && (
         <AbsoluteFill style={{ opacity }}>
           <Background />
 
-          <Header
-            title="نشوف الحركة"
-            number="06"
-          />
+          <Header title="نشوف الحركة" number="06" />
 
           <Character
             file="IMG_0807.PNG"
-            left={0}
-            width={700}
+            left={5}
+            width={690}
             height={790}
           />
 
@@ -724,23 +791,20 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          SCENE 7 — التوازن
+          SCENE 7
          ================================================= */}
 
       {scene === 7 && (
         <AbsoluteFill style={{ opacity }}>
           <Background />
 
-          <Header
-            title="نقيّم التوازن"
-            number="07"
-          />
+          <Header title="نقيّم التوازن" number="07" />
 
           <Character
             file="IMG_0876.PNG"
-            left={0}
-            width={700}
-            height={790}
+            left={10}
+            width={680}
+            height={780}
           />
 
           <Card
@@ -751,30 +815,27 @@ export const Episode03: React.FC = () => {
           <div
             style={{
               position: "absolute",
-              left: 100,
+              left: 110,
               bottom: 110,
-              width: 420,
+              width: 430,
               height: 12,
               backgroundColor: CYAN,
               borderRadius: 20,
-              zIndex: 40,
+              zIndex: 30,
             }}
           />
         </AbsoluteFill>
       )}
 
       {/* =================================================
-          SCENE 8 — التفكير
+          SCENE 8
          ================================================= */}
 
       {scene === 8 && (
         <AbsoluteFill style={{ opacity }}>
           <Background />
 
-          <Header
-            title="نحلل المعلومات"
-            number="08"
-          />
+          <Header title="نحلل المعلومات" number="08" />
 
           <Character
             file="IMG_0816.PNG"
@@ -791,7 +852,7 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          SCENE 9 — المراحل
+          SCENE 9
          ================================================= */}
 
       {scene === 9 && (
@@ -806,7 +867,7 @@ export const Episode03: React.FC = () => {
           <Character
             file="IMG_0808.PNG"
             left={15}
-            width={680}
+            width={670}
             height={780}
           />
 
@@ -818,11 +879,11 @@ export const Episode03: React.FC = () => {
           <div
             style={{
               position: "absolute",
-              right: 110,
-              bottom: 115,
+              right: 105,
+              bottom: 110,
               display: "flex",
               gap: 14,
-              zIndex: 45,
+              zIndex: 40,
             }}
           >
             {[1, 2, 3].map((n) => (
@@ -832,11 +893,9 @@ export const Episode03: React.FC = () => {
                   width: 58,
                   height: 58,
                   borderRadius: "50%",
-                  backgroundColor:
-                    n === 1 ? BLUE : LIGHT,
-                  color:
-                    n === 1 ? WHITE : BLUE,
-                  border: `3px solid ${CYAN}`,
+                  backgroundColor: n === 1 ? BLUE : LIGHT,
+                  color: n === 1 ? WHITE : BLUE,
+                  border: `2px solid ${CYAN}`,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -852,7 +911,7 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          SCENE 10 — الرقبة
+          SCENE 10
          ================================================= */}
 
       {scene === 10 && (
@@ -866,8 +925,8 @@ export const Episode03: React.FC = () => {
 
           <Character
             file="IMG_0812.PNG"
-            left={0}
-            width={690}
+            left={10}
+            width={680}
             height={780}
           />
 
@@ -879,7 +938,7 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          SCENE 11 — نعم هكذا
+          SCENE 11
          ================================================= */}
 
       {scene === 11 && (
@@ -893,30 +952,30 @@ export const Episode03: React.FC = () => {
 
           <Character
             file="IMG_0814.PNG"
-            left={5}
-            width={680}
+            left={15}
+            width={670}
             height={780}
           />
 
           <div
             style={{
               position: "absolute",
-              right: 70,
+              right: 75,
               top: 215,
-              width: 590,
+              width: 580,
               padding: "40px",
               backgroundColor: WHITE,
               borderRadius: 30,
               border: `4px solid ${CYAN}`,
               boxShadow: "0 18px 40px rgba(0,0,0,0.12)",
               textAlign: "center",
-              zIndex: 45,
+              zIndex: 30,
             }}
           >
             <div
               style={{
                 color: BLUE,
-                fontSize: 52,
+                fontSize: 50,
                 fontWeight: 900,
               }}
             >
@@ -938,7 +997,7 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          SCENE 12 — اللوحة
+          SCENE 12
          ================================================= */}
 
       {scene === 12 && (
@@ -952,8 +1011,8 @@ export const Episode03: React.FC = () => {
 
           <Character
             file="IMG_0877.PNG"
-            left={0}
-            width={700}
+            left={5}
+            width={690}
             height={790}
           />
 
@@ -965,7 +1024,7 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          SCENE 13 — قراءة الملف
+          SCENE 13
          ================================================= */}
 
       {scene === 13 && (
@@ -979,8 +1038,8 @@ export const Episode03: React.FC = () => {
 
           <Character
             file="IMG_0811.PNG"
-            left={0}
-            width={690}
+            left={10}
+            width={680}
             height={780}
           />
 
@@ -992,7 +1051,7 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          SCENE 14 — علامة التعجب
+          SCENE 14
          ================================================= */}
 
       {scene === 14 && (
@@ -1008,20 +1067,21 @@ export const Episode03: React.FC = () => {
             src={staticFile("characters/IMG_0732.PNG")}
             style={{
               position: "absolute",
-              left: 70,
-              bottom: 100,
-              width: 350,
-              height: 350,
+              left: 55,
+              bottom: 95,
+              width: 390,
+              height: 390,
               objectFit: "contain",
               opacity,
               zIndex: 20,
+              filter: "drop-shadow(0 15px 25px rgba(0,0,0,0.14))",
             }}
           />
 
           <div
             style={{
               position: "absolute",
-              right: 70,
+              right: 65,
               top: 205,
               width: 680,
               padding: "45px",
@@ -1030,7 +1090,7 @@ export const Episode03: React.FC = () => {
               border: `4px solid ${CYAN}`,
               boxShadow: "0 18px 40px rgba(0,0,0,0.12)",
               textAlign: "center",
-              zIndex: 45,
+              zIndex: 30,
             }}
           >
             <div
@@ -1038,7 +1098,6 @@ export const Episode03: React.FC = () => {
                 color: BLUE,
                 fontSize: 48,
                 fontWeight: 900,
-                marginBottom: 20,
               }}
             >
               كل حالة مختلفة
@@ -1046,6 +1105,7 @@ export const Episode03: React.FC = () => {
 
             <div
               style={{
+                marginTop: 20,
                 color: DARK,
                 fontSize: 32,
                 fontWeight: 700,
@@ -1061,7 +1121,7 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          SCENE 15 — النتيجة
+          SCENE 15
          ================================================= */}
 
       {scene === 15 && (
@@ -1075,8 +1135,8 @@ export const Episode03: React.FC = () => {
 
           <Character
             file="IMG_0813.PNG"
-            left={0}
-            width={690}
+            left={10}
+            width={680}
             height={780}
           />
 
@@ -1092,7 +1152,7 @@ export const Episode03: React.FC = () => {
               border: `4px solid ${CYAN}`,
               boxShadow: "0 18px 40px rgba(0,0,0,0.12)",
               textAlign: "center",
-              zIndex: 45,
+              zIndex: 30,
             }}
           >
             <div
@@ -1123,7 +1183,7 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          SCENE 16 — النهاية
+          SCENE 16 — END
          ================================================= */}
 
       {scene === 16 && (
@@ -1132,8 +1192,8 @@ export const Episode03: React.FC = () => {
 
           <Character
             file="IMG_0817.PNG"
-            left={0}
-            width={690}
+            left={15}
+            width={680}
             height={780}
           />
 
@@ -1150,7 +1210,7 @@ export const Episode03: React.FC = () => {
               border: `4px solid ${BLUE}`,
               boxShadow: "0 20px 45px rgba(0,0,0,0.13)",
               textAlign: "center",
-              zIndex: 45,
+              zIndex: 30,
             }}
           >
             <div
