@@ -18,9 +18,13 @@ export const Episode03: React.FC = () => {
   const WHITE = "#FFFFFF";
   const LIGHT = "#E5F5F9";
 
-  const SCENE_DURATION = 75;
+ const SCENE_DURATION = 75;
 
-const scene = 4;
+const scene = Math.min(
+  Math.floor(frame / SCENE_DURATION),
+  16
+);
+
 const localFrame = frame % SCENE_DURATION;
 
   const fadeIn = interpolate(localFrame, [0, 12], [0, 1], {
