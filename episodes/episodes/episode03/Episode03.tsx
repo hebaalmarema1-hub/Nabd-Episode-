@@ -1,7 +1,48 @@
 import React from "react";
-import { AbsoluteFill, Img, staticFile } from "remotion";
+import {
+  AbsoluteFill,
+  Img,
+  staticFile,
+  useCurrentFrame,
+  interpolate,
+} from "remotion";
 
 export const Episode03: React.FC = () => {
+  const frame = useCurrentFrame();
+
+  // حركة الشخصية من اليسار إلى أمام الباب
+  const characterLeft = interpolate(
+    frame,
+    [0, 60, 100],
+    [-450, 180, 230],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+
+  // ظهور الشخصية تدريجيًا
+  const opacity = interpolate(
+    frame,
+    [0, 15],
+    [0, 1],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+
+  // بعد الوصول للباب تظهر صورة الترحيب
+  const welcomeOpacity = interpolate(
+    frame,
+    [100, 115],
+    [0, 1],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+
   return (
     <AbsoluteFill
       style={{
@@ -10,7 +51,7 @@ export const Episode03: React.FC = () => {
         fontFamily: "Arial, sans-serif",
       }}
     >
-      {/* Background */}
+      {/* الحائط */}
       <div
         style={{
           position: "absolute",
@@ -20,7 +61,7 @@ export const Episode03: React.FC = () => {
         }}
       />
 
-      {/* Left decoration */}
+      {/* الشريط الجانبي */}
       <div
         style={{
           position: "absolute",
@@ -32,19 +73,7 @@ export const Episode03: React.FC = () => {
         }}
       />
 
-      {/* Right decoration */}
-      <div
-        style={{
-          position: "absolute",
-          right: 0,
-          top: 0,
-          width: 25,
-          height: "100%",
-          backgroundColor: "#087EA4",
-        }}
-      />
-
-      {/* Floor */}
+      {/* الأرضية */}
       <div
         style={{
           position: "absolute",
@@ -57,11 +86,11 @@ export const Episode03: React.FC = () => {
         }}
       />
 
-      {/* Clinic sign */}
+      {/* لوحة العيادة */}
       <div
         style={{
           position: "absolute",
-          top: 60,
+          top: 55,
           left: "50%",
           transform: "translateX(-50%)",
           backgroundColor: "#FFFFFF",
@@ -73,7 +102,6 @@ export const Episode03: React.FC = () => {
           fontSize: 38,
           fontWeight: "bold",
           textAlign: "center",
-          zIndex: 5,
         }}
       >
         PHYSICAL THERAPY
@@ -90,7 +118,7 @@ export const Episode03: React.FC = () => {
         </div>
       </div>
 
-      {/* Door frame */}
+      {/* إطار الباب */}
       <div
         style={{
           position: "absolute",
@@ -106,7 +134,7 @@ export const Episode03: React.FC = () => {
           boxShadow: "0 15px 35px rgba(0,0,0,0.18)",
         }}
       >
-        {/* Door */}
+        {/* الباب */}
         <div
           style={{
             position: "relative",
@@ -116,7 +144,7 @@ export const Episode03: React.FC = () => {
             borderRadius: "18px 18px 0 0",
           }}
         >
-          {/* Glass */}
+          {/* زجاج الباب */}
           <div
             style={{
               position: "absolute",
@@ -130,7 +158,7 @@ export const Episode03: React.FC = () => {
               boxSizing: "border-box",
             }}
           >
-            {/* Glass reflection */}
+            {/* انعكاس الزجاج */}
             <div
               style={{
                 position: "absolute",
@@ -144,7 +172,7 @@ export const Episode03: React.FC = () => {
             />
           </div>
 
-          {/* Door sign */}
+          {/* لوحة الباب */}
           <div
             style={{
               position: "absolute",
@@ -163,7 +191,7 @@ export const Episode03: React.FC = () => {
             PHYSICAL THERAPY
           </div>
 
-          {/* Door handle */}
+          {/* مقبض الباب */}
           <div
             style={{
               position: "absolute",
@@ -179,52 +207,55 @@ export const Episode03: React.FC = () => {
         </div>
       </div>
 
-      {/* Episode number */}
-      <div
-        style={{
-          position: "absolute",
-          left: 110,
-          bottom: 75,
-          color: "#087EA4",
-          fontSize: 32,
-          fontWeight: "bold",
-          zIndex: 20,
-        }}
-      >
-        EPISODE 03
-      </div>
-
-      {/* Scene title */}
-      <div
-        style={{
-          position: "absolute",
-          right: 110,
-          bottom: 70,
-          backgroundColor: "#FFFFFF",
-          padding: "18px 30px",
-          borderRadius: 15,
-          color: "#31515C",
-          fontSize: 25,
-          boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
-          zIndex: 20,
-        }}
-      >
-        First Visit
-      </div>
-
-      {/* Nabd character */}
+      {/* الشخصية - تدخل من اليسار */}
       <Img
-        src={staticFile("characters/nabd-host.jpeg")}
+        src={staticFile("characters/IMG_0815.PNG")}
         style={{
           position: "absolute",
-          bottom: 0,
-          left: 170,
-          width: 430,
-          height: 560,
+          bottom: 100,
+          left: characterLeft,
+          width: 360,
+          height: 500,
           objectFit: "contain",
-          zIndex: 15,
+          opacity,
         }}
       />
+
+      {/* ترحيب */}
+      <div
+        style={{
+          position: "absolute",
+          left: 120,
+          bottom: 80,
+          backgroundColor: "#FFFFFF",
+          padding: "18px 30px",
+          borderRadius: 18,
+          color: "#087EA4",
+          fontSize: 28,
+          fontWeight: "bold",
+          boxShadow: "0 8px 25px rgba(0,0,0,0.12)",
+          opacity: welcomeOpacity,
+        }}
+      >
+        مرحبًا بك 👋
+      </div>
+
+      {/* عنوان الحلقة */}
+      <div
+        style={{
+          position: "absolute",
+          right: 90,
+          bottom: 70,
+          backgroundColor: "#FFFFFF",
+          padding: "15px 25px",
+          borderRadius: 15,
+          color: "#31515C",
+          fontSize: 24,
+          boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+        }}
+      >
+        Episode 03
+      </div>
     </AbsoluteFill>
   );
 };
