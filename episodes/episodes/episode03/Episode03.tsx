@@ -18,6 +18,7 @@ export const Episode03: React.FC = () => {
   const WHITE = "#FFFFFF";
   const LIGHT = "#E5F5F9";
 
+  // كل مشهد = 75 فريم
   const SCENE_DURATION = 75;
 
   // الجزء الثالث يبدأ من المشهد 08
@@ -194,7 +195,7 @@ export const Episode03: React.FC = () => {
   );
 
   // =========================
-  // CHARACTER
+  // CHARACTER IMAGE
   // =========================
 
   const Character = ({
@@ -231,10 +232,10 @@ export const Episode03: React.FC = () => {
 
   const Card = ({
     title,
-    text,
+    children,
   }: {
     title: string;
-    text: React.ReactNode;
+    children: React.ReactNode;
   }) => (
     <div
       style={{
@@ -282,7 +283,7 @@ export const Episode03: React.FC = () => {
           lineHeight: 1.55,
         }}
       >
-        {text}
+        {children}
       </div>
     </div>
   );
@@ -307,16 +308,13 @@ export const Episode03: React.FC = () => {
         height={770}
       />
 
-      <Card
-        title="الأخصائي يحلل"
-        text={
-          <>
-            نجمع كل المعلومات
-            <br />
-            باش نفهم سبب المشكلة بشكل أفضل.
-          </>
-        }
-      />
+      <Card title="الأخصائي يحلل">
+        <>
+          نجمع كل المعلومات
+          <br />
+          باش نفهم سبب المشكلة بشكل أفضل.
+        </>
+      </Card>
     </AbsoluteFill>
   );
 
@@ -340,16 +338,13 @@ export const Episode03: React.FC = () => {
         height={780}
       />
 
-      <Card
-        title="مراجعة التاريخ المرضي"
-        text={
-          <>
-            نرجع للمعلومات السابقة
-            <br />
-            ونربطها بنتائج التقييم.
-          </>
-        }
-      />
+      <Card title="مراجعة التاريخ المرضي">
+        <>
+          نرجع للمعلومات السابقة
+          <br />
+          ونربطها بنتائج التقييم.
+        </>
+      </Card>
     </AbsoluteFill>
   );
 
@@ -373,16 +368,13 @@ export const Episode03: React.FC = () => {
         height={770}
       />
 
-      <Card
-        title="عندنا سؤال مهم"
-        text={
-          <>
-            أحيانًا نحتاج نسأل أكثر
-            <br />
-            باش نفهم الحالة بشكل أوضح.
-          </>
-        }
-      />
+      <Card title="عندنا سؤال مهم">
+        <>
+          أحيانًا نحتاج نسأل أكثر
+          <br />
+          باش نفهم الحالة بشكل أوضح.
+        </>
+      </Card>
     </AbsoluteFill>
   );
 
@@ -406,16 +398,13 @@ export const Episode03: React.FC = () => {
         height={780}
       />
 
-      <Card
-        title="نقيس مرة ثانية"
-        text={
-          <>
-            نتأكد من مدى الحركة والقوة
-            <br />
-            ونقارن النتائج.
-          </>
-        }
-      />
+      <Card title="نقيس مرة ثانية">
+        <>
+          نتأكد من مدى الحركة والقوة
+          <br />
+          ونقارن النتائج.
+        </>
+      </Card>
 
       <div
         style={{
