@@ -20,29 +20,21 @@ export const Episode03: React.FC = () => {
 
  const SCENE_DURATION = 75;
 
-const scene = Math.min(
-  Math.floor(frame / SCENE_DURATION),
-  16
-);
+const scene = Math.floor(frame / SCENE_DURATION);
 
 const localFrame = frame % SCENE_DURATION;
+
+// نخلي المشهد ظاهر مؤقتًا للتأكد أن كل المشاهد تشتغل
+const opacity = 1;
+
+const moveUp = 0;
 
   const fadeIn = interpolate(localFrame, [0, 12], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  const fadeOut = interpolate(localFrame, [63, 74], [1, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-
-  const opacity = Math.min(fadeIn, fadeOut);
-
-  const moveUp = interpolate(localFrame, [0, 18], [35, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
+ 
 
   // =====================================================
   // BACKGROUND
