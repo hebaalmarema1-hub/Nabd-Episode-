@@ -10,1342 +10,1004 @@ import {
 export const Episode03: React.FC = () => {
   const frame = useCurrentFrame();
 
-  // =====================================================
-  // المشهد الأول
-  // =====================================================
+  // =========================================================
+  // إعدادات
+  // =========================================================
 
-  const characterLeft = interpolate(
-    frame,
-    [0, 70],
-    [-400, 180],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
+  const BLUE = "#087EA4";
+  const CYAN = "#35B6D6";
+  const DARK = "#244B57";
+  const BG = "#F4FBFD";
+  const LIGHT = "#E5F5F9";
 
-  const characterOpacity = interpolate(
-    frame,
-    [0, 15],
-    [0, 1],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
+  // كل لقطة = 75 فريم
+  const SCENE = 75;
 
-  // =====================================================
-  // المشهد الثاني
-  // =====================================================
+  const scene = Math.floor(frame / SCENE);
+  const local = frame % SCENE;
 
-  const scene2Opacity = interpolate(
-    frame,
-    [100, 115],
-    [0, 1],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
+  // دخول ناعم للشخصية والنص
+  const fadeIn = interpolate(local, [0, 12], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
 
-  // =====================================================
-  // المشهد الثالث
-  // =====================================================
+  const fadeOut = interpolate(local, [62, 74], [1, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
 
-  const scene3Opacity = interpolate(
-    frame,
-    [210, 225],
-    [0, 1],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
+  const opacity = Math.min(fadeIn, fadeOut);
 
-  // -----------------------------------------------------
-  // 1 — الأخصائية تستمع
-  // -----------------------------------------------------
+  // حركة بسيطة للشخصية
+  const characterY = interpolate(local, [0, 20], [35, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
 
-  const listen = interpolate(
-    frame,
-    [225, 240, 275, 285],
-    [0, 1, 1, 0],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
+  // =========================================================
+  // خلفية موحدة
+  // =========================================================
 
-  // -----------------------------------------------------
-  // 2 — سؤال
-  // -----------------------------------------------------
-
-  const question = interpolate(
-    frame,
-    [275, 290, 320, 330],
-    [0, 1, 1, 0],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
-
-  // -----------------------------------------------------
-  // 3 — القياس
-  // -----------------------------------------------------
-
-  const measure = interpolate(
-    frame,
-    [320, 335, 365, 375],
-    [0, 1, 1, 0],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
-
-  // -----------------------------------------------------
-  // 4 — تحديد مكان الألم
-  // -----------------------------------------------------
-
-  const pain = interpolate(
-    frame,
-    [365, 380, 410, 420],
-    [0, 1, 1, 0],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
-
-  // -----------------------------------------------------
-  // 5 — التوازن
-  // -----------------------------------------------------
-
-  const balance = interpolate(
-    frame,
-    [410, 425, 455, 465],
-    [0, 1, 1, 0],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
-
-  // -----------------------------------------------------
-  // 6 — تسجيل الملاحظات
-  // -----------------------------------------------------
-
-  const notes = interpolate(
-    frame,
-    [455, 470, 500, 510],
-    [0, 1, 1, 0],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
-
-  // -----------------------------------------------------
-  // 7 — الخطة
-  // -----------------------------------------------------
-
-  const plan = interpolate(
-    frame,
-    [500, 515, 550],
-    [0, 1, 1],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
-
-  return (
-    <AbsoluteFill
-      style={{
-        backgroundColor: "#F5FAFC",
-        overflow: "hidden",
-        fontFamily: "Arial, sans-serif",
-      }}
-    >
-
-      {/* ================================================= */}
-      {/* المشهد الأول - باب العيادة */}
-      {/* ================================================= */}
-
-      <AbsoluteFill
-        style={{
-          opacity: frame < 115 ? 1 : 0,
-        }}
-      >
-
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background:
-              "linear-gradient(180deg, #EAF7FC 0%, #FFFFFF 70%)",
-          }}
-        />
-
-        <div
-          style={{
-            position: "absolute",
-            left: 0,
-            top: 0,
-            width: 70,
-            height: "100%",
-            backgroundColor: "#087EA4",
-          }}
-        />
-
-        <div
-          style={{
-            position: "absolute",
-            left: 0,
-            right: 0,
-            bottom: 0,
-            height: 210,
-            backgroundColor: "#D8E4E8",
-            borderTop: "6px solid #C1D2D8",
-          }}
-        />
-
-        {/* لوحة العيادة */}
-        <div
-          style={{
-            position: "absolute",
-            top: 55,
-            left: "50%",
-            transform: "translateX(-50%)",
-            backgroundColor: "#FFFFFF",
-            padding: "22px 55px",
-            borderRadius: 20,
-            border: "4px solid #087EA4",
-            color: "#087EA4",
-            fontSize: 38,
-            fontWeight: "bold",
-            textAlign: "center",
-            boxShadow: "0 10px 25px rgba(0,0,0,0.10)",
-          }}
-        >
-          PHYSICAL THERAPY
-
-          <div
-            style={{
-              marginTop: 8,
-              fontSize: 24,
-              color: "#4A6873",
-              fontWeight: "normal",
-            }}
-          >
-            CLINIC
-          </div>
-        </div>
-
-        {/* إطار الباب */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: 620,
-            height: 690,
-            backgroundColor: "#B7CBD2",
-            padding: 18,
-            borderRadius: "28px 28px 0 0",
-            boxSizing: "border-box",
-            boxShadow: "0 15px 35px rgba(0,0,0,0.18)",
-          }}
-        >
-
-          <div
-            style={{
-              position: "relative",
-              width: "100%",
-              height: "100%",
-              backgroundColor: "#087EA4",
-              borderRadius: "18px 18px 0 0",
-            }}
-          >
-
-            <div
-              style={{
-                position: "absolute",
-                top: 35,
-                left: 45,
-                right: 45,
-                height: 300,
-                backgroundColor: "#DDF4FA",
-                border: "8px solid #FFFFFF",
-                borderRadius: 14,
-              }}
-            />
-
-            <div
-              style={{
-                position: "absolute",
-                top: 365,
-                left: 80,
-                right: 80,
-                padding: "18px 10px",
-                backgroundColor: "#FFFFFF",
-                borderRadius: 12,
-                textAlign: "center",
-                color: "#087EA4",
-                fontSize: 26,
-                fontWeight: "bold",
-              }}
-            >
-              PHYSICAL THERAPY
-            </div>
-
-            <div
-              style={{
-                position: "absolute",
-                right: 35,
-                top: "58%",
-                width: 25,
-                height: 25,
-                borderRadius: "50%",
-                backgroundColor: "#FFFFFF",
-              }}
-            />
-          </div>
-        </div>
-
-        <Img
-          src={staticFile("characters/IMG_0815.PNG")}
-          style={{
-            position: "absolute",
-            left: characterLeft,
-            bottom: 60,
-            width: 360,
-            height: 500,
-            objectFit: "contain",
-            opacity: characterOpacity,
-          }}
-        />
-
-        <div
-          style={{
-            position: "absolute",
-            left: 90,
-            bottom: 35,
-            backgroundColor: "#FFFFFF",
-            padding: "14px 25px",
-            borderRadius: 15,
-            color: "#087EA4",
-            fontSize: 30,
-            fontWeight: "bold",
-            boxShadow: "0 8px 20px rgba(0,0,0,0.12)",
-            opacity: frame >= 75 ? 1 : 0,
-          }}
-        >
-          مرحبًا بك
-        </div>
-
-      </AbsoluteFill>
-
-
-      {/* ================================================= */}
-      {/* المشهد الثاني - داخل العيادة */}
-      {/* ================================================= */}
-
-      <AbsoluteFill
-        style={{
-          opacity: scene2Opacity,
-        }}
-      >
-
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background:
-              "linear-gradient(180deg, #E7F6FB 0%, #FFFFFF 72%)",
-          }}
-        />
-
-        <div
-          style={{
-            position: "absolute",
-            left: 0,
-            top: 0,
-            width: 45,
-            height: "100%",
-            backgroundColor: "#087EA4",
-          }}
-        />
-
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 45,
-            right: 0,
-            height: 12,
-            backgroundColor: "#087EA4",
-          }}
-        />
-
-        {/* العنوان */}
-        <div
-          style={{
-            position: "absolute",
-            top: 55,
-            left: 100,
-            right: 100,
-            textAlign: "center",
-            color: "#087EA4",
-            fontSize: 52,
-            fontWeight: "bold",
-          }}
-        >
-          أول زيارة للعلاج الطبيعي
-        </div>
-
-        <div
-          style={{
-            position: "absolute",
-            top: 130,
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: 180,
-            height: 6,
-            backgroundColor: "#35B6D6",
-            borderRadius: 10,
-          }}
-        />
-
-        {/* لوحة تشريحية */}
-        <div
-          style={{
-            position: "absolute",
-            top: 215,
-            left: 90,
-            width: 190,
-            height: 245,
-            backgroundColor: "#FFFFFF",
-            borderRadius: 18,
-            border: "3px solid #C7E3EA",
-            boxShadow: "0 10px 25px rgba(0,0,0,0.08)",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              color: "#087EA4",
-              fontSize: 22,
-              fontWeight: "bold",import React from "react";
-import {
-  AbsoluteFill,
-  Img,
-  staticFile,
-  useCurrentFrame,
-  interpolate,
-} from "remotion";
-export const Episode03: React.FC = () => {
-  const frame = useCurrentFrame();
-  // =====================================================
-  // إعدادات عامة
-  // =====================================================
-  const blue = "#087EA4";
-  const lightBlue = "#35B6D6";
-  const dark = "#244B57";
-  const soft = "#EAF7FB";
-  const white = "#FFFFFF";
-  // =====================================================
-  // الانتقالات
-  // =====================================================
-  const scene1Opacity = interpolate(
-    frame,
-    [0, 15],
-    [0, 1],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
-  const scene2Opacity = interpolate(
-    frame,
-    [105, 120],
-    [0, 1],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
-  const scene3Opacity = interpolate(
-    frame,
-    [210, 225],
-    [0, 1],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
-  // =====================================================
-  // المشهد 1
-  // =====================================================
-  const entranceCharacter = interpolate(
-    frame,
-    [0, 70],
-    [-450, 120],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
-  const entranceOpacity = interpolate(
-    frame,
-    [0, 18],
-    [0, 1],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
-  // =====================================================
-  // المشهد 3 — توقيت العناصر
-  // =====================================================
-  const listenOpacity = interpolate(
-    frame,
-    [225, 240, 275, 285],
-    [0, 1, 1, 0],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
-  const questionOpacity = interpolate(
-    frame,
-    [275, 290, 320, 330],
-    [0, 1, 1, 0],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
-  const measureOpacity = interpolate(
-    frame,
-    [320, 335, 365, 375],
-    [0, 1, 1, 0],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
-  const painOpacity = interpolate(
-    frame,
-    [365, 380, 410, 420],
-    [0, 1, 1, 0],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
-  const balanceOpacity = interpolate(
-    frame,
-    [410, 425, 455, 465],
-    [0, 1, 1, 0],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
-  const notesOpacity = interpolate(
-    frame,
-    [455, 470, 500, 510],
-    [0, 1, 1, 0],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
-  const planOpacity = interpolate(
-    frame,
-    [500, 515, 555],
-    [0, 1, 1],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
-  // =====================================================
-  // مكوّن بطاقة النص
-  // =====================================================
-  const TextCard = ({
-    title,
-    subtitle,
-    opacity,
-  }: {
-    title: string;
-    subtitle: string;
-    opacity: number;
-  }) => (
-    <div
-      style={{
-        position: "absolute",
-        top: 170,
-        left: 470,
-        width: 650,
-        minHeight: 190,
-        padding: "30px 40px",
-        boxSizing: "border-box",
-        backgroundColor: white,
-        borderRadius: 30,
-        border: `3px solid ${lightBlue}`,
-        boxShadow: "0 18px 45px rgba(20,100,130,0.15)",
-        textAlign: "center",
-        opacity,
-        zIndex: 30,
-      }}
-    >
+  const Background = () => (
+    <>
       <div
         style={{
-          color: blue,
-          fontSize: 46,
+          position: "absolute",
+          inset: 0,
+          background:
+            "linear-gradient(135deg, #E5F6FA 0%, #FFFFFF 58%, #EEF9FB 100%)",
+        }}
+      />
+
+      {/* شريط جانبي */}
+      <div
+        style={{
+          position: "absolute",
+          left: 0,
+          top: 0,
+          width: 48,
+          height: "100%",
+          backgroundColor: BLUE,
+        }}
+      />
+
+      {/* دوائر ديكورية */}
+      <div
+        style={{
+          position: "absolute",
+          right: 70,
+          top: 55,
+          width: 150,
+          height: 150,
+          borderRadius: "50%",
+          border: `4px solid ${CYAN}`,
+          opacity: 0.16,
+        }}
+      />
+
+      <div
+        style={{
+          position: "absolute",
+          right: 115,
+          top: 100,
+          width: 55,
+          height: 55,
+          borderRadius: "50%",
+          backgroundColor: CYAN,
+          opacity: 0.10,
+        }}
+      />
+
+      {/* الأرضية */}
+      <div
+        style={{
+          position: "absolute",
+          left: 48,
+          right: 0,
+          bottom: 0,
+          height: 90,
+          backgroundColor: "#DCE9ED",
+          borderTop: "4px solid #C6D9DE",
+        }}
+      />
+
+      {/* خط الأرض */}
+      <div
+        style={{
+          position: "absolute",
+          left: 75,
+          right: 65,
+          bottom: 85,
+          height: 4,
+          borderRadius: 10,
+          backgroundColor: "#C5E0E6",
+        }}
+      />
+    </>
+  );
+
+  // =========================================================
+  // عنوان
+  // =========================================================
+
+  const Header = ({
+    title,
+    number,
+  }: {
+    title: string;
+    number: string;
+  }) => (
+    <>
+      <div
+        style={{
+          position: "absolute",
+          top: 38,
+          left: 90,
+          right: 90,
+          textAlign: "center",
+          color: BLUE,
+          fontSize: 52,
           fontWeight: 900,
-          lineHeight: 1.25,
-          marginBottom: 12,
+          lineHeight: 1.2,
+          zIndex: 20,
         }}
       >
         {title}
       </div>
+
       <div
         style={{
-          width: 120,
+          position: "absolute",
+          top: 112,
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: 150,
           height: 6,
-          margin: "0 auto 15px",
-          borderRadius: 10,
-          backgroundColor: lightBlue,
+          backgroundColor: CYAN,
+          borderRadius: 20,
         }}
       />
+
       <div
         style={{
-          color: dark,
-          fontSize: 32,
-          fontWeight: 600,
-          lineHeight: 1.5,
+          position: "absolute",
+          left: 70,
+          bottom: 42,
+          color: BLUE,
+          fontSize: 26,
+          fontWeight: 900,
         }}
       >
-        {subtitle}
+        {number}
+      </div>
+    </>
+  );
+
+  // =========================================================
+  // بطاقة الكلام
+  // =========================================================
+
+  const Card = ({
+    title,
+    text,
+  }: {
+    title: string;
+    text: string;
+  }) => (
+    <div
+      style={{
+        position: "absolute",
+        right: 100,
+        top: 190,
+        width: 560,
+        minHeight: 220,
+        padding: "32px 38px",
+        boxSizing: "border-box",
+        backgroundColor: "#FFFFFF",
+        border: `3px solid ${CYAN}`,
+        borderRadius: 28,
+        boxShadow: "0 18px 40px rgba(0,80,100,0.12)",
+        textAlign: "center",
+        zIndex: 15,
+      }}
+    >
+      <div
+        style={{
+          color: BLUE,
+          fontSize: 42,
+          fontWeight: 900,
+          lineHeight: 1.25,
+          marginBottom: 15,
+        }}
+      >
+        {title}
+      </div>
+
+      <div
+        style={{
+          width: 90,
+          height: 5,
+          margin: "0 auto 18px",
+          backgroundColor: CYAN,
+          borderRadius: 10,
+        }}
+      />
+
+      <div
+        style={{
+          color: DARK,
+          fontSize: 30,
+          fontWeight: 700,
+          lineHeight: 1.55,
+        }}
+      >
+        {text}
       </div>
     </div>
   );
+
+  // =========================================================
+  // شخصية كبيرة
+  // =========================================================
+
+  const Character = ({
+    file,
+    left = 60,
+    width = 520,
+    height = 670,
+  }: {
+    file: string;
+    left?: number;
+    width?: number;
+    height?: number;
+  }) => (
+    <Img
+      src={staticFile(`characters/${file}`)}
+      style={{
+        position: "absolute",
+        left,
+        bottom: 70,
+        width,
+        height,
+        objectFit: "contain",
+        opacity,
+        transform: `translateY(${characterY}px)`,
+        filter: "drop-shadow(0 18px 25px rgba(0,0,0,0.17))",
+        zIndex: 10,
+      }}
+    />
+  );
+
+  // =========================================================
+  // العنصر الرئيسي
+  // =========================================================
+
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: "#F5FAFC",
+        backgroundColor: BG,
         overflow: "hidden",
-        fontFamily:
-          "Arial, 'Tahoma', sans-serif",
+        fontFamily: "Arial, Tahoma, sans-serif",
       }}
     >
-      {/* ================================================= */}
-      {/* المشهد الأول — باب العيادة */}
-      {/* ================================================= */}
-      <AbsoluteFill
-        style={{
-          opacity: frame < 115 ? scene1Opacity : 0,
-        }}
-      >
-        {/* خلفية */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background:
-              "linear-gradient(135deg, #DFF4FA 0%, #FFFFFF 60%, #EAF7FB 100%)",
-          }}
-        />
-        {/* ديكور جانبي */}
-        <div
-          style={{
-            position: "absolute",
-            left: 0,
-            top: 0,
-            width: 55,
-            height: "100%",
-            backgroundColor: blue,
-          }}
-        />
-        {/* دوائر ديكورية */}
-        <div
-          style={{
-            position: "absolute",
-            right: 80,
-            top: 80,
-            width: 180,
-            height: 180,
-            borderRadius: "50%",
-            border: `3px solid ${lightBlue}`,
-            opacity: 0.2,
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            right: 130,
-            top: 130,
-            width: 80,
-            height: 80,
-            borderRadius: "50%",
-            backgroundColor: lightBlue,
-            opacity: 0.12,
-          }}
-        />
-        {/* الأرضية */}
-        <div
-          style={{
-            position: "absolute",
-            left: 0,
-            right: 0,
-            bottom: 0,
-            height: 180,
-            backgroundColor: "#D7E5E9",
-            borderTop: "5px solid #C0D3D9",
-          }}
-        />
-        {/* عنوان العيادة */}
-        <div
-          style={{
-            position: "absolute",
-            top: 50,
-            left: "50%",
-            transform: "translateX(-50%)",
-            padding: "20px 60px",
-            backgroundColor: white,
-            borderRadius: 22,
-            border: `4px solid ${blue}`,
-            boxShadow: "0 12px 30px rgba(0,0,0,0.10)",
-            textAlign: "center",
-            color: blue,
-            fontSize: 40,
-            fontWeight: 900,
-          }}
-        >
-          PHYSICAL THERAPY
+
+      {/* =====================================================
+          SCENE 0 — مرحباً
+         ===================================================== */}
+
+      {scene === 0 && (
+        <AbsoluteFill style={{ opacity }}>
+          <Background />
+
           <div
             style={{
-              marginTop: 5,
-              color: dark,
-              fontSize: 24,
-              fontWeight: 500,
-              letterSpacing: 3,
+              position: "absolute",
+              top: 75,
+              left: "50%",
+              transform: "translateX(-50%)",
+              backgroundColor: "#FFFFFF",
+              padding: "24px 65px",
+              borderRadius: 25,
+              border: `4px solid ${BLUE}`,
+              color: BLUE,
+              fontSize: 42,
+              fontWeight: 900,
+              boxShadow: "0 12px 30px rgba(0,0,0,0.10)",
+              textAlign: "center",
+              zIndex: 20,
             }}
           >
-            CLINIC
-          </div>
-        </div>
-        {/* الباب */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: 580,
-            height: 670,
-            padding: 16,
-            boxSizing: "border-box",
-            backgroundColor: "#B5C9D0",
-            borderRadius: "30px 30px 0 0",
-            boxShadow: "0 20px 45px rgba(0,0,0,0.18)",
-          }}
-        >
-          <div
-            style={{
-              position: "relative",
-              width: "100%",
-              height: "100%",
-              backgroundColor: blue,
-              borderRadius: "20px 20px 0 0",
-            }}
-          >
+            PHYSICAL THERAPY
             <div
               style={{
-                position: "absolute",
-                top: 30,
-                left: 40,
-                right: 40,
-                height: 310,
-                backgroundColor: "#DDF4FA",
-                border: "8px solid white",
-                borderRadius: 18,
+                marginTop: 5,
+                color: DARK,
+                fontSize: 23,
+                letterSpacing: 3,
+                fontWeight: 500,
               }}
-            />
+            >
+              CLINIC
+            </div>
+          </div>
+
+          <Character
+            file="IMG_0815.PNG"
+            left={130}
+            width={570}
+            height={700}
+          />
+
+          <div
+            style={{
+              position: "absolute",
+              right: 150,
+              top: 280,
+              padding: "28px 55px",
+              backgroundColor: "#FFFFFF",
+              borderRadius: 28,
+              border: `3px solid ${CYAN}`,
+              color: BLUE,
+              fontSize: 48,
+              fontWeight: 900,
+              boxShadow: "0 15px 35px rgba(0,0,0,0.10)",
+              zIndex: 20,
+            }}
+          >
+            مرحبًا بك
+          </div>
+        </AbsoluteFill>
+      )}
+
+      {/* =====================================================
+          SCENE 1 — الاستماع
+         ===================================================== */}
+
+      {scene === 1 && (
+        <AbsoluteFill style={{ opacity }}>
+          <Background />
+          <Header title="نبدأ بالاستماع" number="01" />
+
+          <Character
+            file="IMG_0810.PNG"
+            left={70}
+            width={570}
+            height={700}
+          />
+
+          <Card
+            title="خلينا نسمع منك"
+            text="شن المشكلة؟ ومتى بدأت؟ وشن أكثر شيء يضايقك؟"
+          />
+
+          <div
+            style={{
+              position: "absolute",
+              right: 750,
+              top: 310,
+              fontSize: 85,
+              color: CYAN,
+              fontWeight: 900,
+              opacity: 0.65,
+            }}
+          >
+            …
+          </div>
+        </AbsoluteFill>
+      )}
+
+      {/* =====================================================
+          SCENE 2 — المريضة مع الملف
+         ===================================================== */}
+
+      {scene === 2 && (
+        <AbsoluteFill style={{ opacity }}>
+          <Background />
+          <Header title="المريضة تشرح حالتها" number="02" />
+
+          <Character
+            file="IMG_0873.PNG"
+            left={80}
+            width={570}
+            height={700}
+          />
+
+          <Card
+            title="نوضح الحالة"
+            text="المريضة تعطي المعلومات الأساسية وتشرح المشكلة."
+          />
+
+          <div
+            style={{
+              position: "absolute",
+              right: 90,
+              bottom: 125,
+              padding: "15px 25px",
+              backgroundColor: LIGHT,
+              borderRadius: 18,
+              color: BLUE,
+              fontSize: 27,
+              fontWeight: 800,
+            }}
+          >
+            📋 المعلومات الأولية
+          </div>
+        </AbsoluteFill>
+      )}
+
+      {/* =====================================================
+          SCENE 3 — السؤال
+         ===================================================== */}
+
+      {scene === 3 && (
+        <AbsoluteFill style={{ opacity }}>
+          <Background />
+          <Header title="نسأل الأسئلة المهمة" number="03" />
+
+          <Character
+            file="IMG_0810.PNG"
+            left={80}
+            width={540}
+            height={680}
+          />
+
+          <Img
+            src={staticFile("characters/IMG_0737.PNG")}
+            style={{
+              position: "absolute",
+              right: 120,
+              bottom: 115,
+              width: 190,
+              height: 190,
+              objectFit: "contain",
+              opacity,
+            }}
+          />
+
+          <Card
+            title="وين الألم؟"
+            text="نسأل عن مكان الألم، شدته، ومتى يظهر."
+          />
+        </AbsoluteFill>
+      )}
+
+      {/* =====================================================
+          SCENE 4 — القياس
+         ===================================================== */}
+
+      {scene === 4 && (
+        <AbsoluteFill style={{ opacity }}>
+          <Background />
+          <Header title="بعدها نبدأ القياس" number="04" />
+
+          <Character
+            file="IMG_0874.PNG"
+            left={60}
+            width={590}
+            height={710}
+          />
+
+          <Card
+            title="التقييم الجسدي"
+            text="نقيس الحركة والقوة ونلاحظ طريقة أداء الحركة."
+          />
+
+          <div
+            style={{
+              position: "absolute",
+              right: 120,
+              bottom: 125,
+              backgroundColor: "#FFFFFF",
+              border: `3px solid ${CYAN}`,
+              borderRadius: 18,
+              padding: "14px 28px",
+              color: BLUE,
+              fontSize: 28,
+              fontWeight: 900,
+            }}
+          >
+            ROM • القوة • الحركة
+          </div>
+        </AbsoluteFill>
+      )}
+
+      {/* =====================================================
+          SCENE 5 — ألم الكتف
+         ===================================================== */}
+
+      {scene === 5 && (
+        <AbsoluteFill style={{ opacity }}>
+          <Background />
+          <Header title="نحدد مكان الألم" number="05" />
+
+          <Character
+            file="IMG_0806 (1).PNG"
+            left={65}
+            width={590}
+            height={710}
+          />
+
+          <Card
+            title="مثلاً: ألم الكتف"
+            text="نشوف وين الألم بالضبط وشن الحركات اللي تزيده."
+          />
+
+          <div
+            style={{
+              position: "absolute",
+              right: 100,
+              bottom: 125,
+              padding: "14px 30px",
+              backgroundColor: LIGHT,
+              color: BLUE,
+              borderRadius: 18,
+              fontSize: 28,
+              fontWeight: 900,
+            }}
+          >
+            تحديد المشكلة
+          </div>
+        </AbsoluteFill>
+      )}
+
+      {/* =====================================================
+          SCENE 6 — التمارين / الحركة
+         ===================================================== */}
+
+      {scene === 6 && (
+        <AbsoluteFill style={{ opacity }}>
+          <Background />
+          <Header title="نشوف الحركة" number="06" />
+
+          <Character
+            file="IMG_0807.PNG"
+            left={55}
+            width={600}
+            height={720}
+          />
+
+          <Card
+            title="اختبار الحركة"
+            text="قد نطلب منك تعمل حركة أو تمرين بسيط حتى نقيّم الأداء."
+          />
+        </AbsoluteFill>
+      )}
+
+      {/* =====================================================
+          SCENE 7 — التوازن
+         ===================================================== */}
+
+      {scene === 7 && (
+        <AbsoluteFill style={{ opacity }}>
+          <Background />
+          <Header title="نقيّم التوازن" number="07" />
+
+          <Character
+            file="IMG_0876.PNG"
+            left={70}
+            width={580}
+            height={710}
+          />
+
+          <Card
+            title="التوازن مهم"
+            text="لأنه يساعدنا نعرف مستوى التحكم والثبات أثناء الحركة."
+          />
+
+          <div
+            style={{
+              position: "absolute",
+              right: 110,
+              bottom: 125,
+              width: 170,
+              height: 12,
+              backgroundColor: CYAN,
+              borderRadius: 20,
+            }}
+          />
+        </AbsoluteFill>
+      )}
+
+      {/* =====================================================
+          SCENE 8 — التفكير والتحليل
+         ===================================================== */}
+
+      {scene === 8 && (
+        <AbsoluteFill style={{ opacity }}>
+          <Background />
+          <Header title="نحلل المعلومات" number="08" />
+
+          <Character
+            file="IMG_0816.PNG"
+            left={90}
+            width={550}
+            height={690}
+          />
+
+          <Card
+            title="الأخصائي يحلل"
+            text="نجمع كل المعلومات باش نفهم سبب المشكلة بشكل أفضل."
+          />
+        </AbsoluteFill>
+      )}
+
+      {/* =====================================================
+          SCENE 9 — مراحل
+         ===================================================== */}
+
+      {scene === 9 && (
+        <AbsoluteFill style={{ opacity }}>
+          <Background />
+          <Header title="نرتب مراحل التقييم" number="09" />
+
+          <Character
+            file="IMG_0808.PNG"
+            left={80}
+            width={560}
+            height={700}
+          />
+
+          <Card
+            title="كل خطوة لها هدف"
+            text="نرتب النتائج ونحدد الأولويات قبل وضع الخطة العلاجية."
+          />
+
+          <div
+            style={{
+              position: "absolute",
+              right: 110,
+              bottom: 130,
+              display: "flex",
+              gap: 12,
+            }}
+          >
+            {[1, 2, 3].map((n) => (
+              <div
+                key={n}
+                style={{
+                  width: 55,
+                  height: 55,
+                  borderRadius: "50%",
+                  backgroundColor: n === 1 ? BLUE : LIGHT,
+                  color: n === 1 ? WHITE : BLUE,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: 26,
+                  fontWeight: 900,
+                }}
+              >
+                {n}
+              </div>
+            ))}
+          </div>
+        </AbsoluteFill>
+      )}
+
+      {/* =====================================================
+          SCENE 10 — الرقبة
+         ===================================================== */}
+
+      {scene === 10 && (
+        <AbsoluteFill style={{ opacity }}>
+          <Background />
+          <Header title="نركز على التفاصيل" number="10" />
+
+          <Character
+            file="IMG_0812.PNG"
+            left={70}
+            width={580}
+            height={710}
+          />
+
+          <Card
+            title="مثلاً: الرقبة"
+            text="نلاحظ الألم والحركة والمنطقة المرتبطة بالمشكلة."
+          />
+        </AbsoluteFill>
+      )}
+
+      {/* =====================================================
+          SCENE 11 — نعم هكذا
+         ===================================================== */}
+
+      {scene === 11 && (
+        <AbsoluteFill style={{ opacity }}>
+          <Background />
+          <Header title="نتأكد من الحركة" number="11" />
+
+          <Character
+            file="IMG_0814.PNG"
+            left={75}
+            width={570}
+            height={700}
+          />
+
+          <div
+            style={{
+              position: "absolute",
+              right: 150,
+              top: 245,
+              width: 480,
+              padding: "30px",
+              backgroundColor: "#FFFFFF",
+              borderRadius: 28,
+              border: `3px solid ${CYAN}`,
+              boxShadow: "0 15px 35px rgba(0,0,0,0.10)",
+              textAlign: "center",
+            }}
+          >
             <div
               style={{
-                position: "absolute",
-                top: 375,
-                left: 65,
-                right: 65,
-                padding: "20px 10px",
-                backgroundColor: white,
-                borderRadius: 15,
-                textAlign: "center",
-                color: blue,
-                fontSize: 28,
+                color: BLUE,
+                fontSize: 48,
                 fontWeight: 900,
               }}
             >
-              PHYSICAL THERAPY
+              نعم، هكذا!
             </div>
+
             <div
               style={{
-                position: "absolute",
-                right: 30,
-                top: "58%",
-                width: 28,
-                height: 28,
-                borderRadius: "50%",
-                backgroundColor: white,
+                marginTop: 12,
+                color: DARK,
+                fontSize: 30,
+                fontWeight: 700,
               }}
-            />
+            >
+              الحركة صحيحة 👌
+            </div>
           </div>
-        </div>
-        {/* الشخصية — أكبر */}
-        <Img
-          src={staticFile("characters/IMG_0815.PNG")}
-          style={{
-            position: "absolute",
-            left: entranceCharacter,
-            bottom: 35,
-            width: 450,
-            height: 610,
-            objectFit: "contain",
-            opacity: entranceOpacity,
-            filter:
-              "drop-shadow(0 18px 25px rgba(0,0,0,0.18))",
-            zIndex: 10,
-          }}
-        />
-        {/* فقاعة */}
-        <div
-          style={{
-            position: "absolute",
-            left: 90,
-            bottom: 45,
-            padding: "18px 32px",
-            backgroundColor: white,
-            borderRadius: 20,
-            color: blue,
-            fontSize: 34,
-            fontWeight: 900,
-            boxShadow: "0 10px 25px rgba(0,0,0,0.12)",
-            opacity: frame >= 70 ? 1 : 0,
-          }}
-        >
-          مرحبًا بك
-        </div>
-      </AbsoluteFill>
-      {/* ================================================= */}
-      {/* المشهد الثاني — داخل العيادة */}
-      {/* ================================================= */}
-      <AbsoluteFill
-        style={{
-          opacity: scene2Opacity,
-        }}
-      >
-        {/* الخلفية */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background:
-              "linear-gradient(135deg, #E4F6FB 0%, #FFFFFF 70%)",
-          }}
-        />
-        {/* شريط جانبي */}
-        <div
-          style={{
-            position: "absolute",
-            left: 0,
-            top: 0,
-            width: 48,
-            height: "100%",
-            backgroundColor: blue,
-          }}
-        />
-        {/* العنوان */}
-        <div
-          style={{
-            position: "absolute",
-            top: 45,
-            left: 100,
-            right: 100,
-            textAlign: "center",
-            color: blue,
-            fontSize: 55,
-            fontWeight: 900,
-          }}
-        >
-          أول زيارة للعلاج الطبيعي
-        </div>
-        <div
-          style={{
-            position: "absolute",
-            top: 125,
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: 190,
-            height: 7,
-            borderRadius: 20,
-            backgroundColor: lightBlue,
-          }}
-        />
-        {/* لوحة جسم الإنسان */}
-        <div
-          style={{
-            position: "absolute",
-            left: 80,
-            top: 210,
-            width: 220,
-            height: 285,
-            backgroundColor: white,
-            borderRadius: 24,
-            border: "3px solid #C5E2E9",
-            boxShadow: "0 14px 30px rgba(0,0,0,0.08)",
-            textAlign: "center",
-            paddingTop: 25,
-            boxSizing: "border-box",
-          }}
-        >
-          <div
+        </AbsoluteFill>
+      )}
+
+      {/* =====================================================
+          SCENE 12 — اللوحة والخطة
+         ===================================================== */}
+
+      {scene === 12 && (
+        <AbsoluteFill style={{ opacity }}>
+          <Background />
+          <Header title="نشرح لك الخطة" number="12" />
+
+          <Character
+            file="IMG_0877.PNG"
+            left={65}
+            width={590}
+            height={720}
+          />
+
+          <Card
+            title="وهنا تبدأ الخطة"
+            text="نوضح لك شنو بنشتغلوا عليه وكيف نمشوا خطوة بخطوة."
+          />
+        </AbsoluteFill>
+      )}
+
+      {/* =====================================================
+          SCENE 13 — قراءة الملف
+         ===================================================== */}
+
+      {scene === 13 && (
+        <AbsoluteFill style={{ opacity }}>
+          <Background />
+          <Header title="نراجع التفاصيل" number="13" />
+
+          <Character
+            file="IMG_0811.PNG"
+            left={70}
+            width={580}
+            height={710}
+          />
+
+          <Card
+            title="مراجعة المعلومات"
+            text="نرجع للملف والنتائج حتى تكون الخطة مناسبة للحالة."
+          />
+        </AbsoluteFill>
+      )}
+
+      {/* =====================================================
+          SCENE 14 — علامة التعجب
+         ===================================================== */}
+
+      {scene === 14 && (
+        <AbsoluteFill style={{ opacity }}>
+          <Background />
+          <Header title="وهنا نقطة مهمة!" number="14" />
+
+          <Img
+            src={staticFile("characters/IMG_0732.PNG")}
             style={{
-              color: blue,
-              fontSize: 25,
-              fontWeight: 900,
-            }}
-          >
-            YOUR BODY
-          </div>
-          <div
-            style={{
-              margin: "25px auto",
-              width: 80,
-              height: 145,
-              border: `6px solid ${lightBlue}`,
-              borderRadius: "45% 45% 35% 35%",
-              opacity: 0.65,
+              position: "absolute",
+              left: 100,
+              bottom: 120,
+              width: 280,
+              height: 280,
+              objectFit: "contain",
+              opacity,
             }}
           />
+
           <div
             style={{
-              color: "#66818A",
-              fontSize: 22,
+              position: "absolute",
+              right: 120,
+              top: 220,
+              width: 600,
+              padding: "45px 40px",
+              backgroundColor: "#FFFFFF",
+              borderRadius: 30,
+              border: `3px solid ${CYAN}`,
+              boxShadow: "0 18px 40px rgba(0,0,0,0.10)",
+              textAlign: "center",
             }}
           >
-            تقييم شامل
+            <div
+              style={{
+                color: BLUE,
+                fontSize: 46,
+                fontWeight: 900,
+                marginBottom: 20,
+              }}
+            >
+              كل حالة مختلفة
+            </div>
+
+            <div
+              style={{
+                color: DARK,
+                fontSize: 32,
+                fontWeight: 700,
+                lineHeight: 1.5,
+              }}
+            >
+              لذلك التقييم هو أساس
+              <br />
+              الخطة العلاجية المناسبة.
+            </div>
           </div>
-        </div>
-        {/* مكتب */}
-        <div
-          style={{
-            position: "absolute",
-            right: 70,
-            bottom: 65,
-            width: 250,
-            height: 35,
-            backgroundColor: blue,
-            borderRadius: 10,
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            right: 95,
-            bottom: 0,
-            width: 35,
-            height: 70,
-            backgroundColor: "#9DB7BE",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            right: 260,
-            bottom: 0,
-            width: 35,
-            height: 70,
-            backgroundColor: "#9DB7BE",
-          }}
-        />
-        {/* ملفات فوق المكتب */}
-        <div
-          style={{
-            position: "absolute",
-            right: 110,
-            bottom: 100,
-            width: 110,
-            height: 70,
-            backgroundColor: white,
-            border: "3px solid #CDEAF1",
-            borderRadius: 8,
-            transform: "rotate(-4deg)",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            right: 125,
-            bottom: 140,
-            width: 75,
-            height: 8,
-            backgroundColor: lightBlue,
-            borderRadius: 5,
-          }}
-        />
-        {/* الشخصية — كبيرة جدًا */}
-        <Img
-          src={staticFile("characters/IMG_0810.PNG")}
-          style={{
-            position: "absolute",
-            left: 300,
-            bottom: 0,
-            width: 560,
-            height: 700,
-            objectFit: "contain",
-            filter:
-              "drop-shadow(0 18px 28px rgba(0,0,0,0.17))",
-            zIndex: 10,
-          }}
-        />
-        {/* بطاقة الكلام */}
-        <div
-          style={{
-            position: "absolute",
-            right: 250,
-            top: 220,
-            width: 500,
-            padding: "35px 35px",
-            backgroundColor: white,
-            borderRadius: 28,
-            border: `3px solid ${lightBlue}`,
-            boxShadow: "0 18px 40px rgba(0,0,0,0.10)",
-            textAlign: "center",
-            zIndex: 20,
-          }}
-        >
+        </AbsoluteFill>
+      )}
+
+      {/* =====================================================
+          SCENE 15 — النجاح
+         ===================================================== */}
+
+      {scene === 15 && (
+        <AbsoluteFill style={{ opacity }}>
+          <Background />
+          <Header title="وصلنا للصورة كاملة" number="15" />
+
+          <Character
+            file="IMG_0813.PNG"
+            left={70}
+            width={580}
+            height={710}
+          />
+
           <div
             style={{
-              color: blue,
-              fontSize: 44,
-              fontWeight: 900,
+              position: "absolute",
+              right: 130,
+              top: 220,
+              width: 570,
+              padding: "40px",
+              backgroundColor: "#FFFFFF",
+              borderRadius: 30,
+              border: `3px solid ${CYAN}`,
+              boxShadow: "0 18px 40px rgba(0,0,0,0.10)",
+              textAlign: "center",
             }}
           >
-            أهلاً بك
+            <div
+              style={{
+                color: BLUE,
+                fontSize: 46,
+                fontWeight: 900,
+              }}
+            >
+              تمام ✅
+            </div>
+
+            <div
+              style={{
+                marginTop: 18,
+                color: DARK,
+                fontSize: 32,
+                fontWeight: 700,
+                lineHeight: 1.55,
+              }}
+            >
+              الآن عندنا معلومات كافية
+              <br />
+              باش نبدأوا الخطة.
+            </div>
           </div>
-          <div
+        </AbsoluteFill>
+      )}
+
+      {/* =====================================================
+          SCENE 16 — النهاية
+         ===================================================== */}
+
+      {scene === 16 && (
+        <AbsoluteFill style={{ opacity }}>
+          <Background />
+
+          <Img
+            src={staticFile("characters/IMG_0817.PNG")}
             style={{
-              margin: "15px auto",
-              width: 100,
-              height: 6,
-              backgroundColor: lightBlue,
-              borderRadius: 10,
+              position: "absolute",
+              left: 100,
+              bottom: 100,
+              width: 560,
+              height: 700,
+              objectFit: "contain",
+              opacity,
+              filter:
+                "drop-shadow(0 20px 30px rgba(0,0,0,0.18))",
             }}
           />
+
           <div
             style={{
-              color: dark,
-              fontSize: 32,
-              fontWeight: 700,
-              lineHeight: 1.6,
+              position: "absolute",
+              right: 110,
+              top: 220,
+              width: 620,
+              padding: "45px",
+              boxSizing: "border-box",
+              backgroundColor: "#FFFFFF",
+              borderRadius: 32,
+              border: `4px solid ${BLUE}`,
+              boxShadow: "0 20px 45px rgba(0,0,0,0.12)",
+              textAlign: "center",
             }}
           >
-            خلينا نبدأ بأول زيارة
-            <br />
-            ونتعرف عليك أكثر
+            <div
+              style={{
+                color: BLUE,
+                fontSize: 52,
+                fontWeight: 900,
+                marginBottom: 18,
+              }}
+            >
+              وهكي تبدأ أول زيارة ✨
+            </div>
+
+            <div
+              style={{
+                color: DARK,
+                fontSize: 32,
+                fontWeight: 700,
+                lineHeight: 1.6,
+              }}
+            >
+              استماع
+              <br />
+              تقييم
+              <br />
+              تحليل
+              <br />
+              ثم خطة علاجية مناسبة لك
+            </div>
+
+            <div
+              style={{
+                marginTop: 25,
+                color: CYAN,
+                fontSize: 27,
+                fontWeight: 900,
+              }}
+            >
+              بودكاست نبض العلاج الطبيعي
+            </div>
           </div>
-        </div>
-      </AbsoluteFill>
-      {/* ================================================= */}
-      {/* المشهد الثالث — التقييم */}
-      {/* ================================================= */}
-      <AbsoluteFill
-        style={{
-          opacity: scene3Opacity,
-        }}
-      >
-        {/* الخلفية */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background:
-              "linear-gradient(135deg, #E6F7FB 0%, #FFFFFF 65%, #EAF8FB 100%)",
-          }}
-        />
-        {/* شريط جانبي */}
-        <div
-          style={{
-            position: "absolute",
-            left: 0,
-            top: 0,
-            width: 48,
-            height: "100%",
-            backgroundColor: blue,
-          }}
-        />
-        {/* دوائر ديكور */}
-        <div
-          style={{
-            position: "absolute",
-            right: 55,
-            top: 50,
-            width: 120,
-            height: 120,
-            borderRadius: "50%",
-            border: `4px solid ${lightBlue}`,
-            opacity: 0.18,
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            right: 95,
-            top: 90,
-            width: 40,
-            height: 40,
-            borderRadius: "50%",
-            backgroundColor: lightBlue,
-            opacity: 0.15,
-          }}
-        />
-        {/* العنوان */}
-        <div
-          style={{
-            position: "absolute",
-            top: 42,
-            left: 100,
-            right: 100,
-            textAlign: "center",
-            color: blue,
-            fontSize: 58,
-            fontWeight: 900,
-            zIndex: 40,
-          }}
-        >
-          نبدأ بالتقييم
-        </div>
-        <div
-          style={{
-            position: "absolute",
-            top: 120,
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: 180,
-            height: 7,
-            backgroundColor: lightBlue,
-            borderRadius: 20,
-          }}
-        />
-        {/* ================================================= */}
-        {/* بطاقات النص */}
-        {/* ================================================= */}
-        <TextCard
-          title="الأخصائي يستمع لك"
-          subtitle="أول خطوة هي فهم مشكلتك واحتياجك"
-          opacity={listenOpacity}
-        />
-        <TextCard
-          title="وين الألم؟"
-          subtitle="ومن متى بدأ؟"
-          opacity={questionOpacity}
-        />
-        <TextCard
-          title="نبدأ القياس"
-          subtitle="نقيس الحركة والقوة ونلاحظ الأداء"
-          opacity={measureOpacity}
-        />
-        <TextCard
-          title="نحدد مكان الألم"
-          subtitle="ونشوف الحركة المتأثرة"
-          opacity={painOpacity}
-        />
-        <TextCard
-          title="نقيّم التوازن"
-          subtitle="لأن كل حالة لها احتياجات مختلفة"
-          opacity={balanceOpacity}
-        />
-        <TextCard
-          title="نسجل الملاحظات"
-          subtitle="باش نحدد المشكلة ونبني الخطة"
-          opacity={notesOpacity}
-        />
-        <TextCard
-          title="ومن هنا تبدأ الخطة"
-          subtitle="خطة علاجية تناسب حالتك"
-          opacity={planOpacity}
-        />
-        {/* ================================================= */}
-        {/* الأخصائية — تستمع */}
-        {/* ================================================= */}
-        <Img
-          src={staticFile("characters/IMG_0810.PNG")}
-          style={{
-            position: "absolute",
-            left: 55,
-            bottom: -5,
-            width: 500,
-            height: 650,
-            objectFit: "contain",
-            opacity: listenOpacity,
-            filter:
-              "drop-shadow(0 20px 25px rgba(0,0,0,0.18))",
-          }}
-        />
-        {/* ================================================= */}
-        {/* علامة الاستفهام */}
-        {/* ================================================= */}
-        <Img
-          src={staticFile("characters/IMG_0737.PNG")}
-          style={{
-            position: "absolute",
-            right: 80,
-            bottom: 180,
-            width: 170,
-            height: 170,
-            objectFit: "contain",
-            opacity: questionOpacity,
-          }}
-        />
-        {/* ================================================= */}
-        {/* المريضة — القياس */}
-        {/* ================================================= */}
-        <Img
-          src={staticFile("characters/IMG_0874.PNG")}
-          style={{
-            position: "absolute",
-            left: 50,
-            bottom: -10,
-            width: 520,
-            height: 660,
-            objectFit: "contain",
-            opacity: measureOpacity,
-            filter:
-              "drop-shadow(0 20px 25px rgba(0,0,0,0.18))",
-          }}
-        />
-        {/* ================================================= */}
-        {/* المريضة — تشير للكتف */}
-        {/* ================================================= */}
-        <Img
-          src={staticFile("characters/IMG_0806 (1).PNG")}
-          style={{
-            position: "absolute",
-            left: 50,
-            bottom: -10,
-            width: 520,
-            height: 660,
-            objectFit: "contain",
-            opacity: painOpacity,
-            filter:
-              "drop-shadow(0 20px 25px rgba(0,0,0,0.18))",
-          }}
-        />
-        {/* ================================================= */}
-        {/* المريضة — تتوازن */}
-        {/* ================================================= */}
-        <Img
-          src={staticFile("characters/IMG_0876.PNG")}
-          style={{
-            position: "absolute",
-            left: 55,
-            bottom: -10,
-            width: 520,
-            height: 660,
-            objectFit: "contain",
-            opacity: balanceOpacity,
-            filter:
-              "drop-shadow(0 20px 25px rgba(0,0,0,0.18))",
-          }}
-        />
-        {/* ================================================= */}
-        {/* المريضة — الملف */}
-        {/* ================================================= */}
-        <Img
-          src={staticFile("characters/IMG_0873.PNG")}
-          style={{
-            position: "absolute",
-            right: 55,
-            bottom: -10,
-            width: 500,
-            height: 650,
-            objectFit: "contain",
-            opacity: notesOpacity,
-            filter:
-              "drop-shadow(0 20px 25px rgba(0,0,0,0.18))",
-          }}
-        />
-        {/* ================================================= */}
-        {/* اللوحة */}
-        {/* ================================================= */}
-        <Img
-          src={staticFile("characters/IMG_0877.PNG")}
-          style={{
-            position: "absolute",
-            left: 50,
-            bottom: -10,
-            width: 470,
-            height: 620,
-            objectFit: "contain",
-            opacity: planOpacity,
-            filter:
-              "drop-shadow(0 20px 25px rgba(0,0,0,0.18))",
-          }}
-        />
-        {/* ================================================= */}
-        {/* الأخصائية — تشير للمراحل */}
-        {/* ================================================= */}
-        <Img
-          src={staticFile("characters/IMG_0808.PNG")}
-          style={{
-            position: "absolute",
-            right: 45,
-            bottom: -10,
-            width: 480,
-            height: 640,
-            objectFit: "contain",
-            opacity: planOpacity,
-            filter:
-              "drop-shadow(0 20px 25px rgba(0,0,0,0.18))",
-          }}
-        />
-        {/* ================================================= */}
-        {/* خط الأرض */}
-        {/* ================================================= */}
-        <div
-          style={{
-            position: "absolute",
-            left: 70,
-            right: 70,
-            bottom: 22,
-            height: 5,
-            backgroundColor: "#C6E2E8",
-            borderRadius: 20,
-          }}
-        />
-        {/* رقم المشهد */}
-        <div
-          style={{
-            position: "absolute",
-            left: 70,
-            bottom: 45,
-            color: blue,
-            fontSize: 30,
-            fontWeight: 900,
-          }}
-        >
-          03
-        </div>
-      </AbsoluteFill>
+        </AbsoluteFill>
+      )}
+
     </AbsoluteFill>
   );
 };
