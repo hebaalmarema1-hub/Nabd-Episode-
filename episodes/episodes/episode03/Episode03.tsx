@@ -20,8 +20,8 @@ export const Episode03: React.FC = () => {
 
   const SCENE_DURATION = 75;
 
-  const scene = Math.floor(frame / SCENE_DURATION);
-  const localFrame = frame % SCENE_DURATION;
+const scene = 4;
+const localFrame = frame % SCENE_DURATION;
 
   const fadeIn = interpolate(localFrame, [0, 12], [0, 1], {
     extrapolateLeft: "clamp",
