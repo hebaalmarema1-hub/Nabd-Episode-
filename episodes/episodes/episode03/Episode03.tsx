@@ -20,17 +20,21 @@ export const Episode03: React.FC = () => {
   const BG = "#F4FBFD";
   const FLOOR = "#DCE9ED";
   const WHITE = "#FFFFFF";
+  const LIGHT = "#E5F5F9";
 
   // =====================================================
   // إعداد المشاهد
-  // كل مشهد 75 فريم
   // =====================================================
 
   const SCENE_DURATION = 75;
+
   const scene = Math.floor(frame / SCENE_DURATION);
   const localFrame = frame % SCENE_DURATION;
 
-  // دخول وخروج ناعم
+  // =====================================================
+  // حركة الدخول والخروج
+  // =====================================================
+
   const fadeIn = interpolate(
     localFrame,
     [0, 10],
@@ -53,7 +57,6 @@ export const Episode03: React.FC = () => {
 
   const opacity = Math.min(fadeIn, fadeOut);
 
-  // حركة بسيطة
   const moveUp = interpolate(
     localFrame,
     [0, 18],
@@ -91,11 +94,11 @@ export const Episode03: React.FC = () => {
         }}
       />
 
-      {/* ديكور دائري */}
+      {/* دوائر ديكورية */}
       <div
         style={{
           position: "absolute",
-          right: 70,
+          right: 65,
           top: 50,
           width: 150,
           height: 150,
@@ -108,13 +111,13 @@ export const Episode03: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          right: 115,
+          right: 110,
           top: 95,
           width: 55,
           height: 55,
           borderRadius: "50%",
           backgroundColor: CYAN,
-          opacity: 0.10,
+          opacity: 0.1,
         }}
       />
 
@@ -161,7 +164,7 @@ export const Episode03: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          top: 42,
+          top: 40,
           left: 90,
           right: 90,
           textAlign: "center",
@@ -169,7 +172,7 @@ export const Episode03: React.FC = () => {
           fontSize: 50,
           fontWeight: 900,
           lineHeight: 1.2,
-          zIndex: 20,
+          zIndex: 30,
         }}
       >
         {title}
@@ -185,7 +188,7 @@ export const Episode03: React.FC = () => {
           height: 6,
           borderRadius: 20,
           backgroundColor: CYAN,
-          zIndex: 20,
+          zIndex: 30,
         }}
       />
 
@@ -206,39 +209,7 @@ export const Episode03: React.FC = () => {
   );
 
   // =====================================================
-  // الشخصية
-  // =====================================================
-
-  const Character = ({
-    file,
-    left = 50,
-    width = 600,
-    height = 720,
-  }: {
-    file: string;
-    left?: number;
-    width?: number;
-    height?: number;
-  }) => (
-    <Img
-      src={staticFile(`characters/${file}`)}
-      style={{
-        position: "absolute",
-        left,
-        bottom: 65,
-        width,
-        height,
-        objectFit: "contain",
-        opacity,
-        transform: `translateY(${moveUp}px)`,
-        filter: "drop-shadow(0 18px 25px rgba(0,0,0,0.16))",
-        zIndex: 10,
-      }}
-    />
-  );
-
-  // =====================================================
-  // بطاقة الكلام
+  // بطاقة النص
   // =====================================================
 
   const Card = ({
@@ -251,9 +222,9 @@ export const Episode03: React.FC = () => {
     <div
       style={{
         position: "absolute",
-        right: 85,
-        top: 205,
-        width: 600,
+        right: 80,
+        top: 200,
+        width: 610,
         padding: "38px 42px",
         boxSizing: "border-box",
         backgroundColor: WHITE,
@@ -261,7 +232,7 @@ export const Episode03: React.FC = () => {
         borderRadius: 30,
         boxShadow: "0 18px 40px rgba(0,70,90,0.13)",
         textAlign: "center",
-        zIndex: 15,
+        zIndex: 20,
       }}
     >
       <div
@@ -300,7 +271,39 @@ export const Episode03: React.FC = () => {
   );
 
   // =====================================================
-  // العنصر الرئيسي
+  // الشخصية
+  // =====================================================
+
+  const Character = ({
+    file,
+    left = 40,
+    width = 620,
+    height = 740,
+  }: {
+    file: string;
+    left?: number;
+    width?: number;
+    height?: number;
+  }) => (
+    <Img
+      src={staticFile(`characters/${file}`)}
+      style={{
+        position: "absolute",
+        left,
+        bottom: 65,
+        width,
+        height,
+        objectFit: "contain",
+        opacity,
+        transform: `translateY(${moveUp}px)`,
+        filter: "drop-shadow(0 18px 25px rgba(0,0,0,0.16))",
+        zIndex: 10,
+      }}
+    />
+  );
+
+  // =====================================================
+  // العرض الرئيسي
   // =====================================================
 
   return (
@@ -313,7 +316,7 @@ export const Episode03: React.FC = () => {
     >
 
       {/* =================================================
-          المشهد 0 — باب العيادة + مرحباً
+          SCENE 0 — باب العيادة
          ================================================= */}
 
       {scene === 0 && (
@@ -324,7 +327,7 @@ export const Episode03: React.FC = () => {
           <div
             style={{
               position: "absolute",
-              top: 45,
+              top: 40,
               left: "50%",
               transform: "translateX(-50%)",
               backgroundColor: WHITE,
@@ -336,7 +339,7 @@ export const Episode03: React.FC = () => {
               fontSize: 38,
               fontWeight: 900,
               boxShadow: "0 12px 30px rgba(0,0,0,0.10)",
-              zIndex: 20,
+              zIndex: 30,
             }}
           >
             PHYSICAL THERAPY
@@ -369,7 +372,6 @@ export const Episode03: React.FC = () => {
               zIndex: 5,
             }}
           >
-            {/* الباب */}
             <div
               style={{
                 position: "relative",
@@ -379,7 +381,6 @@ export const Episode03: React.FC = () => {
                 borderRadius: "20px 20px 0 0",
               }}
             >
-
               {/* زجاج الباب */}
               <div
                 style={{
@@ -427,12 +428,12 @@ export const Episode03: React.FC = () => {
                 PHYSICAL THERAPY
               </div>
 
-              {/* مقبض */}
+              {/* المقبض */}
               <div
                 style={{
                   position: "absolute",
                   right: 28,
-                  top: 52,
+                  top: "58%",
                   width: 24,
                   height: 24,
                   borderRadius: "50%",
@@ -445,18 +446,18 @@ export const Episode03: React.FC = () => {
           {/* الشخصية */}
           <Character
             file="IMG_0815.PNG"
-            left={80}
-            width={590}
-            height={720}
+            left={70}
+            width={610}
+            height={740}
           />
 
-          {/* فقاعة مرحباً */}
+          {/* الترحيب */}
           <div
             style={{
               position: "absolute",
-              right: 100,
-              bottom: 160,
-              padding: "25px 55px",
+              right: 95,
+              bottom: 155,
+              padding: "24px 55px",
               backgroundColor: WHITE,
               border: `4px solid ${CYAN}`,
               borderRadius: 28,
@@ -464,7 +465,7 @@ export const Episode03: React.FC = () => {
               fontSize: 48,
               fontWeight: 900,
               boxShadow: "0 15px 30px rgba(0,0,0,0.12)",
-              zIndex: 25,
+              zIndex: 30,
             }}
           >
             مرحبًا بك
@@ -473,19 +474,23 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          المشهد 1
+          SCENE 1 — الاستماع
          ================================================= */}
 
       {scene === 1 && (
         <AbsoluteFill style={{ opacity }}>
           <Background />
-          <Header title="نبدأ بالاستماع" number="01" />
+
+          <Header
+            title="نبدأ بالاستماع"
+            number="01"
+          />
 
           <Character
             file="IMG_0810.PNG"
-            left={55}
-            width={600}
-            height={720}
+            left={40}
+            width={620}
+            height={740}
           />
 
           <Card
@@ -496,19 +501,23 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          المشهد 2 — المريضة
+          SCENE 2 — المريضة والملف
          ================================================= */}
 
       {scene === 2 && (
         <AbsoluteFill style={{ opacity }}>
           <Background />
-          <Header title="المريضة تشرح حالتها" number="02" />
+
+          <Header
+            title="المريضة تشرح حالتها"
+            number="02"
+          />
 
           <Character
             file="IMG_0873.PNG"
-            left={45}
-            width={610}
-            height={730}
+            left={30}
+            width={630}
+            height={750}
           />
 
           <Card
@@ -519,14 +528,16 @@ export const Episode03: React.FC = () => {
           <div
             style={{
               position: "absolute",
-              right: 120,
-              bottom: 125,
+              right: 110,
+              bottom: 120,
               backgroundColor: LIGHT,
+              border: `2px solid ${CYAN}`,
               padding: "15px 28px",
               borderRadius: 18,
               color: BLUE,
               fontSize: 28,
               fontWeight: 900,
+              zIndex: 25,
             }}
           >
             المعلومات الأولية
@@ -535,32 +546,36 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          المشهد 3 — الأسئلة
+          SCENE 3 — الأسئلة
          ================================================= */}
 
       {scene === 3 && (
         <AbsoluteFill style={{ opacity }}>
           <Background />
-          <Header title="نسأل الأسئلة المهمة" number="03" />
+
+          <Header
+            title="نسأل الأسئلة المهمة"
+            number="03"
+          />
 
           <Character
             file="IMG_0810.PNG"
-            left={45}
-            width={590}
-            height={710}
+            left={35}
+            width={610}
+            height={730}
           />
 
           <Img
             src={staticFile("characters/IMG_0737.PNG")}
             style={{
               position: "absolute",
-              right: 100,
-              bottom: 105,
-              width: 230,
-              height: 230,
+              right: 90,
+              bottom: 100,
+              width: 240,
+              height: 240,
               objectFit: "contain",
               opacity,
-              zIndex: 20,
+              zIndex: 25,
             }}
           />
 
@@ -572,40 +587,46 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          المشهد 4 — القياس
+          SCENE 4 — القياس
          ================================================= */}
 
       {scene === 4 && (
         <AbsoluteFill style={{ opacity }}>
           <Background />
-          <Header title="بعدها نبدأ القياس" number="04" />
 
-          <Character
-            file="IMG_0874.PNG"
-            left={25}
-            width={650}
-            height={760}
+          <Header
+            title="بعدها نبدأ القياس"
+            number="04"
           />
 
+          {/* شخصية تقوم بالقياس */}
+          <Character
+            file="IMG_0874.PNG"
+            left={15}
+            width={670}
+            height={770}
+          />
+
+          {/* بطاقة التقييم */}
           <div
             style={{
               position: "absolute",
-              right: 80,
-              top: 205,
-              width: 620,
+              right: 75,
+              top: 195,
+              width: 630,
               padding: "38px 42px",
               backgroundColor: WHITE,
               border: `4px solid ${CYAN}`,
               borderRadius: 30,
               boxShadow: "0 18px 40px rgba(0,70,90,0.13)",
               textAlign: "center",
-              zIndex: 15,
+              zIndex: 20,
             }}
           >
             <div
               style={{
                 color: BLUE,
-                fontSize: 45,
+                fontSize: 46,
                 fontWeight: 900,
               }}
             >
@@ -614,7 +635,7 @@ export const Episode03: React.FC = () => {
 
             <div
               style={{
-                width: 100,
+                width: 105,
                 height: 5,
                 margin: "18px auto",
                 backgroundColor: CYAN,
@@ -627,7 +648,7 @@ export const Episode03: React.FC = () => {
                 color: DARK,
                 fontSize: 32,
                 fontWeight: 700,
-                lineHeight: 1.55,
+                lineHeight: 1.6,
               }}
             >
               نقيس الحركة
@@ -638,51 +659,80 @@ export const Episode03: React.FC = () => {
             </div>
           </div>
 
-          {/* مؤشرات القياس */}
+          {/* مؤشرات */}
           <div
             style={{
               position: "absolute",
-              right: 105,
-              bottom: 125,
+              right: 100,
+              bottom: 120,
               display: "flex",
               gap: 12,
-              zIndex: 20,
+              zIndex: 25,
             }}
           >
-            {["ROM", "القوة", "الحركة"].map((item) => (
-              <div
-                key={item}
-                style={{
-                  backgroundColor: LIGHT,
-                  border: `2px solid ${CYAN}`,
-                  borderRadius: 16,
-                  padding: "12px 20px",
-                  color: BLUE,
-                  fontSize: 24,
-                  fontWeight: 900,
-                }}
-              >
-                {item}
-              </div>
-            ))}
+            <div
+              style={{
+                backgroundColor: LIGHT,
+                border: `2px solid ${CYAN}`,
+                borderRadius: 16,
+                padding: "12px 20px",
+                color: BLUE,
+                fontSize: 24,
+                fontWeight: 900,
+              }}
+            >
+              ROM
+            </div>
+
+            <div
+              style={{
+                backgroundColor: LIGHT,
+                border: `2px solid ${CYAN}`,
+                borderRadius: 16,
+                padding: "12px 20px",
+                color: BLUE,
+                fontSize: 24,
+                fontWeight: 900,
+              }}
+            >
+              القوة
+            </div>
+
+            <div
+              style={{
+                backgroundColor: LIGHT,
+                border: `2px solid ${CYAN}`,
+                borderRadius: 16,
+                padding: "12px 20px",
+                color: BLUE,
+                fontSize: 24,
+                fontWeight: 900,
+              }}
+            >
+              الحركة
+            </div>
           </div>
         </AbsoluteFill>
       )}
 
       {/* =================================================
-          المشهد 5 — الكتف
+          SCENE 5 — ألم الكتف
          ================================================= */}
 
       {scene === 5 && (
         <AbsoluteFill style={{ opacity }}>
           <Background />
-          <Header title="نحدد مكان الألم" number="05" />
+
+          <Header
+            title="نحدد مكان الألم"
+            number="05"
+          />
 
           <Character
             file="IMG_0806.PNG"
-            left={35}
-            width={630}
-            height={740}
+            left={25}
+            width={650}
+            height={760}
           />
 
           <Card
@@ -693,19 +743,23 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          المشهد 6 — التمارين
+          SCENE 6 — التمارين
          ================================================= */}
 
       {scene === 6 && (
         <AbsoluteFill style={{ opacity }}>
           <Background />
-          <Header title="نشوف الحركة" number="06" />
+
+          <Header
+            title="نشوف الحركة"
+            number="06"
+          />
 
           <Character
             file="IMG_0807.PNG"
-            left={25}
-            width={650}
-            height={750}
+            left={15}
+            width={670}
+            height={770}
           />
 
           <Card
@@ -716,20 +770,24 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          المشهد 7 — التوازن
+          SCENE 7 — التوازن
          ================================================= */}
 
       {scene === 7 && (
         <AbsoluteFill style={{ opacity }}>
           <Background />
-          <Header title="نقيّم التوازن" number="07" />
 
-          {/* شخصية المريض */}
+          <Header
+            title="نقيّم التوازن"
+            number="07"
+          />
+
+          {/* المريض */}
           <Character
             file="IMG_0876.PNG"
-            left={40}
-            width={620}
-            height={750}
+            left={25}
+            width={650}
+            height={760}
           />
 
           <Card
@@ -737,12 +795,13 @@ export const Episode03: React.FC = () => {
             text="لأنه يساعدنا نعرف مستوى التحكم والثبات أثناء الحركة."
           />
 
+          {/* خط التوازن */}
           <div
             style={{
               position: "absolute",
-              left: 120,
-              bottom: 120,
-              width: 400,
+              left: 100,
+              bottom: 115,
+              width: 430,
               height: 12,
               backgroundColor: CYAN,
               borderRadius: 20,
@@ -753,19 +812,23 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          المشهد 8 — التفكير
+          SCENE 8 — التفكير
          ================================================= */}
 
       {scene === 8 && (
         <AbsoluteFill style={{ opacity }}>
           <Background />
-          <Header title="نحلل المعلومات" number="08" />
+
+          <Header
+            title="نحلل المعلومات"
+            number="08"
+          />
 
           <Character
             file="IMG_0816.PNG"
-            left={45}
-            width={600}
-            height={720}
+            left={35}
+            width={620}
+            height={740}
           />
 
           <Card
@@ -776,19 +839,23 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          المشهد 9 — مراحل
+          SCENE 9 — مراحل التقييم
          ================================================= */}
 
       {scene === 9 && (
         <AbsoluteFill style={{ opacity }}>
           <Background />
-          <Header title="نرتب مراحل التقييم" number="09" />
+
+          <Header
+            title="نرتب مراحل التقييم"
+            number="09"
+          />
 
           <Character
             file="IMG_0808.PNG"
-            left={40}
-            width={610}
-            height={730}
+            left={30}
+            width={630}
+            height={750}
           />
 
           <Card
@@ -800,9 +867,10 @@ export const Episode03: React.FC = () => {
             style={{
               position: "absolute",
               right: 120,
-              bottom: 125,
+              bottom: 120,
               display: "flex",
               gap: 14,
+              zIndex: 25,
             }}
           >
             {[1, 2, 3].map((n) => (
@@ -812,8 +880,10 @@ export const Episode03: React.FC = () => {
                   width: 58,
                   height: 58,
                   borderRadius: "50%",
-                  backgroundColor: n === 1 ? BLUE : LIGHT,
-                  color: n === 1 ? WHITE : BLUE,
+                  backgroundColor:
+                    n === 1 ? BLUE : LIGHT,
+                  color:
+                    n === 1 ? WHITE : BLUE,
                   border: `2px solid ${CYAN}`,
                   display: "flex",
                   alignItems: "center",
@@ -830,19 +900,23 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          المشهد 10 — الرقبة
+          SCENE 10 — الرقبة
          ================================================= */}
 
       {scene === 10 && (
         <AbsoluteFill style={{ opacity }}>
           <Background />
-          <Header title="نركز على التفاصيل" number="10" />
+
+          <Header
+            title="نركز على التفاصيل"
+            number="10"
+          />
 
           <Character
             file="IMG_0812.PNG"
-            left={35}
-            width={620}
-            height={740}
+            left={25}
+            width={640}
+            height={760}
           />
 
           <Card
@@ -853,33 +927,38 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          المشهد 11 — نعم هكذا
+          SCENE 11 — نعم هكذا
          ================================================= */}
 
       {scene === 11 && (
         <AbsoluteFill style={{ opacity }}>
           <Background />
-          <Header title="نتأكد من الحركة" number="11" />
+
+          <Header
+            title="نتأكد من الحركة"
+            number="11"
+          />
 
           <Character
             file="IMG_0814.PNG"
-            left={40}
-            width={610}
-            height={730}
+            left={30}
+            width={630}
+            height={750}
           />
 
           <div
             style={{
               position: "absolute",
-              right: 100,
+              right: 90,
               top: 220,
-              width: 540,
-              padding: "35px",
+              width: 560,
+              padding: "38px",
               backgroundColor: WHITE,
               borderRadius: 30,
               border: `4px solid ${CYAN}`,
               boxShadow: "0 18px 40px rgba(0,0,0,0.12)",
               textAlign: "center",
+              zIndex: 20,
             }}
           >
             <div
@@ -907,19 +986,23 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          المشهد 12 — اللوحة
+          SCENE 12 — اللوحة والخطة
          ================================================= */}
 
       {scene === 12 && (
         <AbsoluteFill style={{ opacity }}>
           <Background />
-          <Header title="نشرح لك الخطة" number="12" />
+
+          <Header
+            title="نشرح لك الخطة"
+            number="12"
+          />
 
           <Character
             file="IMG_0877.PNG"
-            left={25}
-            width={650}
-            height={750}
+            left={10}
+            width={670}
+            height={770}
           />
 
           <Card
@@ -930,19 +1013,23 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          المشهد 13 — الملف
+          SCENE 13 — قراءة الملف
          ================================================= */}
 
       {scene === 13 && (
         <AbsoluteFill style={{ opacity }}>
           <Background />
-          <Header title="نراجع التفاصيل" number="13" />
+
+          <Header
+            title="نراجع التفاصيل"
+            number="13"
+          />
 
           <Character
             file="IMG_0811.PNG"
-            left={35}
-            width={620}
-            height={740}
+            left={25}
+            width={640}
+            height={760}
           />
 
           <Card
@@ -953,39 +1040,45 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          المشهد 14 — علامة التعجب
+          SCENE 14 — علامة التعجب
          ================================================= */}
 
       {scene === 14 && (
         <AbsoluteFill style={{ opacity }}>
           <Background />
-          <Header title="وهنا نقطة مهمة!" number="14" />
+
+          <Header
+            title="وهنا نقطة مهمة!"
+            number="14"
+          />
 
           <Img
             src={staticFile("characters/IMG_0732.PNG")}
             style={{
               position: "absolute",
-              left: 80,
-              bottom: 105,
-              width: 330,
-              height: 330,
+              left: 70,
+              bottom: 100,
+              width: 350,
+              height: 350,
               objectFit: "contain",
               opacity,
+              zIndex: 10,
             }}
           />
 
           <div
             style={{
               position: "absolute",
-              right: 90,
-              top: 215,
-              width: 650,
-              padding: "42px",
+              right: 80,
+              top: 210,
+              width: 670,
+              padding: "45px",
               backgroundColor: WHITE,
               borderRadius: 30,
               border: `4px solid ${CYAN}`,
               boxShadow: "0 18px 40px rgba(0,0,0,0.12)",
               textAlign: "center",
+              zIndex: 20,
             }}
           >
             <div
@@ -1016,33 +1109,38 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          المشهد 15 — النتيجة
+          SCENE 15 — النتيجة
          ================================================= */}
 
       {scene === 15 && (
         <AbsoluteFill style={{ opacity }}>
           <Background />
-          <Header title="وصلنا للصورة كاملة" number="15" />
+
+          <Header
+            title="وصلنا للصورة كاملة"
+            number="15"
+          />
 
           <Character
             file="IMG_0813.PNG"
-            left={35}
-            width={620}
-            height={740}
+            left={25}
+            width={640}
+            height={760}
           />
 
           <div
             style={{
               position: "absolute",
-              right: 90,
-              top: 220,
-              width: 600,
+              right: 80,
+              top: 215,
+              width: 620,
               padding: "42px",
               backgroundColor: WHITE,
               borderRadius: 30,
               border: `4px solid ${CYAN}`,
               boxShadow: "0 18px 40px rgba(0,0,0,0.12)",
               textAlign: "center",
+              zIndex: 20,
             }}
           >
             <div
@@ -1073,7 +1171,7 @@ export const Episode03: React.FC = () => {
       )}
 
       {/* =================================================
-          المشهد 16 — النهاية
+          SCENE 16 — النهاية
          ================================================= */}
 
       {scene === 16 && (
@@ -1082,23 +1180,25 @@ export const Episode03: React.FC = () => {
 
           <Character
             file="IMG_0817.PNG"
-            left={45}
-            width={620}
-            height={740}
+            left={35}
+            width={640}
+            height={760}
           />
 
           <div
             style={{
               position: "absolute",
-              right: 80,
-              top: 190,
-              width: 650,
+              right: 70,
+              top: 185,
+              width: 660,
               padding: "45px",
+              boxSizing: "border-box",
               backgroundColor: WHITE,
               borderRadius: 32,
               border: `4px solid ${BLUE}`,
               boxShadow: "0 20px 45px rgba(0,0,0,0.13)",
               textAlign: "center",
+              zIndex: 20,
             }}
           >
             <div
