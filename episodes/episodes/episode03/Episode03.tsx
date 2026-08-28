@@ -25,10 +25,10 @@ export const Episode03: React.FC = () => {
 
   const SCENE_DURATION = 75;
 
-  const scene = Math.min(
-    Math.floor(frame / SCENE_DURATION),
-    3
-  );
+ const scene = Math.min(
+  Math.floor(frame / SCENE_DURATION),
+  4
+);
 
   const localFrame = frame % SCENE_DURATION;
 
@@ -313,7 +313,131 @@ export const Episode03: React.FC = () => {
       }}
     />
   );
+// =====================================================
+// SCENE 4 CHARACTER
+// =====================================================
 
+const AssessmentCharacter = () => (
+  <div
+    style={{
+      position: "absolute",
+      left: 70,
+      bottom: 75,
+      width: 500,
+      height: 630,
+      opacity,
+      transform: `translateY(${moveUp}px)`,
+      zIndex: 20,
+    }}
+  >
+    {/* الرأس */}
+    <div
+      style={{
+        position: "absolute",
+        top: 25,
+        left: 150,
+        width: 185,
+        height: 185,
+        borderRadius: "50%",
+        backgroundColor: "#F2C6A0",
+        border: `6px solid ${DARK}`,
+      }}
+    />
+
+    {/* الشعر */}
+    <div
+      style={{
+        position: "absolute",
+        top: 10,
+        left: 145,
+        width: 195,
+        height: 85,
+        borderRadius: "100px 100px 35px 35px",
+        backgroundColor: DARK,
+      }}
+    />
+
+    {/* الجسم */}
+    <div
+      style={{
+        position: "absolute",
+        top: 195,
+        left: 90,
+        width: 300,
+        height: 310,
+        borderRadius: "80px 80px 35px 35px",
+        backgroundColor: BLUE,
+        border: `6px solid ${DARK}`,
+      }}
+    />
+
+    {/* الذراع */}
+    <div
+      style={{
+        position: "absolute",
+        top: 230,
+        left: 350,
+        width: 105,
+        height: 240,
+        borderRadius: 60,
+        backgroundColor: "#F2C6A0",
+        border: `6px solid ${DARK}`,
+        transform: "rotate(-18deg)",
+      }}
+    />
+
+    {/* الساق الأولى */}
+    <div
+      style={{
+        position: "absolute",
+        top: 475,
+        left: 125,
+        width: 105,
+        height: 150,
+        borderRadius: 45,
+        backgroundColor: "#F2C6A0",
+        border: `6px solid ${DARK}`,
+      }}
+    />
+
+    {/* الساق الثانية */}
+    <div
+      style={{
+        position: "absolute",
+        top: 475,
+        left: 260,
+        width: 105,
+        height: 150,
+        borderRadius: 45,
+        backgroundColor: "#F2C6A0",
+        border: `6px solid ${DARK}`,
+      }}
+    />
+
+    {/* ROM */}
+    <div
+      style={{
+        position: "absolute",
+        top: 335,
+        left: 175,
+        width: 130,
+        height: 130,
+        borderRadius: "50%",
+        backgroundColor: WHITE,
+        border: `7px solid ${CYAN}`,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        color: BLUE,
+        fontSize: 40,
+        fontWeight: 900,
+        boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
+      }}
+    >
+      ROM
+    </div>
+  </div>
+);
   // =========================
   // MAIN
   // =========================
@@ -606,7 +730,116 @@ export const Episode03: React.FC = () => {
           </div>
         </AbsoluteFill>
       )}
+{/* ================= SCENE 04 ================= */}
 
+{scene === 4 && (
+  <AbsoluteFill style={{ opacity }}>
+    <Background />
+
+    <Header
+      title="بعدها نبدأ القياس"
+      number="04"
+    />
+
+    <AssessmentCharacter />
+
+    {/* بطاقة التقييم */}
+    <div
+      style={{
+        position: "absolute",
+        right: 65,
+        top: 185,
+        width: 650,
+        minHeight: 300,
+        padding: "35px 40px",
+        boxSizing: "border-box",
+        backgroundColor: WHITE,
+        border: `4px solid ${CYAN}`,
+        borderRadius: 32,
+        boxShadow: "0 20px 45px rgba(0,70,90,0.16)",
+        textAlign: "center",
+        zIndex: 40,
+      }}
+    >
+      <div
+        style={{
+          color: BLUE,
+          fontSize: 48,
+          fontWeight: 900,
+          lineHeight: 1.2,
+        }}
+      >
+        التقييم الجسدي
+      </div>
+
+      <div
+        style={{
+          width: 110,
+          height: 6,
+          margin: "18px auto 22px",
+          borderRadius: 20,
+          backgroundColor: CYAN,
+        }}
+      />
+
+      <div
+        style={{
+          color: DARK,
+          fontSize: 32,
+          fontWeight: 700,
+          lineHeight: 1.55,
+        }}
+      >
+        نقيس الحركة والقوة
+        <br />
+        ونلاحظ طريقة أداء الحركة
+      </div>
+    </div>
+
+    {/* مؤشرات القياس */}
+    <div
+      style={{
+        position: "absolute",
+        right: 75,
+        bottom: 110,
+        display: "flex",
+        gap: 12,
+        zIndex: 50,
+      }}
+    >
+      {["ROM", "القوة", "الحركة"].map((item) => (
+        <div
+          key={item}
+          style={{
+            backgroundColor: LIGHT,
+            border: `3px solid ${CYAN}`,
+            borderRadius: 18,
+            padding: "13px 23px",
+            color: BLUE,
+            fontSize: 25,
+            fontWeight: 900,
+          }}
+        >
+          {item}
+        </div>
+      ))}
+    </div>
+
+    <div
+      style={{
+        position: "absolute",
+        left: 105,
+        bottom: 45,
+        color: BLUE,
+        fontSize: 27,
+        fontWeight: 900,
+        zIndex: 60,
+      }}
+    >
+      PHYSICAL ASSESSMENT
+    </div>
+  </AbsoluteFill>
+)}
     </AbsoluteFill>
   );
 };
