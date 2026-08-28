@@ -21,8 +21,8 @@ export const Episode03: React.FC = () => {
   // كل مشهد = 75 فريم
   const SCENE_DURATION = 75;
 
-  // الجزء الثالث يبدأ من المشهد 08
-  const scene = Math.floor(frame / SCENE_DURATION) + 8;
+  // الجزء الرابع يبدأ من المشهد 12
+  const scene = Math.floor(frame / SCENE_DURATION) + 12;
 
   const localFrame = frame % SCENE_DURATION;
 
@@ -195,7 +195,7 @@ export const Episode03: React.FC = () => {
   );
 
   // =========================
-  // CHARACTER IMAGE
+  // CHARACTER
   // =========================
 
   const Character = ({
@@ -289,120 +289,150 @@ export const Episode03: React.FC = () => {
   );
 
   // =========================
-  // SCENE 08
+  // SCENE 12
   // =========================
 
-  const Scene08 = () => (
+  const Scene12 = () => (
     <AbsoluteFill style={{ opacity }}>
       <Background />
 
       <Header
-        title="نحلل المعلومات"
-        number="08"
+        title="نشوف الحركة"
+        number="12"
       />
 
       <Character
-        file="IMG_0816.PNG"
-        left={20}
-        width={660}
-        height={770}
-      />
-
-      <Card title="الأخصائي يحلل">
-        <>
-          نجمع كل المعلومات
-          <br />
-          باش نفهم سبب المشكلة بشكل أفضل.
-        </>
-      </Card>
-    </AbsoluteFill>
-  );
-
-  // =========================
-  // SCENE 09
-  // =========================
-
-  const Scene09 = () => (
-    <AbsoluteFill style={{ opacity }}>
-      <Background />
-
-      <Header
-        title="نراجع الملف"
-        number="09"
-      />
-
-      <Character
-        file="IMG_0811.PNG"
-        left={15}
-        width={670}
-        height={780}
-      />
-
-      <Card title="مراجعة التاريخ المرضي">
-        <>
-          نرجع للمعلومات السابقة
-          <br />
-          ونربطها بنتائج التقييم.
-        </>
-      </Card>
-    </AbsoluteFill>
-  );
-
-  // =========================
-  // SCENE 10
-  // =========================
-
-  const Scene10 = () => (
-    <AbsoluteFill style={{ opacity }}>
-      <Background />
-
-      <Header
-        title="نسأل ونستوضح"
-        number="10"
-      />
-
-      <Character
-        file="IMG_0737.PNG"
-        left={20}
-        width={660}
-        height={770}
-      />
-
-      <Card title="عندنا سؤال مهم">
-        <>
-          أحيانًا نحتاج نسأل أكثر
-          <br />
-          باش نفهم الحالة بشكل أوضح.
-        </>
-      </Card>
-    </AbsoluteFill>
-  );
-
-  // =========================
-  // SCENE 11
-  // =========================
-
-  const Scene11 = () => (
-    <AbsoluteFill style={{ opacity }}>
-      <Background />
-
-      <Header
-        title="نتأكد من الحركة"
-        number="11"
-      />
-
-      <Character
-        file="IMG_0874.PNG"
+        file="IMG_0875.PNG"
         left={10}
-        width={680}
+        width={675}
         height={780}
       />
 
-      <Card title="نقيس مرة ثانية">
+      <Card title="نلاحظ الحركة">
         <>
-          نتأكد من مدى الحركة والقوة
+          نشوف طريقة أداء الحركة
           <br />
-          ونقارن النتائج.
+          وهل في حركة تسبب ألم أو صعوبة.
+        </>
+      </Card>
+    </AbsoluteFill>
+  );
+
+  // =========================
+  // SCENE 13
+  // =========================
+
+  const Scene13 = () => (
+    <AbsoluteFill style={{ opacity }}>
+      <Background />
+
+      <Header
+        title="نقيم التوازن"
+        number="13"
+      />
+
+      <Character
+        file="IMG_0876.PNG"
+        left={10}
+        width={675}
+        height={780}
+      />
+
+      <Card title="التوازن مهم">
+        <>
+          نلاحظ قدرة الجسم على التوازن
+          <br />
+          أثناء الوقوف والحركة.
+        </>
+      </Card>
+    </AbsoluteFill>
+  );
+
+  // =========================
+  // SCENE 14
+  // =========================
+
+  const Scene14 = () => (
+    <AbsoluteFill style={{ opacity }}>
+      <Background />
+
+      <Header
+        title="معلومة مهمة"
+        number="14"
+      />
+
+      <Character
+        file="IMG_0732.PNG"
+        left={10}
+        width={675}
+        height={780}
+      />
+
+      <Card title="مش كل ألم يعني ضرر">
+        <>
+          الألم وحده مش كافي للتشخيص
+          <br />
+          لذلك نربطه بباقي نتائج التقييم.
+        </>
+      </Card>
+    </AbsoluteFill>
+  );
+
+  // =========================
+  // SCENE 15
+  // =========================
+
+  const Scene15 = () => (
+    <AbsoluteFill style={{ opacity }}>
+      <Background />
+
+      <Header
+        title="نرتب النتائج"
+        number="15"
+      />
+
+      <Character
+        file="IMG_0877.PNG"
+        left={10}
+        width={675}
+        height={780}
+      />
+
+      <Card title="الصورة تبدأ توضح">
+        <>
+          بعد ما نجمع المعلومات
+          <br />
+          نقدر نحدد احتياجات الحالة.
+        </>
+      </Card>
+    </AbsoluteFill>
+  );
+
+  // =========================
+  // SCENE 16
+  // =========================
+
+  const Scene16 = () => (
+    <AbsoluteFill style={{ opacity }}>
+      <Background />
+
+      <Header
+        title="وصلنا للنتيجة"
+        number="16"
+      />
+
+      <Character
+        file="IMG_0817.PNG"
+        left={10}
+        width={675}
+        height={780}
+      />
+
+      <Card title="الخطوة الجاية">
+        <>
+          بعد التقييم نبدأ نحدد
+          <br />
+          الخطة المناسبة للعلاج.
         </>
       </Card>
 
@@ -411,27 +441,17 @@ export const Episode03: React.FC = () => {
           position: "absolute",
           right: 90,
           bottom: 105,
-          display: "flex",
-          gap: 12,
+          padding: "14px 30px",
+          backgroundColor: LIGHT,
+          border: `3px solid ${CYAN}`,
+          borderRadius: 18,
+          color: BLUE,
+          fontSize: 27,
+          fontWeight: 900,
           zIndex: 50,
         }}
       >
-        {["ROM", "القوة", "الحركة"].map((item) => (
-          <div
-            key={item}
-            style={{
-              backgroundColor: LIGHT,
-              border: `3px solid ${CYAN}`,
-              borderRadius: 18,
-              padding: "13px 23px",
-              color: BLUE,
-              fontSize: 25,
-              fontWeight: 900,
-            }}
-          >
-            {item}
-          </div>
-        ))}
+        RESULT ✓
       </div>
     </AbsoluteFill>
   );
@@ -448,10 +468,11 @@ export const Episode03: React.FC = () => {
         fontFamily: "Arial, Tahoma, sans-serif",
       }}
     >
-      {scene === 8 && <Scene08 />}
-      {scene === 9 && <Scene09 />}
-      {scene === 10 && <Scene10 />}
-      {scene === 11 && <Scene11 />}
+      {scene === 12 && <Scene12 />}
+      {scene === 13 && <Scene13 />}
+      {scene === 14 && <Scene14 />}
+      {scene === 15 && <Scene15 />}
+      {scene === 16 && <Scene16 />}
     </AbsoluteFill>
   );
 };
