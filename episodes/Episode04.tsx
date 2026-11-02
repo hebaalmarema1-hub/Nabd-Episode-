@@ -4,375 +4,538 @@ import {
   Img,
   staticFile,
   useCurrentFrame,
+  useVideoConfig,
   interpolate,
   spring,
+  Easing,
 } from "remotion";
 
-const COLORS = {
-  navy: "#10283F",
-  blue: "#087EA4",
-  cyan: "#35B6D6",
-  light: "#EAF8FC",
-  gold: "#E9C98B",
-  white: "#FFFFFF",
+const C = {
+  navy: "#071629",
+  blue: "#123D68",
+  cyan: "#42D9F5",
+  gold: "#E8C477",
+  white: "#F7FAFF",
+  muted: "#B8C9D9",
 };
 
 const scenes = [
   {
+    type: "intro",
+    eyebrow: "PODCAST • EPISODE 04",
     title: "نبض العلاج الطبيعي",
+    subtitle: "مع منة الله المريمي",
+    detail: "العلم الذي يعيد للحركة معناها",
+  },
+  {
+    type: "host",
+    eyebrow: "أهلاً بيكم",
+    title: "خلونا نحكوا على مفهوم مهم",
     subtitle: "العلاج الطبيعي والألم",
-    text: "هل لازم تتألم باش تتحسن؟",
-    detail: "خلينا نكتشفوا الإجابة العلمية مع بعض",
-    host: "IMG_4364.PNG",
-    tag: "الحلقة الرابعة",
+    detail: "هل لازم تتألم باش تتحسن؟",
+    person: "IMG_4364.PNG",
   },
   {
-    title: "سؤال يتكرر!",
-    subtitle: "هل الألم دليل إن العلاج ناجح؟",
-    text: "كثير من الناس يعتقدوا إن الألم بعد التمرين يعني إن العلاج قاعد يعطي نتيجة.",
-    detail: "لكن هل هذا الاعتقاد صحيح؟",
-    patient: "IMG_4360.PNG",
-    tag: "نبدأ بالسؤال",
+    type: "patient",
+    eyebrow: "سؤال المريضة",
+    title: "كل ما ندير تمرين نحس بألم...",
+    subtitle: "هل هذا معناه إن العلاج قاعد ينفع؟",
+    detail: "وهل الألم دليل على نجاح الجلسة؟",
+    person: "IMG_4360.PNG",
   },
   {
-    title: "الألم مش مقياس النجاح",
-    subtitle: "مش شرط تتألم باش تتحسن.",
-    text: "العلاج الطبيعي يهدف إلى تحسين الحركة، وزيادة القوة، واستعادة القدرة على أداء الأنشطة اليومية.",
-    detail: "التحسن الوظيفي أهم من الإحساس بالألم.",
-    doctor: "IMG_4355.PNG",
-    tag: "معلومة علمية",
+    type: "doctor",
+    eyebrow: "التوضيح العلمي",
+    title: "مش بالضرورة!",
+    subtitle: "الألم مش مقياس نجاح العلاج الطبيعي",
+    detail: "ممكن تتحسن الحركة والقوة من غير ما تحس بألم.",
+    person: "IMG_4361.PNG",
   },
   {
-    title: "هل الألم بعد التمرين طبيعي؟",
-    subtitle: "أحياناً ممكن يحدث ألم عضلي خفيف.",
-    text: "قد تشعر ببعض التعب أو الوجع الخفيف بعد نشاط جديد أو تمرين غير معتاد.",
-    detail: "لكن الألم الشديد أو المتزايد أو غير المعتاد يحتاج إلى التوقف والتقييم.",
-    patient: "IMG_4351.PNG",
-    doctor: "IMG_4363.PNG",
-    tag: "انتبه لجسمك",
+    type: "info",
+    eyebrow: "خلونا نفرقوا",
+    title: "ألم بسيط بعد التمرين؟",
+    subtitle: "ممكن يصير أحياناً",
+    detail: "لكن وجود الألم مش شرط، ومش دليل وحده على فعالية التمرين.",
   },
   {
-    title: "كيف نعرف أن العلاج ناجح؟",
-    subtitle: "راقب التغيير في حياتك اليومية.",
-    text: "تحسن مدى الحركة • زيادة القوة • تحسن التوازن • سهولة المشي وأداء الأنشطة.",
-    detail: "هذه مؤشرات تساعد الأخصائي على متابعة تقدمك.",
-    patient: "IMG_4353.PNG",
-    doctor: "IMG_4361.PNG",
-    tag: "علامات التحسن",
+    type: "warning",
+    eyebrow: "انتبه!",
+    title: "مش كل ألم طبيعي",
+    subtitle: "الألم الشديد أو المتزايد أو غير المعتاد",
+    detail: "أوقف التمرين وأبلغ أخصائي العلاج الطبيعي، خاصةً لو ظهرت أعراض جديدة.",
   },
   {
-    title: "تذكّر دائماً",
-    subtitle: "مش شرط تتألم باش تتحسن.",
-    text: "هدف العلاج الطبيعي هو استعادة الحركة والوظيفة وتحسين جودة الحياة.",
-    detail: "كان معاكم نبض العلاج الطبيعي 💙",
-    host: "IMG_4349.PNG",
-    tag: "مع منة الله المريمي",
+    type: "success",
+    eyebrow: "كيف نعرفوا إننا نتقدموا؟",
+    title: "التحسن الحقيقي يظهر في الوظيفة",
+    subtitle: "حركة أفضل • قوة أكبر • توازن أفضل",
+    detail: "والقدرة على أداء أنشطتك اليومية براحة واستقلالية.",
+  },
+  {
+    type: "outro",
+    eyebrow: "رسالة الحلقة",
+    title: "مش لازم تتألم باش تتحسن",
+    subtitle: "التأهيل الناجح يقاس بالتقدم، مش بكمية الألم.",
+    detail: "شكراً لمتابعتكم • نلتقوا في حلقة جديدة",
   },
 ];
 
-const Person: React.FC<{
-  file: string;
-  side: "left" | "right";
-  frame: number;
-  twoPeople: boolean;
-}> = ({ file, side, frame, twoPeople }) => {
-  const enter = spring({
-    frame,
-    fps: 30,
-    config: { damping: 15, stiffness: 75 },
-  });
-
-  const movement = interpolate(
-    enter,
-    [0, 1],
-    [side === "left" ? -90 : 90, 0]
-  );
-
-  const width = twoPeople ? 440 : 540;
+const FloatingParticles: React.FC = () => {
+  const frame = useCurrentFrame();
 
   return (
-    <div
-      style={{
-        position: "absolute",
-        bottom: -12,
-        left: side === "left" ? (twoPeople ? 0 : 35) : "auto",
-        right: side === "right" ? 0 : "auto",
-        width,
-        height: 740,
-        opacity: enter,
-        transform: `translateX(${movement}px)`,
-        display: "flex",
-        alignItems: "flex-end",
-        justifyContent: "center",
-        zIndex: 2,
-      }}
-    >
-      <Img
-        src={staticFile(`characters/${file}`)}
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "contain",
-          objectPosition: "bottom",
-          filter: "drop-shadow(0 12px 18px rgba(0,0,0,0.22))",
-        }}
-      />
-    </div>
+    <AbsoluteFill style={{ overflow: "hidden", pointerEvents: "none" }}>
+      {Array.from({ length: 34 }).map((_, i) => {
+        const x = (i * 173 + 61) % 1920;
+        const y = (i * 97 + 35) % 1080;
+        const drift = (frame * (0.25 + (i % 4) * 0.12) + i * 31) % 120;
+        const opacity = 0.12 + (Math.sin(frame / 22 + i) + 1) * 0.16;
+
+        return (
+          <div
+            key={i}
+            style={{
+              position: "absolute",
+              left: x,
+              top: (y - drift + 1080) % 1080,
+              width: i % 5 === 0 ? 5 : 3,
+              height: i % 5 === 0 ? 5 : 3,
+              borderRadius: "50%",
+              background: i % 3 === 0 ? C.gold : C.cyan,
+              opacity,
+              boxShadow: `0 0 18px ${C.cyan}`,
+            }}
+          />
+        );
+      })}
+    </AbsoluteFill>
   );
 };
 
-export const Episode04: React.FC = () => {
+const Background: React.FC = () => {
   const frame = useCurrentFrame();
-
-  const sceneDuration = 75;
-  const sceneIndex = Math.min(
-    Math.floor(frame / sceneDuration),
-    scenes.length - 1
-  );
-
-  const localFrame = frame - sceneIndex * sceneDuration;
-  const scene = scenes[sceneIndex];
-
-  const twoPeople = !!(scene.patient && scene.doctor);
-  const hasCharacter = !!(
-    scene.host || scene.patient || scene.doctor
-  );
-
-  const fade = interpolate(
-    localFrame,
-    [0, 10, 65, 75],
-    [0, 1, 1, 0],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    }
-  );
-
-  const entrance = spring({
-    frame: localFrame,
-    fps: 30,
-    config: { damping: 18, stiffness: 75 },
-  });
-
-  const textY = interpolate(entrance, [0, 1], [35, 0]);
-  const progress = ((sceneIndex + 1) / scenes.length) * 100;
+  const move = Math.sin(frame / 45) * 45;
 
   return (
     <AbsoluteFill
       style={{
-        background: `linear-gradient(130deg, ${COLORS.navy} 0%, ${COLORS.blue} 58%, ${COLORS.cyan} 100%)`,
-        fontFamily: "Cairo, Tajawal, Tahoma, Arial, sans-serif",
-        color: COLORS.white,
+        background: `radial-gradient(ellipse at ${50 + move / 30}% 45%, #16456A 0%, ${C.navy} 58%, #030A15 100%)`,
         overflow: "hidden",
       }}
     >
-      {/* خلفية زخرفية */}
+      <div
+        style={{
+          position: "absolute",
+          width: 950,
+          height: 950,
+          borderRadius: "50%",
+          border: "1px solid #42D9F522",
+          left: -350 + move,
+          top: 150,
+          boxShadow: "0 0 100px #42D9F510, inset 0 0 100px #42D9F510",
+        }}
+      />
       <div
         style={{
           position: "absolute",
           width: 700,
           height: 700,
           borderRadius: "50%",
-          border: "2px solid rgba(255,255,255,0.10)",
-          top: -350,
-          right: -180,
-          transform: `rotate(${frame * 0.15}deg)`,
+          border: "1px solid #E8C47722",
+          right: -250 - move,
+          top: -180,
+          boxShadow: "0 0 100px #E8C47710",
         }}
       />
-
       <div
         style={{
           position: "absolute",
-          width: 500,
-          height: 500,
+          width: 1100,
+          height: 1100,
           borderRadius: "50%",
-          background: "rgba(255,255,255,0.045)",
-          bottom: -320,
-          left: -140,
+          border: "1px solid #42D9F510",
+          right: -500,
+          bottom: -650,
         }}
       />
+      <FloatingParticles />
+    </AbsoluteFill>
+  );
+};
 
-      {/* رأس المشهد */}
+const BrandMark: React.FC = () => {
+  const frame = useCurrentFrame();
+  const pulse = 1 + Math.sin(frame / 13) * 0.045;
+
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
+      <div
+        style={{
+          width: 66,
+          height: 66,
+          borderRadius: 22,
+          border: `2px solid ${C.cyan}`,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: C.white,
+          fontSize: 36,
+          fontWeight: 800,
+          transform: `scale(${pulse})`,
+          boxShadow: `0 0 28px ${C.cyan}55`,
+        }}
+      >
+        نبض
+      </div>
+      <div style={{ textAlign: "right" }}>
+        <div style={{ color: C.white, fontSize: 26, fontWeight: 800 }}>
+          نبض العلاج الطبيعي
+        </div>
+        <div style={{ color: C.gold, fontSize: 17, letterSpacing: 2 }}>
+          WITH MENATALLAH ALMAREMI
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const Person: React.FC<{ file: string; side?: "left" | "right" }> = ({
+  file,
+  side = "right",
+}) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const entrance = spring({
+    frame,
+    fps,
+    config: { damping: 14, stiffness: 65 },
+  });
+  const float = Math.sin(frame / 17) * 9;
+
+  return (
+    <div
+      style={{
+        position: "absolute",
+        bottom: -35,
+        [side]: 55,
+        width: 570,
+        height: 850,
+        opacity: entrance,
+        transform: `translateY(${(1 - entrance) * 100 + float}px) scale(${0.96 + entrance * 0.04})`,
+        display: "flex",
+        alignItems: "flex-end",
+        justifyContent: "center",
+      }}
+    >
       <div
         style={{
           position: "absolute",
-          top: 38,
-          left: 65,
-          right: 65,
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          zIndex: 6,
+          bottom: 55,
+          width: 440,
+          height: 440,
+          borderRadius: "50%",
+          background: `radial-gradient(circle, ${C.cyan}30, transparent 70%)`,
+          filter: "blur(18px)",
+        }}
+      />
+      <Img
+        src={staticFile(`characters/${file}`)}
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "100%",
+          objectFit: "contain",
+          objectPosition: "bottom",
+          filter: "drop-shadow(0 20px 35px #0008)",
+        }}
+      />
+    </div>
+  );
+};
+
+const TextBlock: React.FC<{
+  scene: (typeof scenes)[number];
+  centered?: boolean;
+}> = ({ scene, centered = false }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const enter = spring({
+    frame: frame - 8,
+    fps,
+    config: { damping: 18, stiffness: 75 },
+  });
+  const opacity = interpolate(frame, [0, 14], [0, 1], {
+    extrapolateRight: "clamp",
+  });
+
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: "50%",
+        left: centered ? 160 : 180,
+        right: centered ? 160 : 650,
+        transform: `translateY(-50%) translateX(${(1 - enter) * -65}px)`,
+        opacity,
+        textAlign: "right",
+        direction: "rtl",
+        fontFamily: "Cairo, Tajawal, Tahoma, Arial, sans-serif",
+      }}
+    >
+      <div
+        style={{
+          display: "inline-block",
+          color: C.gold,
+          fontSize: 21,
+          fontWeight: 700,
+          letterSpacing: 2,
+          borderBottom: `2px solid ${C.gold}`,
+          paddingBottom: 12,
+          marginBottom: 25,
+        }}
+      >
+        {scene.eyebrow}
+      </div>
+
+      <div
+        style={{
+          color: C.white,
+          fontSize: scene.type === "intro" ? 72 : 57,
+          fontWeight: 900,
+          lineHeight: 1.45,
+          textShadow: "0 5px 30px #0008",
+          marginBottom: 16,
+        }}
+      >
+        {scene.title}
+      </div>
+
+      <div
+        style={{
+          color: C.cyan,
+          fontSize: 35,
+          fontWeight: 800,
+          lineHeight: 1.55,
+          marginBottom: 18,
+        }}
+      >
+        {scene.subtitle}
+      </div>
+
+      <div
+        style={{
+          color: C.muted,
           fontSize: 25,
-          fontWeight: "bold",
-          color: COLORS.light,
+          fontWeight: 500,
+          lineHeight: 1.8,
+          maxWidth: 1000,
         }}
       >
-        <span>🎙️ نبض العلاج الطبيعي</span>
+        {scene.detail}
+      </div>
+    </div>
+  );
+};
 
-        <span
+const SceneContent: React.FC<{ scene: (typeof scenes)[number] }> = ({
+  scene,
+}) => {
+  if (scene.type === "intro") {
+    return (
+      <>
+        <AbsoluteFill
+          style={{ alignItems: "center", justifyContent: "center" }}
+        >
+          <div
+            style={{
+              transform: "scale(1.3)",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 32,
+            }}
+          >
+            <BrandMark />
+            <div
+              style={{
+                color: C.gold,
+                fontSize: 24,
+                letterSpacing: 8,
+                fontWeight: 700,
+              }}
+            >
+              {scene.eyebrow}
+            </div>
+            <div
+              style={{
+                color: C.white,
+                fontSize: 29,
+                fontWeight: 700,
+              }}
+            >
+              {scene.detail}
+            </div>
+          </div>
+        </AbsoluteFill>
+      </>
+    );
+  }
+
+  if (scene.type === "outro") {
+    return (
+      <>
+        <TextBlock scene={scene} centered />
+        <div style={{ position: "absolute", bottom: 75, left: 100 }}>
+          <BrandMark />
+        </div>
+      </>
+    );
+  }
+
+  if (scene.type === "host") {
+    return (
+      <>
+        <Person file={scene.person!} side="left" />
+        <TextBlock scene={scene} />
+      </>
+    );
+  }
+
+  if (scene.type === "patient" || scene.type === "doctor") {
+    return (
+      <>
+        <Person file={scene.person!} side="left" />
+        <TextBlock scene={scene} />
+        <div
           style={{
-            color: COLORS.gold,
-            fontSize: 21,
+            position: "absolute",
+            top: 75,
+            right: 100,
+            color: C.gold,
+            fontSize: 20,
+            fontWeight: 700,
           }}
         >
-          {scene.tag}
-        </span>
-      </div>
+          نبض العلاج الطبيعي
+        </div>
+      </>
+    );
+  }
 
-      {/* الشخصيات */}
-      {scene.host && (
-        <Person
-          file={scene.host}
-          side="left"
-          frame={localFrame}
-          twoPeople={false}
-        />
+  return (
+    <>
+      <TextBlock scene={scene} centered />
+      {scene.type === "warning" && (
+        <div
+          style={{
+            position: "absolute",
+            top: 90,
+            left: 120,
+            fontSize: 90,
+            color: C.gold,
+            opacity: 0.8,
+            textShadow: `0 0 35px ${C.gold}`,
+          }}
+        >
+          !
+        </div>
       )}
-
-      {scene.patient && (
-        <Person
-          file={scene.patient}
-          side="left"
-          frame={localFrame}
-          twoPeople={twoPeople}
-        />
+      {scene.type === "success" && (
+        <div
+          style={{
+            position: "absolute",
+            bottom: 90,
+            left: 130,
+            display: "flex",
+            gap: 18,
+          }}
+        >
+          {["الحركة", "القوة", "التوازن"].map((word) => (
+            <div
+              key={word}
+              style={{
+                border: `1px solid ${C.cyan}88`,
+                borderRadius: 30,
+                padding: "14px 25px",
+                color: C.white,
+                fontSize: 22,
+                background: "#123D6866",
+                boxShadow: `0 0 25px ${C.cyan}22`,
+              }}
+            >
+              {word}
+            </div>
+          ))}
+        </div>
       )}
+    </>
+  );
+};
 
-      {scene.doctor && (
-        <Person
-          file={scene.doctor}
-          side={twoPeople ? "right" : "left"}
-          frame={localFrame}
-          twoPeople={twoPeople}
-        />
-      )}
+export const Episode04: React.FC = () => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const sceneDuration = 225;
+  const index = Math.min(
+    Math.floor(frame / sceneDuration),
+    scenes.length - 1
+  );
+  const localFrame = frame % sceneDuration;
 
-      {/* مساحة النص */}
+  const fadeIn = interpolate(localFrame, [0, 20], [0, 1], {
+    extrapolateRight: "clamp",
+  });
+  const fadeOut = interpolate(
+    localFrame,
+    [sceneDuration - 18, sceneDuration],
+    [1, 0],
+    { extrapolateLeft: "clamp" }
+  );
+
+  const scene = scenes[index];
+
+  return (
+    <AbsoluteFill style={{ backgroundColor: C.navy }}>
+      <Background />
+
+      <AbsoluteFill style={{ opacity: fadeIn * fadeOut }}>
+        <SceneContent scene={scene} />
+      </AbsoluteFill>
+
       <div
         style={{
           position: "absolute",
-          top: twoPeople ? 225 : 190,
-          left: twoPeople ? 430 : hasCharacter ? 600 : 150,
-          right: twoPeople ? 430 : 100,
-          zIndex: 4,
-          opacity: fade,
-          transform: `translateY(${textY}px)`,
-          textAlign: "right",
-        }}
-      >
-        {/* خط زخرفي */}
-        <div
-          style={{
-            width: 85,
-            height: 7,
-            background: COLORS.gold,
-            borderRadius: 20,
-            marginLeft: "auto",
-            marginBottom: 26,
-          }}
-        />
-
-        {/* العنوان */}
-        <div
-          style={{
-            fontSize: twoPeople ? 45 : 57,
-            fontWeight: "bold",
-            lineHeight: 1.45,
-            color: COLORS.white,
-            textShadow: "0 4px 15px rgba(0,0,0,0.12)",
-          }}
-        >
-          {scene.title}
-        </div>
-
-        {/* العنوان الفرعي */}
-        <div
-          style={{
-            fontSize: twoPeople ? 29 : 35,
-            lineHeight: 1.55,
-            color: COLORS.light,
-            marginTop: 20,
-            fontWeight: 600,
-          }}
-        >
-          {scene.subtitle}
-        </div>
-
-        {/* صندوق المعلومة */}
-        <div
-          style={{
-            marginTop: 27,
-            padding: "20px 24px",
-            borderRadius: 22,
-            background: "rgba(255,255,255,0.13)",
-            border: "1px solid rgba(255,255,255,0.23)",
-            boxShadow: "0 10px 30px rgba(0,0,0,0.10)",
-            fontSize: twoPeople ? 23 : 27,
-            lineHeight: 1.65,
-            color: COLORS.white,
-          }}
-        >
-          {scene.text}
-        </div>
-
-        {/* الخلاصة */}
-        <div
-          style={{
-            marginTop: 22,
-            fontSize: twoPeople ? 21 : 24,
-            lineHeight: 1.5,
-            color: COLORS.gold,
-            fontWeight: "bold",
-          }}
-        >
-          {scene.detail}
-        </div>
-      </div>
-
-      {/* تذييل الحلقة */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 42,
-          left: 65,
-          right: 65,
-          zIndex: 7,
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          fontSize: 19,
-          color: COLORS.light,
-        }}
-      >
-        <span>مع منة الله المريمي</span>
-        <span>
-          المشهد {sceneIndex + 1} من {scenes.length}
-        </span>
-      </div>
-
-      {/* شريط التقدم */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 17,
-          left: 65,
-          right: 65,
-          height: 5,
-          borderRadius: 10,
-          background: "rgba(255,255,255,0.22)",
-          overflow: "hidden",
-          zIndex: 8,
+          bottom: 30,
+          left: 70,
+          right: 70,
+          height: 3,
+          background: "#FFFFFF20",
+          borderRadius: 5,
         }}
       >
         <div
           style={{
             height: "100%",
-            width: `${progress}%`,
-            background: COLORS.gold,
-            borderRadius: 10,
+            width: `${((index + localFrame / sceneDuration) / scenes.length) * 100}%`,
+            background: `linear-gradient(90deg, ${C.cyan}, ${C.gold})`,
+            boxShadow: `0 0 15px ${C.cyan}`,
+            borderRadius: 5,
           }}
         />
+      </div>
+
+      <div
+        style={{
+          position: "absolute",
+          bottom: 48,
+          right: 75,
+          color: "#FFFFFF99",
+          fontSize: 16,
+          fontFamily: "Arial, sans-serif",
+        }}
+      >
+        EPISODE 04
       </div>
     </AbsoluteFill>
   );
