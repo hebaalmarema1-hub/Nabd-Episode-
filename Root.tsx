@@ -1,6 +1,6 @@
 import React from "react";
 import { Composition } from "remotion";
-import { Episode04 } from "./episodes/episode04/Episode04";
+import { Episode04 } from "./episodes/Episode04";
 
 export const RemotionRoot: React.FC = () => {
   return (
