@@ -27,8 +27,7 @@ const scenes = [
     title: "ما وراء الإصابة",
     subtitle: "افهم الضرر قبل العلاج",
     detail: "رحلة لفهم ما يحدث داخل جسم الإنسان",
-    narration:
-      "السلام عليكم ورحمة الله وبركاته، وأهلاً بيكم في حلقة جديدة من نبض العلاج الطبيعي مع منة الله المريمي. اليوم بنحكوا على فكرة مهمة: مش كافي نعرف اسم الإصابة، لازم نفهموا شن صار داخل الجسم.",
+    narration: "السلام عليكم ورحمة الله وبركاته، وأهلاً بيكم في حلقة جديدة من نبض العلاج الطبيعي مع منة الله المريمي. اليوم بنحكوا على فكرة مهمة: مش كافي نعرف اسم الإصابة، لازم نفهموا شن صار داخل الجسم.",
   },
   {
     type: "anatomy",
@@ -36,8 +35,7 @@ const scenes = [
     title: "أولاً: التشريح",
     subtitle: "كيف يتكوّن الجزء المصاب؟",
     detail: "العظام • العضلات • الأربطة • الغضاريف",
-    narration:
-      "أول حاجة هي التشريح. لازم نعرفوا الجزء المصاب من شن يتكوّن، وشن الأنسجة الموجودة فيه، سواء كانت عظام أو عضلات أو أربطة أو غضاريف.",
+    narration: "أول حاجة هي التشريح. لازم نعرفوا الجزء المصاب من شن يتكوّن، وشن الأنسجة الموجودة فيه، سواء كانت عظام أو عضلات أو أربطة أو غضاريف.",
   },
   {
     type: "physiology",
@@ -45,8 +43,7 @@ const scenes = [
     title: "ثانياً: الوظيفة الفسيولوجية",
     subtitle: "كيف يعمل الجسم بصورة طبيعية؟",
     detail: "كل نسيج له وظيفة ودور داخل الجسم.",
-    narration:
-      "ثاني حاجة الوظيفة الفسيولوجية. يعني كيف يخدم الجزء هذا في الوضع الطبيعي؟ وشن الوظيفة اللي يقوم بيها داخل الجسم؟",
+    narration: "ثاني حاجة الوظيفة الفسيولوجية. يعني كيف يخدم الجزء هذا في الوضع الطبيعي؟ وشن الوظيفة اللي يقوم بيها داخل الجسم؟",
   },
   {
     type: "biomechanics",
@@ -54,8 +51,7 @@ const scenes = [
     title: "ثالثاً: الميكانيكا الحيوية",
     subtitle: "كيف تحدث الحركة؟",
     detail: "القوى • الضغط • التوازن • توزيع الأحمال",
-    narration:
-      "ثالث حاجة الميكانيكا الحيوية. نفهموا كيف تحدث الحركة، وكيف تتوزع القوى والضغوط على المفاصل والعضلات أثناء الحركة.",
+    narration: "ثالث حاجة الميكانيكا الحيوية. نفهموا كيف تحدث الحركة، وكيف تتوزع القوى والضغوط على المفاصل والعضلات أثناء الحركة.",
   },
   {
     type: "damage",
@@ -63,8 +59,7 @@ const scenes = [
     title: "ماذا يحدث عند الإصابة؟",
     subtitle: "هنا يبدأ التغيّر داخل الجسم",
     detail: "قد تتأثر الأنسجة وتختل الوظيفة الطبيعية.",
-    narration:
-      "لما تحدث الإصابة، ممكن تتأثر الأنسجة وتتغير طريقة عملها. وهنا لازم نفهموا نوع الضرر وتأثيره على وظيفة الجزء المصاب.",
+    narration: "لما تحدث الإصابة، ممكن تتأثر الأنسجة وتتغير طريقة عملها. وهنا لازم نفهموا نوع الضرر وتأثيره على وظيفة الجزء المصاب.",
   },
   {
     type: "example",
@@ -72,8 +67,7 @@ const scenes = [
     title: "خلونا ناخذوا مثالاً",
     subtitle: "خشونة مفصل الركبة",
     detail: "من المفصل الطبيعي إلى التغيرات الناتجة عن الخشونة.",
-    narration:
-      "خلونا ناخذوا مثال بسيط: خشونة مفصل الركبة. في الوضع الطبيعي، الغضروف يساعد على تسهيل حركة المفصل وتوزيع الأحمال وتقليل الاحتكاك بين الأسطح العظمية. لكن مع الخشونة تحدث تغيرات في الغضروف والعظم والأنسجة المحيطة، وقد يتأثر أداء المفصل.",
+    narration: "خلونا ناخذوا مثال بسيط: خشونة مفصل الركبة. في الوضع الطبيعي، الغضروف يساعد على تسهيل حركة المفصل وتوزيع الأحمال وتقليل الاحتكاك بين الأسطح العظمية. لكن مع الخشونة تحدث تغيرات في الغضروف والعظم والأنسجة المحيطة، وقد يتأثر أداء المفصل.",
   },
   {
     type: "assessment",
@@ -81,8 +75,7 @@ const scenes = [
     title: "شن لازم يفهم المعالج؟",
     subtitle: "مش اسم الإصابة فقط!",
     detail: "ما الأنسجة المتأثرة؟ وما الوظيفة التي اختلت؟",
-    narration:
-      "المعالج الطبيعي ما يكتفيش بتسجيل تشخيص خشونة الركبة، بل يسأل: شن الأنسجة اللي تأثرت؟ شن الوظيفة اللي اختلت؟ وكيف انعكس الضرر على حركة المريض وأنشطته اليومية؟ ومن هنا يقدر يختار التأهيل المناسب.",
+    narration: "المعالج الطبيعي ما يكتفيش بتسجيل تشخيص خشونة الركبة، بل يسأل: شن الأنسجة اللي تأثرت؟ شن الوظيفة اللي اختلت؟ وكيف انعكس الضرر على حركة المريض وأنشطته اليومية؟ ومن هنا يقدر يختار التأهيل المناسب.",
   },
   {
     type: "outro",
@@ -90,8 +83,7 @@ const scenes = [
     title: "افهم كيف يعمل الجسم أولاً",
     subtitle: "حتى تفهم كيف يتأثر عند الإصابة",
     detail: "فهم الضرر هو بداية اختيار التأهيل المناسب.",
-    narration:
-      "وفي نهاية حلقتنا، تذكروا: مش كافي تعرف الإصابة، الأهم إنك تفهم تأثيرها على الجسم. لأن المعالج الناجح يفهم التغيرات اللي صارت داخل الجسم وكيف يساعد المريض يستعيد وظيفته وحركته. كان معاكم نبض العلاج الطبيعي مع منة الله المريمي. دمتم بصحة وحركة دائمة.",
+    narration: "وفي نهاية حلقتنا، تذكروا: مش كافي تعرف الإصابة، الأهم إنك تفهم تأثيرها على الجسم. لأن المعالج الناجح يفهم التغيرات اللي صارت داخل الجسم وكيف يساعد المريض يستعيد وظيفته وحركته. كان معاكم نبض العلاج الطبيعي مع منة الله المريمي. دمتم بصحة وحركة دائمة.",
   },
 ];
 
@@ -189,7 +181,6 @@ const Brand: React.FC = () => {
   );
 };
 
-// رسم تشريحي مبسط لمفصل الركبة
 const Knee: React.FC<{ damaged?: boolean }> = ({ damaged = false }) => {
   const frame = useCurrentFrame();
   const pulse = 0.7 + Math.sin(frame / 12) * 0.2;
@@ -210,7 +201,6 @@ const Knee: React.FC<{ damaged?: boolean }> = ({ damaged = false }) => {
         </filter>
       </defs>
 
-      {/* عظمة الفخذ */}
       <path
         d="M190 20 L180 170 L145 230 Q110 290 175 310 Q220 325 250 285 Q280 325 325 310 Q390 290 355 230 L320 170 L310 20 Z"
         fill="url(#bone05)"
@@ -218,7 +208,6 @@ const Knee: React.FC<{ damaged?: boolean }> = ({ damaged = false }) => {
         strokeWidth="4"
       />
 
-      {/* عظمة الساق */}
       <path
         d="M165 350 Q205 320 250 345 Q295 320 335 350 L315 535 L185 535 Z"
         fill="url(#bone05)"
@@ -226,7 +215,6 @@ const Knee: React.FC<{ damaged?: boolean }> = ({ damaged = false }) => {
         strokeWidth="4"
       />
 
-      {/* الغضروف المفصلي */}
       <path
         d="M155 315 Q205 295 250 318 Q295 295 345 315"
         stroke={damaged ? C.red : C.cyan}
@@ -236,7 +224,6 @@ const Knee: React.FC<{ damaged?: boolean }> = ({ damaged = false }) => {
         filter="url(#glow05)"
       />
 
-      {/* الأربطة */}
       <path
         d="M215 265 L285 390"
         stroke={C.gold}
@@ -244,6 +231,7 @@ const Knee: React.FC<{ damaged?: boolean }> = ({ damaged = false }) => {
         strokeLinecap="round"
         strokeDasharray={damaged ? "17 12" : "none"}
       />
+
       <path
         d="M285 265 L215 390"
         stroke="#D3AF7D"
@@ -251,7 +239,6 @@ const Knee: React.FC<{ damaged?: boolean }> = ({ damaged = false }) => {
         strokeLinecap="round"
       />
 
-      {/* الرضفة */}
       <ellipse
         cx="375"
         cy="310"
@@ -285,7 +272,6 @@ const Knee: React.FC<{ damaged?: boolean }> = ({ damaged = false }) => {
   );
 };
 
-// رسم يوضح العضلات ووظيفتها
 const MuscleDiagram: React.FC = () => {
   const frame = useCurrentFrame();
   const pulse = 0.8 + Math.sin(frame / 12) * 0.12;
@@ -298,7 +284,6 @@ const MuscleDiagram: React.FC = () => {
         stroke="#FFF0D4"
         strokeWidth="4"
       />
-
       <path
         d="M205 90 Q150 150 205 255 L240 280 L240 100 Z"
         fill={C.red}
@@ -309,21 +294,18 @@ const MuscleDiagram: React.FC = () => {
         fill={C.red}
         opacity={pulse}
       />
-
       <path
         d="M220 285 L220 475 M280 285 L280 475"
         stroke={C.gold}
         strokeWidth="12"
         strokeLinecap="round"
       />
-
       <path
         d="M210 170 Q250 220 290 170"
         stroke={C.cyan}
         strokeWidth="5"
         fill="none"
       />
-
       <circle cx="250" cy="275" r="18" fill={C.gold} />
       <circle
         cx="250"
@@ -334,21 +316,11 @@ const MuscleDiagram: React.FC = () => {
         strokeWidth="3"
         opacity={pulse}
       />
-
-      <path
-        d="M125 160 L190 160"
-        stroke={C.cyan}
-        strokeWidth="3"
-      />
+      <path d="M125 160 L190 160" stroke={C.cyan} strokeWidth="3" />
       <text x="30" y="150" fill={C.white} fontSize="19">
         العضلات
       </text>
-
-      <path
-        d="M320 290 L380 290"
-        stroke={C.gold}
-        strokeWidth="3"
-      />
+      <path d="M320 290 L380 290" stroke={C.gold} strokeWidth="3" />
       <text x="385" y="297" fill={C.white} fontSize="18">
         المفصل
       </text>
@@ -356,7 +328,6 @@ const MuscleDiagram: React.FC = () => {
   );
 };
 
-// رسم يوضح القوى والحركة
 const MovementDiagram: React.FC = () => {
   const frame = useCurrentFrame();
   const angle = Math.sin(frame / 20) * 18;
@@ -376,7 +347,6 @@ const MovementDiagram: React.FC = () => {
         strokeLinecap="round"
         transform={`rotate(${angle},245,280)`}
       />
-
       <circle
         cx="245"
         cy="280"
@@ -385,7 +355,6 @@ const MovementDiagram: React.FC = () => {
         stroke={C.cyan}
         strokeWidth="7"
       />
-
       <path
         d="M100 145 Q40 280 105 415"
         stroke={C.cyan}
@@ -399,7 +368,6 @@ const MovementDiagram: React.FC = () => {
         strokeWidth="7"
         fill="none"
       />
-
       <path
         d="M390 415 Q455 280 390 145"
         stroke={C.gold}
@@ -413,19 +381,13 @@ const MovementDiagram: React.FC = () => {
         strokeWidth="7"
         fill="none"
       />
-
-      <path
-        d="M245 60 L245 160"
-        stroke={C.red}
-        strokeWidth="8"
-      />
+      <path d="M245 60 L245 160" stroke={C.red} strokeWidth="8" />
       <path
         d="M225 140 L245 165 L265 140"
         stroke={C.red}
         strokeWidth="8"
         fill="none"
       />
-
       <text x="250" y="555" fill={C.gold} fontSize="20" textAnchor="middle">
         حركة المفصل وتوزيع القوى
       </text>
@@ -656,7 +618,7 @@ const IntroVisual: React.FC = () => {
             transform: `rotate(${frame * 0.4}deg)`,
           }}
         />
-        <div style={{ transform: "scale(0.65)" }}>
+        <div style={{ width: 280, height: 320, transform: "scale(0.65)" }}>
           <Knee />
         </div>
       </div>
@@ -675,7 +637,9 @@ const SceneVisual: React.FC<{
   if (scene.type === "damage") return <DamageDiagram />;
   if (scene.type === "example") return <Comparison />;
   if (scene.type === "assessment") return <Assessment />;
-  return <Knee moving />;
+
+  // تم إصلاح الخطأ: Knee لا يستقبل الخاصية moving
+  return <Knee />;
 };
 
 const TextBlock: React.FC<{
@@ -862,7 +826,6 @@ const SceneContent: React.FC<{
 
 export const Episode04: React.FC = () => {
   const frame = useCurrentFrame();
-
   const sceneDuration = 225;
 
   const index = Math.min(
@@ -897,9 +860,10 @@ export const Episode04: React.FC = () => {
         overflow: "hidden",
       }}
     >
-    <Background />
+      {/* الخلفية تحتوي بالفعل على الجزيئات المتحركة */}
+      <Background />
 
-<AbsoluteFill style={{ opacity: fadeIn * fadeOut }}>
+      <AbsoluteFill style={{ opacity: fadeIn * fadeOut }}>
         <SceneContent scene={scene} />
       </AbsoluteFill>
 
