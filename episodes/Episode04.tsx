@@ -898,9 +898,8 @@ export const Episode04: React.FC = () => {
       }}
     >
       <Background />
-      <Particles />
 
-      <AbsoluteFill style={{ opacity: fadeIn * fadeOut }}>
+<AbsoluteFill style={{ opacity: fadeIn * fadeOut }}>
         <SceneContent scene={scene} />
       </AbsoluteFill>
 
