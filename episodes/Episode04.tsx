@@ -897,7 +897,7 @@ export const Episode04: React.FC = () => {
         overflow: "hidden",
       }}
     >
-      <Background />
+    <Background />
 
 <AbsoluteFill style={{ opacity: fadeIn * fadeOut }}>
         <SceneContent scene={scene} />
